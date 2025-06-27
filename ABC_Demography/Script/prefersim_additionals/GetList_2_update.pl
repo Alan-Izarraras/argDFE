@@ -3,10 +3,10 @@ $FrequencyUp =  $ARGV[1];
 $File = $ARGV[2];
 $ExitFile = $ARGV[3];
 
-print "FrequencyDown: $FrequencyDown\n";
-print "FrequencyUp: $FrequencyUp\n";
-print "File: $File\n";
-print "ExitFile: $ExitFile\n";
+#print "FrequencyDown: $FrequencyDown\n";
+#print "FrequencyUp: $FrequencyUp\n";
+#print "File: $File\n";
+#print "ExitFile: $ExitFile\n";
 
 open (FILE, $File) or die "Unable to open input file: $!";
 open (EXIT, ">$ExitFile") or die "Unable to open output file: $!";
