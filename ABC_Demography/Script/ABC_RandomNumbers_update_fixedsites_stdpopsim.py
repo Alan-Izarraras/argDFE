@@ -1,21 +1,21 @@
 ##This script generates random draws for demographic parameter distributions and writes parameter files to run
-##prefersimulations under that particular demographic model. The output is trees under the simulation. 
+##prefersimulations under that particular demographic model. The output is trees under the simulation.
 ##Add a message that says which dataset this is running for (stdpopsim, relate tree, 1k genomes, etc)
 
 import sys , random , math
 
 #Why do I need 2 of the same argument??
-#Arguments from broader environment 
+#Arguments from broader environment
 print(f"Initial seed value is: {sys.argv[1]} \n")
 Number = int(sys.argv[1])
 
-#uses random to generate a seed based on the slurm_id_run 
+#uses random to generate a seed based on the slurm_id_run
 random.seed( Number )
 
-#Parametros de msel
+#Parameters de msel
 ###Requiero ultimas 2 columnas de "LeftRandomNumbers" $number = SGE_TASK_ID --> paralelizar
-RandomNumbersFile = "../Data/ABCAnalysisPopExpansion/DemographyScales" + str(Number) + ".txt"
-ParamsFile = "../Data/ABCAnalysisPopExpansion/DemographyData" + str(Number) + ".txt"
+RandomNumbersFile = "../Data/Parameters/DemographyScales" + str(Number) + ".txt"
+ParamsFile = "../Data/Parameters/DemographyData" + str(Number) + ".txt"
 
 RandFile = open (RandomNumbersFile, 'w')
 ParsFile = open (ParamsFile, 'a')
@@ -35,13 +35,13 @@ print(f"Time in generations is :{Time}\n")
 ###Parametros de msel
 TimeFraction = float( int(Time) / ( 4.0 * NeInitial))
 PopFraction = float ( int (NePast) / ( 1.0 *  NeInitial))
-Rho=1 #recombination, but prefersim assumes no recombination so =1 
+Rho=1 #recombination, but prefersim assumes no recombination so =1
 #Writes current drawn demography to file
 String = str(NeInitial) + "\t" + str(NePast) + "\t" + str (Time) + "\n"
 ParsFile.write(String)
 
 ###msel TimeFraction and PopFraction parameters for tree generation, this creates the file "LeftRandomNumbers"
-#Why do I make a for loop here..? 
+#Why do I make a for loop here..?
 
 for x in range(1):
    String = str(TimeFraction) + "\t" + str(PopFraction) + "\n"
@@ -49,7 +49,7 @@ for x in range(1):
 RandFile.close()
 
 #Parameters subject to change depending on source data
-# l is the number of sites and dictates how much a single demography run is split. Paralel running. 
+# l is the number of sites and dictates how much a single demography run is split. Paralel running.
 
 u = 2.35e-08 ##stdpopsim mut rate based on demography = 2.35e-8
 print(f"Using mutation rate {u}")
@@ -62,17 +62,17 @@ theta = (NePast * 4 * u * l)
 theta = str(theta)
 
 #Number identifica la corrida. #Cambia el nombre
-ParamsFile =  "../Data/ABCAnalysisPopExpansion/ParameterFile_" + str(Number) + ".txt"
-ParamsFileB = "../Data/ABCAnalysisPopExpansion/ParameterFile_" + str(Number) + "_B.txt"
+ParamsFile =  "../Data/Parameters/ParameterFile_" + str(Number) + ".txt"
+ParamsFileB = "../Data/Parameters/ParameterFile_" + str(Number) + "_B.txt"
 
 ABCParsFile = open (ParamsFile, 'w')
 ABCParsFileB = open (ParamsFileB, 'w')
 
 #Archvis de salida Demografia, Output
-DemHist = "../Data/ABCAnalysisPopExpansion/Output/DemographicHistory" + str(Number) + ".txt"
-OutDir = "../Data/ABCAnalysisPopExpansion/Output/Output"
-AllelesFile = "../Data/ABCAnalysisPopExpansion/Output/Alleles_" + str(Number) + ".txt"
-TrajFile = "../Data/ABCAnalysisPopExpansion/Output/Traj_" + str(Number) + ".txt"
+DemHist = "../Data/Parameters/Output/DemographicHistory" + str(Number) + ".txt"
+OutDir = "../Data/Parameters/Output/Output"
+AllelesFile = "../Data/Parameters/Output/Alleles_" + str(Number) + ".txt"
+TrajFile = "../Data/Parameters/Output/Traj_" + str(Number) + ".txt"
 
 #Cambiar directorios (Out)
 DemHistFile = open (DemHist,'w')
@@ -134,4 +134,4 @@ ABCParsFileB.close()
 RandFile.close()
 ParsFile.close()
 
-#WIP pending tests 
+#WIP pending tests

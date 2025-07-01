@@ -15,9 +15,9 @@ print EXIT "// This is an input file for Hudson's mssel stepftn.c program\n";
 print EXIT "$TrajNumber N0: $N0\n";
 
 for ($i = $Reps; $i <= $Reps; $i++){
-    print "$i\n";
+    #print "$i\n";
     $FileToOpen = $File . $i . "_" . $f . ".txt";  # Concatenate the new argument value after the value of $i
-    print "FileToOpen: $FileToOpen\n";
+    #print "FileToOpen: $FileToOpen\n";
     open (FILE,$FileToOpen) or die "NO!";
 
     @AllelesToKeep = ();

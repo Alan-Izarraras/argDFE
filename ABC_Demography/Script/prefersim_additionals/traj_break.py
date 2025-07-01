@@ -14,26 +14,29 @@ SGE_TASK_ID = sys.argv[1]
 #SGE_TASK_ID = 5
 print("SGE_TASK_ID:", SGE_TASK_ID)
 
-#For this to work, Allele_freq files and Traj_SGE must be in the same directory and that directory given as 
-#path below. 
+#For this to work, Allele_freq files and Traj_SGE must be in the same directory and that directory given as
+#path below.
 
 #directory = f"freqs/"
 #For use un cluster:
-directory = f"../Data/ABCAnalysisPopExpansion/Output/Allele_{SGE_TASK_ID}_freqs/"
+directory = f"../Data/Parameters/Output/Allele_{SGE_TASK_ID}_freqs/"
 
+#Counts number of frequency values where no trajectories are found.
+a=0
 
-#Ahora quiero esto pero con un for para todos los archivos alelos. 
+#Ahora quiero esto pero con un for para todos los archivos alelos.
 filenames = [f"Alleles_{SGE_TASK_ID}_{i:.3f}.txt" for i in np.arange(0.005, 1.0, 0.005)]
 for filename in filenames:
-    file_path = os.path.join(directory, filename) 
+    file_path = os.path.join(directory, filename)
     i = filename.split("_")[2]
     output_file_path = os.path.join(directory, f"Traj_{SGE_TASK_ID}_{i}")
-    
+
     # Check if the input file is empty
     input_file_empty = os.stat(file_path).st_size == 0
 
     if input_file_empty:
-        print("No trajectories found for this count:", i)
+        a=a +1
+        #print("No trajectories found for this count:", i)
     else:
 
         #Extracts IDs from allele freq file and places them in list.
@@ -46,12 +49,12 @@ for filename in filenames:
 
         #The list becomes the search term for the dictionary
         search_text = allele_ids
-            
+
         # Specify path to Traj_ file
         traj_name = f"Traj_{SGE_TASK_ID}.txt"
         traj_path = os.path.join(directory, traj_name)
 
-        #Opens file, searches by column, if match then outputs line. 
+        #Opens file, searches by column, if match then outputs line.
         with open(traj_path, 'r') as file:
             with open(output_file_path, 'w') as output_file:
                 # Iterate over each line in the input file
@@ -63,4 +66,5 @@ for filename in filenames:
                         # If found, write the line to the output file
                         output_file.write(line)
 
-print("process complete, output files saved.")
+print(f"found {a} frequency values with no simulated trajectories")
+print("process complete, output files saved. \n")
