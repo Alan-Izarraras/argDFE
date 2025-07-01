@@ -178,22 +178,31 @@ write.csv(matriz_prob_invariables_rangos, paste("../Data/Parameters/Output/matri
 
 #### Constructing ABC statistic file & comparison
 #Data/Parameters/Output/matrices/Yoruba
-stdpopsim <- read.csv("../Data/Parameters/Output/matrices/observed_matrices/matriz_prob_YorubaWGS_sinonimo.csv")
-#stdpopsim <- stdpopsim[, -1]
+observed_prob_matrix <- read.csv("../Data/Parameters/Output/matrices/observed_matrices/matriz_prob_YorubaWGS_sinonimo.csv")
+#observed_prob_matrix <- observed_prob_matrix[, -1]
 
 #Version1, means distance from reference matrix, eother negative or positive.
-#negative = reference is smaller, positive, reference is bigger.
-Matriz_M = stdpopsim - matriz_prob_invariables_rangos
-
-write.csv(Matriz_M, paste("../Data/Parameters/Output/matrices/training_matrices/matriz_M_", SGE_TASK_ID, ".csv", sep=""), row.names = FALSE)
+Matriz_M = observed_prob_matrix - matriz_prob_invariables_rangos
+#write.csv(Matriz_M, paste("../Data/Parameters/Output/matrices/training_matrices/matriz_M_", SGE_TASK_ID, ".csv", sep=""), row.names = FALSE)
 
 Valor_M <- sum(abs(Matriz_M))
-print(Valor_M)
+#print(Valor_M)
 #print("Valor de la semilla aleatoria: ", SGE_TASK_ID)
+#Summary stat4 --> best performing stat
 
-#appends M value and RandomSeed to the first line of DemographyData
+#stat2
+Valor_M2 <- abs((matriz_prob_invariables_rangos[20,8] - observed_prob_matrix[20,8])  / max(observed_prob_matrix[20,8], matriz_prob_invariables_rangos[20,8]))
+#stat3
+matriz_M3 <- matriz_prob_invariables_rangos[-21,] - observed_prob_matrix[-21,]
+Valor_M3 <- sum(abs(matriz_M3))
+#stat4
+Valor_M4 <- (Valor_M2 + Valor_M3) / 2
+write.csv(Matriz_M, paste("../Data/Parameters/Output/matrices/training_matrices/matriz_M_", SGE_TASK_ID, ".csv", sep=""), row.names = FALSE)
+cat("M statistic value for this run is ", Valor_M4, "\n")
+
+#appends M value and RandomSeed to the first line of DemographyData. Using stat 4 for M_value
 # Create the new data string without a leading tab
-new_data <- paste(Valor_M, SGE_TASK_ID, sep = "\t")
+new_data <- paste(Valor_M4, SGE_TASK_ID, sep = "\t")
 file_path <- paste("../Data/Parameters/DemographyData", SGE_TASK_ID,".txt", sep="")
 # Read the existing line from the file
 info_previa <- readLines(file_path)

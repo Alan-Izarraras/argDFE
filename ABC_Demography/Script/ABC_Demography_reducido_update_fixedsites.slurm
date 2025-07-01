@@ -216,7 +216,7 @@ echo present size is $PresentSize and past size is $PastSize
 Rscript prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize
 
 echo Demografic comparison for Random seed $SLURM_ARRAY_TASK_ID done
-echo data written to report file
+echo data written to report file "DemographyReport.txt"
 
 rm $singleton_file
 rm $archivo_temporal
