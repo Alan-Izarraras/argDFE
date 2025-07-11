@@ -22,7 +22,6 @@ top_M <- Resultados$stat4[row_numbers]
 library(ggplot2)
 
 # Define output directory (absolute path)
-#relative path 
 out_dir <- "Posterior/"  # Change this to your desired path
 # Construct the filename with the task ID
 output_file <- "MeanPosteriorDemography.txt"
