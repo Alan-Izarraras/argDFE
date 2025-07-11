@@ -1,5 +1,5 @@
-#Winning Demography.R
-#Calculates and writes the Posterior demography to be used for dfe simulation.
+#Posterior_Calc.R 
+#Calculates and writes the Posterior demography aka the result of demographic inference. 
 
 Resultados <- read.csv("../Data/Parameters/Output/DemoRun/DemographyReport.txt", sep="\t")
 Valores_M <- Resultados$stat
@@ -22,7 +22,8 @@ top_M <- Resultados$stat4[row_numbers]
 library(ggplot2)
 
 # Define output directory (absolute path)
-out_dir <- "/mnt/data/dortega/aizarraraz/ABC_module/Script/Posterior"  # Change this to your desired path
+#relative path 
+out_dir <- "Posterior/"  # Change this to your desired path
 # Construct the filename with the task ID
 output_file <- "MeanPosteriorDemography.txt"
 output_path <- file.path(out_dir, output_file)

@@ -60,8 +60,8 @@ DerivedAlleleNumber=1
 ValorFrecuencia=1
 
 # First run of PReFerSim. You must set the PrintSegSiteInfo parameter to 1 to produce an outfile
-
-GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg /mnt/data/dortega/aizarraraz/PReFerSim-master/./PReFerSim ../Data/Parameters/ParameterFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
+#relative path Im in Script/ so its.. ../../PReFerSim-master/PReFerSim
+GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim ../Data/Parameters/ParameterFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
 
 echo "First prefersim run done"
 
@@ -79,14 +79,14 @@ done
 mkdir ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs
 mv ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID"_0.* ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
 
-
 cat ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_"$SLURM_ARRAY_TASK_ID"_* > ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID"_full_freqs.txt
 sed 's/ .*//' ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID"_full_freqs.txt > ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID".txt
 
 sort -nr -o ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID".txt ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID".txt
 
 ### Second run of PReFerSim. This takes the list of allele IDs you want trajectories for  and re-runs PReFerSim.
-GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg /mnt/data/dortega/aizarraraz/PReFerSim-master/./PReFerSim "../Data/Parameters/ParameterFile_"$SLURM_ARRAY_TASK_ID"_B.txt" $SLURM_ARRAY_TASK_ID
+#relative path ../../PReFerSim-master/PReFerSim
+GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim "../Data/Parameters/ParameterFile_"$SLURM_ARRAY_TASK_ID"_B.txt" $SLURM_ARRAY_TASK_ID
 
 #This generates output for the Traj file.
 mv ../Data/Parameters/Output/Traj_"$SLURM_ARRAY_TASK_ID".txt ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
@@ -144,13 +144,13 @@ fi
 
 #echo RandFile has this number of lines
 #wc -l "$RandFile" | awk '{print $1}'
-
 #echo popscales for this demography are $TimeFraction and $PopFraction
 #echo which are being used for $AlleleCount alleles
 
 ### This script creates the trajectory in a format that mssel3 likes.
 perl prefersim_additionals/Traj_mssel_2.pl ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f #este ultimo realmente es $f
-cat $TrajsMsselLike | /mnt/data/dortega/aizarraraz/Mssel/stepftn > $CurrentTrajs
+#relative path ../../Mssel/stepftn
+cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
 
 ###################################################### Step 3) Simulate trees based on the allele frequency trajectory
 
@@ -162,7 +162,8 @@ rm ../Data/Parameters/Output/matrices/tree_dump/seed_"$SLURM_ARRAY_TASK_ID"/$Nom
 ThingsToPrint="$(( $DerivedAlleleNumber + 1))"
 
 #Hago subcarpeta por valor de frecuencia sino voy a llenar la carpeta trees. trees > Seed_"$SLURM_ARRAY_TASK_ID" >
-/mnt/data/dortega/aizarraraz/Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/Parameters/Output/matrices/tree_dump/seed_"$SLURM_ARRAY_TASK_ID"/$NombreArbolSub
+#relative path ../../Mssel/mssel3
+../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/Parameters/Output/matrices/tree_dump/seed_"$SLURM_ARRAY_TASK_ID"/$NombreArbolSub
 
 #echo $NombreArbol done
 
@@ -191,8 +192,9 @@ echo we have $SingletonCount singletons in this demography run
 #echo splitting singletons from tree files and extracting distances . . .
 
 # Genera el archivo singletones vacio y archivo temporal vacio
-singleton_file="/mnt/data/dortega/aizarraraz/ABC_module/Data/Parameters/Output/matrices/tree_dump/singletons_"$SLURM_ARRAY_TASK_ID".txt"
-archivo_temporal="/mnt/data/dortega/aizarraraz/ABC_module/Data/Parameters/Output/matrices/tree_dump/tmp_file_"$SLURM_ARRAY_TASK_ID".txt"
+#relative path ../../PReFerSim-master/PReFerSim
+singleton_file="../Data/Parameters/Output/matrices/tree_dump/singletons_"$SLURM_ARRAY_TASK_ID".txt"
+archivo_temporal="../Data/Parameters/Output/matrices/tree_dump/tmp_file_"$SLURM_ARRAY_TASK_ID".txt"
 
 # Cut the desired number of lines from the original file and save them to the new file
 head -n "$SingletonCount" "../Data/Parameters/Output/matrices/tree_dump/"$NombreArbol"" > "$singleton_file"
@@ -204,7 +206,8 @@ tail -n +$((SingletonCount + 1)) "../Data/Parameters/Output/matrices/tree_dump/"
 mv "$archivo_temporal" "../Data/Parameters/Output/matrices/tree_dump/"$NombreArbol""
 
 #Extract branch lengths from singletons
-cut -d "," -f 1 "$singleton_file" | cut -b 1-3 --complement | sed 's/$/ 0/' > /mnt/data/dortega/aizarraraz/ABC_module/Data/Parameters/Output/matrices/tree_dump/singletons_"$SLURM_ARRAY_TASK_ID"_ready.txt
+#relative path. these should work. 
+cut -d "," -f 1 "$singleton_file" | cut -b 1-3 --complement | sed 's/$/ 0/' > ../Data/Parameters/Output/matrices/tree_dump/singletons_"$SLURM_ARRAY_TASK_ID"_ready.txt
 
 #Obtain present time from demografic history
 PresentSize=$(awk 'NR==2 {print $1}' ../Data/Parameters/Output/DemographicHistory"$SLURM_ARRAY_TASK_ID".txt)
