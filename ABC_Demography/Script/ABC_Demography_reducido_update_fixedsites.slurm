@@ -66,6 +66,7 @@ echo "First prefersim run done"
 
 #Names trees being generated for this run.
 NombreArbol="../Data/Parameters/Output/matrices/tree_dump/trees_ABCDemography_"${SLURM_ARRAY_TASK_ID}".txt"
+mkdir -p $(dirname "$NombreArbol")
 rm $NombreArbol
 touch $NombreArbol
 
