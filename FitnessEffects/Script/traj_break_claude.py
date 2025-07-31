@@ -21,13 +21,15 @@ directory = f"../Data/Allele_{SGE_TASK_ID}_freqs/"
 filenames = [f"Alleles_{SGE_TASK_ID}_{i:.3f}.txt" for i in np.arange(0.005, 1.0, 0.005)]
 chunk_size = 100000  # Adjust this based on available memory
 
+a=0
+
 for filename in filenames:
     file_path = os.path.join(directory, filename)
     i = filename.split("_")[2]
     output_file_path = os.path.join(directory, f"Traj_{SGE_TASK_ID}_{i}")
 
     if os.stat(file_path).st_size == 0:
-        print("No trajectories found for this count:", i)
+        a=a+1
         continue
 
     with open(file_path, 'r') as input_file:

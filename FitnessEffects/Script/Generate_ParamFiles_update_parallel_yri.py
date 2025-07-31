@@ -26,7 +26,7 @@ for i in range(1, 28):  # Python uses range(n) for loops
     s_coef = TwoNs_val / TwoN
     Sel_coefs.append(s_coef)
 
-print(Sel_coefs) #Now i have 2Ns values in a list... next I need selection coefs in a list.
+#print(Sel_coefs) #Now i have 2Ns values in a list... next I need selection coefs in a list.
 #It should be 28 values long.
 
 #hmmm lets trust my past self, that Sel_coefs stores the desired coefficients.

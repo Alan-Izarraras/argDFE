@@ -73,7 +73,7 @@ touch $NombreArbol
 #Only tracks/formats alleles dividing in each frequency value
 for ValorFrecuencia in $(seq 0.005 0.005 0.995);
 do
-perl prefersim_additionals/GetList_2_update.pl $ValorFrecuencia $ValorFrecuencia ../Data/Parameters/Output/Output."$SLURM_ARRAY_TASK_ID".full_out.txt ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID"_"$ValorFrecuencia".txt
+perl ../../prefersim_additionals/GetList_2_update.pl $ValorFrecuencia $ValorFrecuencia ../Data/Parameters/Output/Output."$SLURM_ARRAY_TASK_ID".full_out.txt ../Data/Parameters/Output/Alleles_"$SLURM_ARRAY_TASK_ID"_"$ValorFrecuencia".txt
 done
 
 mkdir ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs
@@ -90,7 +90,7 @@ GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim "../
 #This generates output for the Traj file.
 mv ../Data/Parameters/Output/Traj_"$SLURM_ARRAY_TASK_ID".txt ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
 #Breaks the Traj_ file into Traj_freq for each frequency value.
-python prefersim_additionals/traj_break.py $SLURM_ARRAY_TASK_ID
+python ../../prefersim_additionals/traj_break.py $SLURM_ARRAY_TASK_ID
 
 ###################################################### Step 2) Transform the allele frequency trajectories
 
@@ -147,7 +147,7 @@ fi
 #echo which are being used for $AlleleCount alleles
 
 ### This script creates the trajectory in a format that mssel3 likes.
-perl prefersim_additionals/Traj_mssel_2.pl ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f #este ultimo realmente es $f
+perl ../../prefersim_additionals/Traj_mssel_2.pl ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Parameters/Output/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f #este ultimo realmente es $f
 cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
 
 ###################################################### Step 3) Simulate trees based on the allele frequency trajectory
@@ -211,7 +211,7 @@ PastSize=$(awk 'NR==1 {print $1}' ../Data/Parameters/Output/DemographicHistory"$
 echo present size is $PresentSize and past size is $PastSize
 
 #Gets demographic report for ABC stats comparison.
-Rscript prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize
+Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize
 
 echo Demografic comparison for Random seed $SLURM_ARRAY_TASK_ID done
 echo data written to report file "DemographyReport.txt"

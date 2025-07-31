@@ -49,7 +49,7 @@ touch $NombreArbol
 for ValorFrecuencia in $(seq 0.005 0.005 0.995);
 do
 
-perl GetList_2_update.pl $ValorFrecuencia $ValorFrecuencia ../Data/Output."$SLURM_ARRAY_TASK_ID".full_out.txt ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"_"$ValorFrecuencia".txt
+perl ../../prefersim_additionals/GetList_2_update.pl $ValorFrecuencia $ValorFrecuencia ../Data/Output."$SLURM_ARRAY_TASK_ID".full_out.txt ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"_"$ValorFrecuencia".txt
 #Modificado para escribir info de frecuencia en la segunda columna.
 
 done
@@ -134,7 +134,7 @@ echo popscales for this demography are $TimeFraction and $PopFraction
 echo which are being used for $AlleleCount alleles
 
 ### This script creates the trajectory in a format that mssel3 likes.
-perl ../../ABC_Demography/Script/prefersim_additionals/Traj_mssel_2.pl ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f
+perl ../../prefersim_additionals/Traj_mssel_2.pl ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f
 
 ### stepftn discretizes the allele frequency trajectories according to a set of frequency bounds defined in freqints.h .This helps to reduce the computing time. If you want to change this, change the bounds in freqints.h and
 cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
