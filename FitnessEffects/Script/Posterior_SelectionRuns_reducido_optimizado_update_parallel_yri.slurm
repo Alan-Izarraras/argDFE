@@ -9,6 +9,7 @@
 #SBATCH --mem=4G
 
 module load r/4.2.1
+module load gsl/1.15
 
 FullAlleles="../Data/Alleles_"$SLURM_ARRAY_TASK_ID".txt"
 AlleleList="../Data/Traj_"$SLURM_ARRAY_TASK_ID".txt"
@@ -36,7 +37,7 @@ DerivedAlleleNumber=1
 ValorFrecuencia=1
 
 # First run of PReFerSim. You must set the PrintSegSiteInfo parameter to 1 to produce an outfile
-GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg /mnt/Timina/dortega/aizarraraz/PRF/PReFerSim-master/./PReFerSim params/fixed/ParamFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
+GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim params/fixed/ParamFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
 
 
 #Hago una carpeta de resultados exclusivo para demografía.
@@ -66,13 +67,11 @@ sed 's/ .*//' ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"_full_freqs.txt > ../Data/Al
 sort -nr -o ../Data/Alleles_"$SLURM_ARRAY_TASK_ID".txt ../Data/Alleles_"$SLURM_ARRAY_TASK_ID".txt
 
 # Second run of PReFerSim. This takes the list of allele IDs you want trajectories for  and re-runs PReFerSim.
-
-GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg /mnt/Timina/dortega/aizarraraz/PRF/PReFerSim-master/./PReFerSim params/fixed/ParamFile_B_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
+GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim params/fixed/ParamFile_B_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
 
 mv ../Data/Traj_"$RandomNumber".txt ../Data/Allele_"$RandomNumber"_freqs/
 
 python traj_break_claude.py $RandomNumber
-
 ###################################################### Step 2) Transform the allele frequency trajectories
 
 #I should have a way so that each Selection value goes on same folder.
@@ -135,11 +134,10 @@ echo popscales for this demography are $TimeFraction and $PopFraction
 echo which are being used for $AlleleCount alleles
 
 ### This script creates the trajectory in a format that mssel3 likes.
-perl Traj_mssel_2.pl ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f
+perl ../../ABC_Demography/Script/prefersim_additionals/Traj_mssel_2.pl ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj_ $LastPopSize ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt $AlleleCount 0 $SLURM_ARRAY_TASK_ID $f
 
 ### stepftn discretizes the allele frequency trajectories according to a set of frequency bounds defined in freqints.h .This helps to reduce the computing time. If you want to change this, change the bounds in freqints.h and
-### recompile stepftn using gcc -O3 -o stepftn stepftn.c -lm
-cat $TrajsMsselLike | /mnt/Timina/dortega/aizarraraz/PRF/PReFerSim-master/./stepftn > $CurrentTrajs
+cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
 
 #Genera ReducedTrajectories
 
@@ -155,13 +153,11 @@ ThingsToPrint="$(( $DerivedAlleleNumber + 1))"
 ###adaptado
 #tbs quiere decir to be seen y es una opcion que toma desde standar input entonces por eso la < para indicar que la variabl es stdinput.
 #Esto debería estar masomenos bien, solo falta confirmar con el manual. Algo que podria estar mal es el orden de -T y RandomNumberFile.
-/mnt/Timina/dortega/aizarraraz/PRF/PReFerSim-master/./mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
+../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
 
 echo $NombreArbolSub done
 
 done
-
-#cat ../Data/trees/Sel_"$ValorSeleccion"/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_* > ../Data/trees/yri_trees_MeanPosterior_Sel"$ValorSeleccion".txt
 
 cat ../Data/trees/Sel_"$ValorSeleccion"/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_* > ../Data/trees/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_Sel"$ValorSeleccion".txt
 
@@ -207,3 +203,5 @@ rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Reduced*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj*
 rmdir ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
+
+#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 
