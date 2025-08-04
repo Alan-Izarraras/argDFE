@@ -145,6 +145,7 @@ cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
 
 NombreArbol="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_Sel"${ValorSeleccion}".txt"
 NombreArbolSub="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_${f}.txt"
+NombreIntermedio="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_0"
 rm ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
 rm ../Data/trees/$NombreArbol
 
@@ -203,5 +204,6 @@ rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Reduced*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj*
 rmdir ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
+rm ../Data/trees/Sel_"$ValorSeleccion"/"$NombreIntermedio"*.txt 
 
 #This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 
