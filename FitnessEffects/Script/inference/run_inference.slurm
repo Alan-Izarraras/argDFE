@@ -10,10 +10,10 @@
 
 module load r/4.2.1
 
-Rscript GammaDistributions.R
+#Rscript GammaDistributions.R
 
 echo integration complete! Proceeding with likelihood inferece.
 
-#Rscript likelihood_inference.R
+Rscript likelihood_dfe_inference.R
 
 echo likelihood inference complete. Data saved.

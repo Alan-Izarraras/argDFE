@@ -29,7 +29,7 @@ print(paste("using pastSize: ", PastSize))
 #Path where input files can be found (singletons and trees)
 file_path <- "../Data/trees/MatrixInputs/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/Matrices/"
+out_path <- "../Data/trees/Matrices/simulated/"
 # Construct the filename    #yri_trees_Sel10.txt  #singletons_Sel10_ready.txt
 
 tree_name <- paste0(file_path, "trees_Sel", sel, ".txt")
@@ -65,8 +65,8 @@ if (file_info$size == 0) {
   rownames(matriz_conteo_invariables_rangos) <- c(1:21)
   matriz_prob_invariables_rangos <- matriz_conteo_invariables_rangos / max_sitios
 
-  write.csv(matriz_conteo_invariables_rangos, paste(out_path, "matriz_conteo_", sel, ".csv", sep=""), row.names = FALSE)
-  write.csv(matriz_prob_invariables_rangos, paste(out_path, "matriz_prob_", sel, ".csv", sep=""), row.names = FALSE)
+  write.csv(matriz_conteo_invariables_rangos, paste(out_path, "count_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+  write.csv(matriz_prob_invariables_rangos, paste(out_path, "prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
 
 
 } else {
@@ -255,8 +255,8 @@ if (file_info$size == 0) {
   rownames(matriz_conteo_invariables_rangos) <- c(1:21)
   matriz_prob_invariables_rangos <- matriz_conteo_invariables_rangos / max_sitios
 
-  write.csv(matriz_conteo_invariables_rangos, paste(out_path, "matriz_conteo_", sel, ".csv", sep=""), row.names = FALSE)
-  write.csv(matriz_prob_invariables_rangos, paste(out_path, "matriz_prob_", sel, ".csv", sep=""), row.names = FALSE)
+  write.csv(matriz_conteo_invariables_rangos, paste(out_path, "count_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+  write.csv(matriz_prob_invariables_rangos, paste(out_path, "prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
 
 }
 

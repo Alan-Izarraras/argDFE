@@ -1,5 +1,5 @@
 ###Ojo que el numero de runs/sitios totales se calcula usando N en el pasado
-num_corridas=300
+num_corridas=30
 
 for x in $(seq 1000 1000 28000)
 do

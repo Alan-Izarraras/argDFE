@@ -7,7 +7,7 @@ likelihood_estimates <- vector() #Col 1 = alfa, Col2= gamma, col3= numero
 param_table <- Table[, c(1, 2)]
 #Observed (empirical) count matrices
 #/mnt/data/dortega/aizarraraz/argDFE/FitnessEffects/Data/trees/Matrices/empirical
-DFE_conteo <- read.csv("../Data/trees/Matrices/empirical/matriz_conteo_YorubaWGS_no_sinonimo.csv")
+DFE_conteo <- read.csv("../../Data/trees/Matrices/empirical/matriz_conteo_YorubaWGS_no_sinonimo.csv")
 DFE_conteo <- DFE_conteo[,-1]
 
 for (a in 1:10000)  {

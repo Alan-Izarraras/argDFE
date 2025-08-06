@@ -7,10 +7,10 @@ Vector_Ns <- seq(1,26) #Aqui en mi caso nombro los valores del 1 al 26, entonces
 
 #Simulated (training) probability matrices
 #/mnt/data/dortega/aizarraraz/argDFE/FitnessEffects/Data/trees/Matrices/simulated
-input_matrix <- "../Data/trees/Matrices/simulated/"
+input_matrix <- "../../Data/trees/Matrices/simulated/"
 
 for (v in 1:length(Vector_Ns))  {
-  uno <- read.csv(paste(input_matrix, "matriz_prob_", v, ".csv", sep="")) #nombre/path de cada matriz de prob.
+  uno <- read.csv(paste(input_matrix, "prob_matrix_Sel", v, ".csv", sep="")) #nombre/path de cada matriz de prob.
   Lista_matrices[[v]] <- uno
 }
 
