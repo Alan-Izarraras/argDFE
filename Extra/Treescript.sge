@@ -1,0 +1,101 @@
+#!/bin/bash
+# Use current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j y
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+#You can edit the scriptsince this line
+#
+# Your job name
+#$ -N RelateParse
+#
+# Send an email after the job has finished
+# -m e
+# -M alanizarraras3@gmail.com
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+
+#
+# Add any modules you might require:
+
+#
+# Write your commands in the next line
+
+### Here are the steps to generate Relate trees.
+
+#This script generates Relate trees, converts to tskit format and derives nonsyn and syn positions from Variant Effect Predictor to use in demogrpahy and selection inference. 
+
+
+module load relate/1.1.9
+
+# Set the working directory
+cd /mnt/Timina/dortega/aizarraraz/empirical_data/HighCoverage1kg/chr${SGE_TASK_ID}/
+
+# Load modules
+module load relate/1.1.9
+module load vep/r106.1
+
+# Compress VCF file
+gzip 1kg_30x_chr${SGE_TASK_ID}_yri.recode.vcf
+
+# Convert VCF to haps/sample files
+/cm/shared/apps/relate/1.1.9/bin/RelateFileFormats --mode ConvertFromVcf \
+  --haps chr${SGE_TASK_ID}_30x_yri.haps \
+  --sample chr${SGE_TASK_ID}_30x_yri.sample \
+  -i 1kg_30x_chr${SGE_TASK_ID}_yri.recode
+
+# Remove non-biallelic SNPs
+/cm/shared/apps/relate/1.1.9/bin/RelateFileFormats --mode RemoveNonBiallelicSNPs \
+  --haps chr${SGE_TASK_ID}_30x_yri.haps \
+  -o chr${SGE_TASK_ID}_30x_yri_biallelic
+
+# Annotate ancestral and derived status
+/cm/shared/apps/relate/1.1.9/bin/RelateFileFormats --mode FlipHapsUsingAncestor \
+  --haps chr${SGE_TASK_ID}_30x_yri_biallelic.haps \
+  --sample chr${SGE_TASK_ID}_30x_yri.sample \
+  --ancestor ../homo_sapiens_anc/homo_sapiens_ancestor_${SGE_TASK_ID}.fa \
+  -o chr${SGE_TASK_ID}_30x_yri_ancestral
+
+# Run Relate
+Relate --mode All -m 1.5e-8 -N 62000 \
+  --haps chr${SGE_TASK_ID}_30x_yri_ancestral.haps \
+  --sample chr${SGE_TASK_ID}_30x_yri.sample \
+  --map ../recomb_maps_GRCh38/genetic_map_chr${SGE_TASK_ID}.txt \
+  -o chr${SGE_TASK_ID}_yri.relate
+
+# Convert to tskit format
+/cm/shared/apps/relate/1.1.9/bin/RelateFileFormats --mode ConvertToTreeSequence \
+  -i chr${SGE_TASK_ID}_yri.relate \
+  -o chr${SGE_TASK_ID}_30x_yri.tskit
+
+# Run VEP
+gunzip 1kg_30x_chr${SGE_TASK_ID}_yri.recode.vcf.gz
+vep -i 1kg_30x_chr${SGE_TASK_ID}_yri.recode.vcf -o chr${SGE_TASK_ID}_30x_yri.vep.txt \
+  --cache --dir_cache /mnt/Archives/vep/106/38/ --assembly GRCh38
+
+# Extract synonymous and non-synonymous sites
+tail -n +41 chr${SGE_TASK_ID}_30x_yri.vep.txt > chr${SGE_TASK_ID}.vep.intermedio.txt
+cut -f 2,7 chr${SGE_TASK_ID}.vep.intermedio.txt > chr${SGE_TASK_ID}.cons.txt
+
+sed -n /missense_variant/p chr${SGE_TASK_ID}.cons.txt > chr${SGE_TASK_ID}.no_sinonimo.txt
+sed -n /synonymous_variant/p chr${SGE_TASK_ID}.cons.txt > chr${SGE_TASK_ID}.sinonimo.txt
+
+sort -u -k1,1 chr${SGE_TASK_ID}.no_sinonimo.txt > chr${SGE_TASK_ID}.no_sinonimo.uniq.txt
+sort -u -k1,1 chr${SGE_TASK_ID}.sinonimo.txt > chr${SGE_TASK_ID}.sinonimo.uniq.txt
+
+cut -f1 chr${SGE_TASK_ID}.no_sinonimo.uniq.txt > chr${SGE_TASK_ID}.no_sinonimo.coords.txt
+cut -f1 chr${SGE_TASK_ID}.sinonimo.uniq.txt > chr${SGE_TASK_ID}.sinonimo.coords.txt
+
+sed 's/[0-9]*://g' chr${SGE_TASK_ID}.no_sinonimo.coords.txt > chr${SGE_TASK_ID}.no_sinonimo.coords2.txt
+sed 's/[0-9]*://g' chr${SGE_TASK_ID}.sinonimo.coords.txt > chr${SGE_TASK_ID}.sinonimo.coords2.txt
+
+sed 's/-[0-9]\+//g' chr${SGE_TASK_ID}.no_sinonimo.coords2.txt > chr${SGE_TASK_ID}.no_sinonimo.coords3.txt
+sed 's/-[0-9]\+//g' chr${SGE_TASK_ID}.sinonimo.coords2.txt > chr${SGE_TASK_ID}.sinonimo.coords3.txt
+
+#Sortea de menor a mayor
+sort -n chr${SGE_TASK_ID}.no_sinonimo.coords3.txt > chr${SGE_TASK_ID}.no_sinonimo.ready.txt
+sort -n chr${SGE_TASK_ID}.sinonimo.coords3.txt > chr${SGE_TASK_ID}.sinonimo.ready.txt

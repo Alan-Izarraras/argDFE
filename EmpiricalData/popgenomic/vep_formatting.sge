@@ -1,0 +1,77 @@
+#!/bin/bash
+# Use current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j y
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+#You can edit the scriptsince this line
+#
+# Your job name
+#$ -N vep_run
+#
+# Send an email after the job has finished
+# -m e
+# -M alanizarraras3@gmail.com
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+
+#
+# Add any modules you might require:
+
+#
+# Write your commands in the next line
+
+module load vep/r106.1
+
+#Missing part for running vep
+
+#Pending testing on current slurm env
+module load vep/r106.1
+vep -i chr22_yri_200.recode.vcf --cache --dir_cache /mnt/Archives/vep/106/37 --assembly GRCh37
+
+
+cd /mnt/Timina/dortega/aizarraraz/empirical_data/chr${SGE_TASK_ID}_dir/
+
+   ### 1) Formats vep output into list of syn and nonsym variants.
+
+#Esto corta la descripción del header
+
+tail -n +41 chr${SGE_TASK_ID}_yri.vep.txt > chr${SGE_TASK_ID}.vep.intermedio.txt
+
+# Esto corta las columnas de intere (coordenadas + consecuencias)
+
+cut -f 2,7 chr${SGE_TASK_ID}.vep.intermedio.txt > chr${SGE_TASK_ID}.cons.txt
+
+#Esto me extae mis variantes de interes
+
+sed -n /missense_variant/p chr${SGE_TASK_ID}.cons.txt > chr${SGE_TASK_ID}.no_sinonimo.txt
+
+sed -n /synonymous_variant/p chr${SGE_TASK_ID}.cons.txt > chr${SGE_TASK_ID}.sinonimo.txt
+
+#Esto borra las entradas repetidas
+
+sort -u -k1,1 chr${SGE_TASK_ID}.no_sinonimo.txt > chr${SGE_TASK_ID}.no_sinonimo.uniq.txt
+sort -u -k1,1 chr${SGE_TASK_ID}.sinonimo.txt > chr${SGE_TASK_ID}.sinonimo.uniq.txt
+
+#Esto me deja con la columna de coordenadas
+
+cut -f1 chr${SGE_TASK_ID}.no_sinonimo.uniq.txt > chr${SGE_TASK_ID}.no_sinonimo.coords.txt
+cut -f1 chr${SGE_TASK_ID}.sinonimo.uniq.txt > chr${SGE_TASK_ID}.sinonimo.coords.txt
+
+#Esto quita el 4:  hmmm que tal que eso es info importante..?
+
+sed 's/[0-9]*://g' chr${SGE_TASK_ID}.no_sinonimo.coords.txt > chr${SGE_TASK_ID}.no_sinonimo.coords2.txt
+sed 's/[0-9]*://g' chr${SGE_TASK_ID}.sinonimo.coords.txt > chr${SGE_TASK_ID}.sinonimo.coords2.txt
+
+#Elimina caso en que la coordenada tiene un dash.
+
+sed 's/-[0-9]\+//g' chr${SGE_TASK_ID}.no_sinonimo.coords2.txt > chr${SGE_TASK_ID}.no_sinonimo.coords3.txt
+sed 's/-[0-9]\+//g' chr${SGE_TASK_ID}.sinonimo.coords2.txt > chr${SGE_TASK_ID}.sinonimo.coords3.txt
+
+#Sortea de menor a mayor
+sort -n chr${SGE_TASK_ID}.no_sinonimo.coords3.txt > chr${SGE_TASK_ID}.no_sinonimo.ready.txt
+sort -n chr${SGE_TASK_ID}.sinonimo.coords3.txt > chr${SGE_TASK_ID}.sinonimo.ready.txt
