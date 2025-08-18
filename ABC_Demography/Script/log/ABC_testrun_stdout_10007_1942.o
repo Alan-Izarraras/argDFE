@@ -1,0 +1,86 @@
+Initial seed value is: 1942 
+
+Ne Initial is :20324
+Ne Past is :12700
+Time in generations is :5377
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 1942
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 28.731692
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory1942.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 25400	generations = 203200	F = 0.000000
+Ne = 40648	generations = 5377	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 2917140
+
+Total number of mutations = 3040691
+First prefersim run done
+
+Parameter List
+
+MutationRate: 28.731692
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory1942.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_1942.txt
+Alleles ID to follow: 3040553	3040478	3040246	3040190	3040189	3039971	3039922	3039757	3039542	3039398	3039012	3038916	3037940	3037627	3037502	3037368	3036501	3036231	3035917	3035875	3035568	3034894	3034515	3034053	3033547	3033380	3033322	3033176	3032571	3032357	3032213	3032090	3031927	3031507	3030909	3030835	3030437	3029093	3028948	3028207	3027836	3025709	3025657	3025563	3025058	3024962	3024654	3024220	3023043	3023027	3022637	3022415	3022268	3021411	3021399	3021103	3020258	3018490	3017863	3017278	3016256	3016218	3015867	3014772	3014196	3014146	3013795	3013638	3011954	3010570	3010316	3009035	3008629	3008001	3007881	3006422	3002903	3002346	3002085	3000693	3000456	3000345	2999147	2997473	2996494	2995705	2994775	2993924	2993337	2989857	2987383	2982162	2981826	2979261	2978466	2976762	2976423	2974743	2974618	2971874	2971355	2966277	2965781	2964450	2962192	2959064	2955234	2954066	2951829	2947034	2945593	2944234	2934185	2930344	2927688	2925980	2922263	2921220	2917093	2915702	2915287	2911394	2910376	2909808	2907427	2904561	2904320	2898086	2895895	2887697	2886905	2869460	2864166	2859827	2855664	2850560	2848932	2847453	2843624	2843354	2839483	2836470	2836461	2833166	2832548	2827116	2819132	2817613	2808136	2790186	2789102	2787786	2782967	2782062	2776510	2769891	2767899	2763769	2755718	2743996	2724823	2707820	2692325	2691884	2660707	2649391	2646562	2638611	2623629	2599990	2569887	2555019	2552953	2552473	2550503	2545999	2536357	2533730	2530606	2530137	2527468	2521208	2474488	2458276	2456168	2447632	2445432	2433072	2427942	2394153	2324529	2306811	2289584	2163945	2134533	2084785	2055946	2039937	2008467	1960432	1882857	1882083	1865323	1833017	1826365	1700483	1383106	1318734	1187162	1049729	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_1942.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 25400	generations = 203200	F = 0.000000
+Ne = 40648	generations = 5377	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 2917140
+
+Total number of mutations = 3040691
+SGE_TASK_ID: 1942
+found 127 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 42 singletons in this demography run
+present size is 40648 and past size is 25400
+[1] "using random number:  1942"
+[1] "using presentSize:  40648"
+[1] "using pastSize:  25400"
+[1] "numeric"
+M statistic value for this run is  0.3677926 
+Demografic comparison for Random seed 1942 done
+data written to report file DemographyReport.txt

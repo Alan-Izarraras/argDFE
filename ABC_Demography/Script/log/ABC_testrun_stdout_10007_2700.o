@@ -1,0 +1,86 @@
+Initial seed value is: 2700 
+
+Ne Initial is :32406
+Ne Past is :10300
+Time in generations is :2224
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 2700
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 23.302081
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory2700.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 20600	generations = 164800	F = 0.000000
+Ne = 64812	generations = 2224	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1921512
+
+Total number of mutations = 2003344
+First prefersim run done
+
+Parameter List
+
+MutationRate: 23.302081
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory2700.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_2700.txt
+Alleles ID to follow: 2002726	2002660	2002648	2002211	2002113	2001814	2001717	2001398	2000728	2000421	2000411	2000359	1998403	1998049	1997591	1996957	1996912	1996907	1996632	1996366	1995777	1995179	1994750	1994190	1993955	1992992	1992180	1991575	1991220	1990291	1989325	1989138	1988078	1987891	1986753	1985989	1985534	1985322	1984021	1983315	1982697	1982454	1981257	1980361	1977214	1976624	1975735	1975726	1975676	1974479	1973392	1972010	1972001	1971674	1971093	1970643	1970288	1969613	1969539	1969430	1968649	1966945	1966929	1966353	1965313	1965290	1964005	1963801	1961106	1960877	1960813	1959686	1959445	1957065	1955910	1954637	1954523	1954383	1953897	1953131	1951022	1950002	1949900	1948943	1947626	1947625	1947404	1946675	1944267	1942125	1939189	1938799	1938115	1937636	1937391	1935407	1933518	1933340	1929892	1929419	1928644	1928401	1926216	1925465	1924656	1924647	1923752	1923335	1922298	1921801	1921171	1920788	1920118	1920089	1919781	1919105	1918753	1918431	1917878	1917840	1917030	1916435	1914230	1914090	1911835	1911548	1911216	1908602	1908276	1908148	1907562	1906446	1905313	1905229	1904469	1904345	1904082	1903722	1903679	1903464	1902332	1901770	1899480	1898697	1898427	1898215	1896102	1886125	1885103	1885082	1883751	1882928	1880278	1877669	1876086	1872123	1869653	1868392	1865445	1863899	1862035	1855942	1848610	1845486	1833976	1830826	1829564	1820045	1818649	1809646	1809637	1808724	1807765	1795680	1788217	1784699	1780281	1772606	1771878	1764935	1762073	1753655	1749659	1731990	1729272	1715146	1709795	1706959	1695177	1666017	1639264	1614858	1612137	1601075	1582125	1545426	1530603	1478458	1438190	1435562	1392687	1314043	1302542	1284077	1272093	1063468	997163	154617	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_2700.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 20600	generations = 164800	F = 0.000000
+Ne = 64812	generations = 2224	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1921512
+
+Total number of mutations = 2003344
+SGE_TASK_ID: 2700
+found 142 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 70 singletons in this demography run
+present size is 64812 and past size is 20600
+[1] "using random number:  2700"
+[1] "using presentSize:  64812"
+[1] "using pastSize:  20600"
+[1] "numeric"
+M statistic value for this run is  0.3691765 
+Demografic comparison for Random seed 2700 done
+data written to report file DemographyReport.txt

@@ -1,0 +1,86 @@
+Initial seed value is: 3935 
+
+Ne Initial is :31307
+Ne Past is :7267
+Time in generations is :5637
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 3935
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 16.440410
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory3935.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 14534	generations = 116272	F = 0.000000
+Ne = 62614	generations = 5637	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 955400
+
+Total number of mutations = 1154920
+First prefersim run done
+
+Parameter List
+
+MutationRate: 16.440410
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory3935.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_3935.txt
+Alleles ID to follow: 1154582	1154544	1154100	1153923	1153875	1153723	1153681	1153611	1153426	1153349	1153278	1152709	1152430	1151937	1151865	1151738	1151062	1150816	1150784	1149308	1148534	1148407	1148301	1147290	1147195	1147124	1146792	1146725	1146523	1145912	1145196	1145155	1144717	1144100	1143417	1143389	1142764	1142509	1141395	1141015	1140444	1140230	1140193	1139727	1139297	1139085	1139068	1138575	1138467	1137825	1137117	1137059	1136270	1135382	1134576	1134079	1134072	1133399	1133037	1132761	1132596	1131621	1131049	1130872	1129942	1128785	1124071	1122637	1122506	1120243	1119614	1118350	1117890	1116733	1116282	1114144	1113566	1113043	1109121	1108582	1107229	1107112	1106590	1106501	1105057	1102691	1101534	1099847	1098255	1098159	1095532	1095135	1095013	1094543	1092508	1087058	1085219	1085177	1083184	1080887	1080531	1080174	1079860	1078833	1077835	1077501	1076988	1075317	1075196	1075015	1074386	1071843	1070555	1064413	1063474	1061402	1061164	1057379	1056860	1056825	1055906	1054060	1053952	1053231	1052143	1050326	1050168	1049831	1049333	1049075	1046154	1042347	1040223	1036125	1034303	1033737	1032722	1029198	1028727	1025353	1023705	1019841	1011830	1011805	1011759	1006091	1004081	999672	996615	993118	986710	986695	983523	979404	973092	968776	968469	961452	953699	952867	952133	951588	949985	947647	947491	946818	945962	945664	945377	942982	941699	940926	931259	926133	924594	923482	922933	918381	918345	916830	911133	910658	907872	906920	903910	898257	888324	878588	877879	877309	873700	868603	865386	857643	854494	852035	846996	838696	835605	831048	825430	812063	807810	806247	788120	786062	777708	767670	760518	743044	730142	712865	709667	697396	649400	648950	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_3935.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 14534	generations = 116272	F = 0.000000
+Ne = 62614	generations = 5637	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 955400
+
+Total number of mutations = 1154920
+SGE_TASK_ID: 3935
+found 146 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 69 singletons in this demography run
+present size is 62614 and past size is 14534
+[1] "using random number:  3935"
+[1] "using presentSize:  62614"
+[1] "using pastSize:  14534"
+[1] "numeric"
+M statistic value for this run is  0.3634993 
+Demografic comparison for Random seed 3935 done
+data written to report file DemographyReport.txt

@@ -1,0 +1,86 @@
+Initial seed value is: 557 
+
+Ne Initial is :1094
+Ne Past is :1617
+Time in generations is :7251
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 557
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 3.658200
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory557.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 3234	generations = 25872	F = 0.000000
+Ne = 2188	generations = 7251	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 47352
+
+Total number of mutations = 56522
+First prefersim run done
+
+Parameter List
+
+MutationRate: 3.658200
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory557.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_557.txt
+Alleles ID to follow: 56513	56477	56461	56416	56385	56375	56324	56249	56167	56110	53530	52834	51509	47995	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_557.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 3234	generations = 25872	F = 0.000000
+Ne = 2188	generations = 7251	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 47352
+
+Total number of mutations = 56522
+SGE_TASK_ID: 557
+found 188 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 3 singletons in this demography run
+present size is 2188 and past size is 3234
+[1] "using random number:  557"
+[1] "using presentSize:  2188"
+[1] "using pastSize:  3234"
+[1] "numeric"
+M statistic value for this run is  0.507454 
+Demografic comparison for Random seed 557 done
+data written to report file DemographyReport.txt

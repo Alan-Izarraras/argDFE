@@ -1,0 +1,86 @@
+Initial seed value is: 531 
+
+Ne Initial is :27810
+Ne Past is :10273
+Time in generations is :12919
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 531
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 23.240998
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory531.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 20546	generations = 164368	F = 0.000000
+Ne = 55620	generations = 12919	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1913563
+
+Total number of mutations = 2320666
+First prefersim run done
+
+Parameter List
+
+MutationRate: 23.240998
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory531.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_531.txt
+Alleles ID to follow: 2320521	2320306	2320269	2320097	2319547	2319155	2318814	2318121	2317924	2317091	2315772	2314810	2313357	2313171	2312679	2312559	2311629	2311337	2310897	2310681	2310433	2310113	2309935	2309567	2308940	2307794	2307718	2307609	2307306	2306491	2306144	2305784	2305523	2305261	2305063	2304331	2304167	2303895	2301920	2300281	2299872	2299372	2298744	2297914	2297610	2297422	2296950	2296934	2294498	2293353	2293342	2292791	2292407	2292022	2291689	2291409	2291196	2291028	2290633	2290075	2289057	2288896	2287868	2285932	2285149	2283161	2281361	2281193	2281050	2280697	2280475	2280075	2279232	2278927	2277909	2277861	2276860	2276703	2275458	2275385	2275361	2275116	2275068	2274683	2270057	2269434	2269223	2269114	2266817	2265077	2264830	2261769	2260850	2259868	2259278	2258722	2255941	2254685	2254416	2252687	2249766	2247648	2247545	2245349	2243405	2239890	2237244	2232905	2231109	2230900	2228006	2224217	2224127	2223716	2222617	2220471	2220073	2217724	2217665	2215616	2215228	2212508	2211019	2210064	2207563	2207146	2203189	2203165	2195352	2194897	2194113	2193772	2193547	2190229	2188310	2184425	2182335	2181707	2180331	2175157	2172594	2171249	2169907	2167101	2161873	2159189	2151873	2141212	2139804	2132846	2132656	2131355	2125803	2122576	2120229	2118754	2105962	2101507	2090901	2090187	2086968	2085075	2076355	2071029	2069385	2069196	2067319	2061585	2054934	2045201	2036423	2032463	2027459	2016685	2001092	1966613	1965389	1959824	1958203	1926766	1917018	1916541	1901844	1900991	1900276	1900261	1899565	1894742	1890115	1887007	1879587	1874666	1871651	1868083	1867283	1866457	1861247	1857639	1853826	1845008	1840952	1835048	1817755	1810552	1809842	1789607	1778554	1772201	1766522	1745162	1702206	1698869	1690453	1688352	1686713	1657865	1655348	1643514	1607479	1598899	1525811	1519004	1517216	1514506	1503760	1500740	1499882	1469799	1460239	1408223	1334886	1326844	1260797	1239838	1231691	1198923	1148286	1041564	919401	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_531.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 20546	generations = 164368	F = 0.000000
+Ne = 55620	generations = 12919	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1913563
+
+Total number of mutations = 2320666
+SGE_TASK_ID: 531
+found 136 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 60 singletons in this demography run
+present size is 55620 and past size is 20546
+[1] "using random number:  531"
+[1] "using presentSize:  55620"
+[1] "using pastSize:  20546"
+[1] "numeric"
+M statistic value for this run is  0.3470946 
+Demografic comparison for Random seed 531 done
+data written to report file DemographyReport.txt

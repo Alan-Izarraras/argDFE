@@ -1,0 +1,86 @@
+Initial seed value is: 4432 
+
+Ne Initial is :7408
+Ne Past is :8862
+Time in generations is :1148
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 4432
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 20.048839
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory4432.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 17724	generations = 141792	F = 0.000000
+Ne = 14816	generations = 1148	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1419670
+
+Total number of mutations = 1429458
+First prefersim run done
+
+Parameter List
+
+MutationRate: 20.048839
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory4432.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_4432.txt
+Alleles ID to follow: 1429404	1429247	1429219	1429150	1429106	1429098	1429094	1428942	1428909	1428895	1428740	1428709	1428498	1428311	1428189	1428088	1427069	1427043	1426599	1426553	1426368	1426190	1425603	1425297	1424752	1424374	1423569	1423029	1422348	1422044	1421716	1421106	1420979	1420318	1419943	1416809	1415177	1415167	1412357	1411953	1410914	1409128	1402216	1401017	1400702	1397947	1396223	1394396	1394070	1388484	1388236	1387491	1382375	1381943	1381405	1377127	1376161	1374410	1369204	1368175	1357511	1350142	1349879	1343658	1343375	1341398	1340751	1327519	1319296	1314974	1313394	1313379	1311156	1282439	1272683	1266159	1253772	1245902	1243648	1239539	1239225	1232062	1203075	1182510	1182062	1174863	1140870	1136662	1129070	1104435	1092012	1090319	1085197	1072126	1042510	1032610	905053	896076	592746	304358	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_4432.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 17724	generations = 141792	F = 0.000000
+Ne = 14816	generations = 1148	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1419670
+
+Total number of mutations = 1429458
+SGE_TASK_ID: 4432
+found 145 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 22 singletons in this demography run
+present size is 14816 and past size is 17724
+[1] "using random number:  4432"
+[1] "using presentSize:  14816"
+[1] "using pastSize:  17724"
+[1] "numeric"
+M statistic value for this run is  0.4461014 
+Demografic comparison for Random seed 4432 done
+data written to report file DemographyReport.txt

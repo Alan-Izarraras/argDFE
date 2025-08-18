@@ -1,0 +1,86 @@
+Initial seed value is: 886 
+
+Ne Initial is :2019
+Ne Past is :8437
+Time in generations is :1577
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 886
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 19.087345
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory886.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 16874	generations = 134992	F = 0.000000
+Ne = 4038	generations = 1577	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1290144
+
+Total number of mutations = 1293786
+First prefersim run done
+
+Parameter List
+
+MutationRate: 19.087345
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory886.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_886.txt
+Alleles ID to follow: 1293767	1293750	1293747	1293729	1293706	1293662	1293477	1293474	1293114	1292719	1291935	1291820	1291679	1283154	1282423	1280103	1278924	1270786	1264910	1259327	1255374	1245261	1241283	1239161	1230319	1224464	1221145	1219022	1218011	1217980	1213105	1197601	1191292	1186501	1185956	1182299	1148288	1130092	1119869	1104096	1097775	1093668	1092061	1078547	1047964	1035807	1034732	1031316	1019134	987037	901747	825683	824694	664244	507258	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_886.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 16874	generations = 134992	F = 0.000000
+Ne = 4038	generations = 1577	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1290144
+
+Total number of mutations = 1293786
+SGE_TASK_ID: 886
+found 159 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 8 singletons in this demography run
+present size is 4038 and past size is 16874
+[1] "using random number:  886"
+[1] "using presentSize:  4038"
+[1] "using pastSize:  16874"
+[1] "numeric"
+M statistic value for this run is  0.4782045 
+Demografic comparison for Random seed 886 done
+data written to report file DemographyReport.txt

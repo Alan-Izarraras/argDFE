@@ -1,0 +1,86 @@
+Initial seed value is: 993 
+
+Ne Initial is :1253
+Ne Past is :1328
+Time in generations is :7049
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 993
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 3.004385
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory993.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 2656	generations = 21248	F = 0.000000
+Ne = 2506	generations = 7049	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 31779
+
+Total number of mutations = 41798
+First prefersim run done
+
+Parameter List
+
+MutationRate: 3.004385
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory993.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_993.txt
+Alleles ID to follow: 41791	41769	41768	41618	41602	41504	41503	41271	41136	40748	38774	38344	35684	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_993.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 2656	generations = 21248	F = 0.000000
+Ne = 2506	generations = 7049	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 31779
+
+Total number of mutations = 41798
+SGE_TASK_ID: 993
+found 189 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 1 singletons in this demography run
+present size is 2506 and past size is 2656
+[1] "using random number:  993"
+[1] "using presentSize:  2506"
+[1] "using pastSize:  2656"
+[1] "numeric"
+M statistic value for this run is  0.5081674 
+Demografic comparison for Random seed 993 done
+data written to report file DemographyReport.txt

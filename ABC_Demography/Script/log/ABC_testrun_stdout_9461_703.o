@@ -1,0 +1,84 @@
+Initial seed value is: 703 
+
+Ne Initial is :1201
+Ne Past is :2406
+Time in generations is :12631
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 703
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 5.443185
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory703.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 4812	generations = 38496	F = 0.000000
+Ne = 2402	generations = 12631	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 105094
+
+Total number of mutations = 122276
+First prefersim run done
+
+Parameter List
+
+MutationRate: 5.443185
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory703.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_703.txt
+Alleles ID to follow: 121993	121835	121771	121722	119625	118748	118276	117658	116752	115864	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_703.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 4812	generations = 38496	F = 0.000000
+Ne = 2402	generations = 12631	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 105094
+
+Total number of mutations = 122276
+SGE_TASK_ID: 703
+found 189 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 0 singletons in this demography run
+present size is 2402 and past size is 4812
+[1] "using random number:  703"
+[1] "using presentSize:  2402"
+[1] "using pastSize:  4812"
+Demografic comparison for Random seed 703 done
+data written to report file DemographyReport.txt

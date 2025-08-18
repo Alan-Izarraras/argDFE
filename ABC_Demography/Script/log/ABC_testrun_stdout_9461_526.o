@@ -1,0 +1,86 @@
+Initial seed value is: 526 
+
+Ne Initial is :39641
+Ne Past is :3284
+Time in generations is :729
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 526
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 7.429518
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory526.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 6568	generations = 52544	F = 0.000000
+Ne = 79282	generations = 729	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 195979
+
+Total number of mutations = 228790
+First prefersim run done
+
+Parameter List
+
+MutationRate: 7.429518
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory526.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_526.txt
+Alleles ID to follow: 228748	228314	227096	227012	226884	226747	226360	226177	225631	224446	223941	223914	223667	223247	223145	223086	222773	221812	221511	221367	221228	220728	219890	219433	219018	218587	218183	217447	217164	216785	215999	215618	215436	212153	212081	211028	210950	209789	209733	209240	208825	208128	207821	206064	206020	202693	201939	201729	201564	201516	200998	200500	199899	198847	198507	197724	196842	195927	195876	195765	195703	195660	195470	195185	195169	194890	194765	194406	194200	194138	193898	192607	192383	192142	192043	191499	190939	189690	189418	189204	188694	188052	187486	186765	184645	179003	178714	175457	173840	171478	169087	166522	158665	158428	148757	145967	145887	113605	90027	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_526.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 6568	generations = 52544	F = 0.000000
+Ne = 79282	generations = 729	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 195979
+
+Total number of mutations = 228790
+SGE_TASK_ID: 526
+found 173 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 50 singletons in this demography run
+present size is 79282 and past size is 6568
+[1] "using random number:  526"
+[1] "using presentSize:  79282"
+[1] "using pastSize:  6568"
+[1] "numeric"
+M statistic value for this run is  0.4468568 
+Demografic comparison for Random seed 526 done
+data written to report file DemographyReport.txt

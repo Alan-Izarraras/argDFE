@@ -1,0 +1,86 @@
+Initial seed value is: 2021 
+
+Ne Initial is :21819
+Ne Past is :12889
+Time in generations is :7073
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 2021
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 29.159274
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory2021.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 25778	generations = 206224	F = 0.000000
+Ne = 43638	generations = 7073	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3007786
+
+Total number of mutations = 3182498
+First prefersim run done
+
+Parameter List
+
+MutationRate: 29.159274
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory2021.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_2021.txt
+Alleles ID to follow: 3182228	3181794	3181742	3181607	3181391	3181115	3181060	3181006	3179952	3179797	3179727	3179501	3179198	3179163	3178916	3178274	3177940	3177381	3176861	3176839	3176122	3175600	3175339	3174448	3174331	3173954	3173892	3173772	3173761	3173403	3173189	3172690	3172050	3171745	3171663	3171123	3169518	3169430	3169373	3168412	3167209	3166772	3166354	3166035	3165615	3165036	3164782	3163194	3163025	3162986	3162678	3162498	3162356	3161442	3161370	3161320	3161016	3160413	3160015	3158849	3158391	3157518	3157222	3156215	3153260	3152876	3151625	3151183	3148486	3147284	3146476	3146223	3146100	3144582	3142456	3140849	3140557	3139640	3137848	3137347	3136948	3134586	3132939	3132227	3131630	3126459	3125365	3124278	3121449	3119639	3116047	3114784	3112961	3112538	3111995	3109154	3108092	3106133	3105258	3103675	3102630	3092264	3091106	3084648	3079798	3075916	3074959	3074021	3068923	3068568	3062573	3060709	3059094	3058862	3056743	3055159	3051024	3050645	3050237	3048924	3042836	3032939	3031141	3029411	3026543	3023506	3018011	3014936	3010938	3009660	3009421	3008746	3008540	3008385	3006275	3002993	2996051	2993454	2989902	2985066	2982801	2982785	2974745	2972693	2971297	2971061	2968438	2967333	2964516	2960977	2957375	2956034	2955507	2950810	2946968	2944897	2944478	2940030	2909219	2908266	2894257	2884212	2876827	2872503	2866766	2860837	2855311	2851752	2850397	2848225	2839901	2821681	2793992	2792451	2783626	2774164	2763226	2745822	2732320	2704104	2703553	2691149	2691126	2668870	2666122	2663795	2660772	2658244	2619077	2610180	2604649	2594151	2586823	2565171	2558434	2551296	2525567	2506431	2503101	2497409	2474925	2455115	2449870	2436537	2429976	2417674	2381516	2371584	2369819	2288799	2257958	2250696	2177704	2174795	2158782	2150434	2142947	2126975	2125887	2103115	2051441	2045054	2002557	1825694	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_2021.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 25778	generations = 206224	F = 0.000000
+Ne = 43638	generations = 7073	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3007786
+
+Total number of mutations = 3182498
+SGE_TASK_ID: 2021
+found 124 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 44 singletons in this demography run
+present size is 43638 and past size is 25778
+[1] "using random number:  2021"
+[1] "using presentSize:  43638"
+[1] "using pastSize:  25778"
+[1] "numeric"
+M statistic value for this run is  0.357894 
+Demografic comparison for Random seed 2021 done
+data written to report file DemographyReport.txt

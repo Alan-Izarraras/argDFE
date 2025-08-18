@@ -1,0 +1,86 @@
+Initial seed value is: 3751 
+
+Ne Initial is :23594
+Ne Past is :9936
+Time in generations is :10794
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 3751
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 22.478590
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory3751.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 19872	generations = 158976	F = 0.000000
+Ne = 47188	generations = 10794	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1786922
+
+Total number of mutations = 2074349
+First prefersim run done
+
+Parameter List
+
+MutationRate: 22.478590
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory3751.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_3751.txt
+Alleles ID to follow: 2073981	2073846	2072995	2072955	2072895	2072558	2072248	2071976	2071853	2070716	2070399	2070392	2070341	2070053	2069972	2069762	2069707	2069413	2069151	2068944	2068819	2068624	2068122	2068008	2067357	2067305	2066622	2066366	2066204	2065726	2065200	2065014	2064915	2064723	2063684	2062757	2062666	2062497	2061981	2061952	2061874	2061054	2060764	2059927	2059605	2058720	2057922	2057606	2057531	2053381	2051162	2050360	2050290	2049462	2049284	2049007	2046536	2044842	2044781	2044239	2043329	2041668	2040004	2039604	2039327	2039009	2038627	2038431	2037499	2037116	2037022	2036087	2035954	2035232	2034790	2034519	2034517	2034234	2033376	2032717	2032687	2031387	2030963	2028935	2028278	2027229	2027177	2026470	2024943	2024390	2024062	2021457	2019533	2018075	2017465	2013307	2009841	2009444	2008892	2007395	2002510	2002087	1999848	1999224	1997788	1997221	1995036	1994068	1993443	1993315	1989145	1986538	1986442	1985491	1985095	1984792	1978048	1976296	1974256	1969557	1966725	1962826	1960933	1959856	1948479	1945326	1931797	1930117	1929727	1929598	1927174	1922867	1918887	1918787	1908450	1905281	1905279	1905133	1903488	1894688	1885627	1885501	1883475	1875245	1866474	1842773	1840734	1830196	1828833	1824479	1823849	1819368	1808248	1784776	1779883	1776342	1775568	1775205	1775097	1773927	1769569	1768294	1767362	1766171	1764586	1748809	1748586	1742268	1740105	1739940	1736166	1728493	1728290	1727548	1723433	1723146	1720960	1713187	1711866	1707705	1693797	1692577	1672989	1658715	1652685	1642390	1640594	1640190	1636396	1631409	1620179	1617307	1615994	1612130	1594596	1573379	1554760	1549157	1522417	1487759	1483841	1482948	1479433	1468144	1467462	1415949	1381741	1337848	1324771	1048492	908392	835530	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_3751.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 19872	generations = 158976	F = 0.000000
+Ne = 47188	generations = 10794	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 1786922
+
+Total number of mutations = 2074349
+SGE_TASK_ID: 3751
+found 139 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 57 singletons in this demography run
+present size is 47188 and past size is 19872
+[1] "using random number:  3751"
+[1] "using presentSize:  47188"
+[1] "using pastSize:  19872"
+[1] "numeric"
+M statistic value for this run is  0.3663591 
+Demografic comparison for Random seed 3751 done
+data written to report file DemographyReport.txt

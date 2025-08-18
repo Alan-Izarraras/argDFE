@@ -1,0 +1,86 @@
+Initial seed value is: 616 
+
+Ne Initial is :1102
+Ne Past is :6775
+Time in generations is :10618
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 616
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 15.327340
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory616.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 13550	generations = 108400	F = 0.000000
+Ne = 2204	generations = 10618	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 830073
+
+Total number of mutations = 843388
+First prefersim run done
+
+Parameter List
+
+MutationRate: 15.327340
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory616.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_616.txt
+Alleles ID to follow: 843276	843255	842744	842382	842047	841569	841227	841199	840757	836394	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_616.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 13550	generations = 108400	F = 0.000000
+Ne = 2204	generations = 10618	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 830073
+
+Total number of mutations = 843388
+SGE_TASK_ID: 616
+found 189 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 1 singletons in this demography run
+present size is 2204 and past size is 13550
+[1] "using random number:  616"
+[1] "using presentSize:  2204"
+[1] "using pastSize:  13550"
+[1] "numeric"
+M statistic value for this run is  0.5103076 
+Demografic comparison for Random seed 616 done
+data written to report file DemographyReport.txt

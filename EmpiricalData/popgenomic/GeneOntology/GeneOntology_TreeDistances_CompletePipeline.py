@@ -8,7 +8,6 @@ import tskit
 ### Code for extracting a list of genes from a GO term (accesion number)
 # This can be done from website service. 
 
-
 ### Given a list of genes from a GO term, extract syn and non-syn coordiantes 
 
 # Load GRCh37 (Ensembl release 75)

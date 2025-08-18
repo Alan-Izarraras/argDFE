@@ -1,0 +1,86 @@
+Initial seed value is: 664 
+
+Ne Initial is :18121
+Ne Past is :13622
+Time in generations is :6688
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 664
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 30.817568
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory664.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 27244	generations = 217952	F = 0.000000
+Ne = 36242	generations = 6688	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3359176
+
+Total number of mutations = 3496258
+First prefersim run done
+
+Parameter List
+
+MutationRate: 30.817568
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory664.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_664.txt
+Alleles ID to follow: 3496248	3496235	3495949	3495913	3495776	3495652	3495593	3495511	3495472	3495334	3495131	3494958	3494506	3494322	3493422	3493360	3493294	3491685	3491356	3491201	3491159	3491095	3490489	3490332	3490182	3489667	3489039	3488140	3488015	3487927	3487679	3487579	3487526	3485969	3485852	3484878	3484865	3484202	3484096	3483867	3483545	3483388	3483120	3481515	3481314	3480685	3480493	3480464	3479894	3478996	3478546	3478430	3478112	3477034	3476490	3474523	3473763	3473357	3471985	3470906	3470589	3469719	3468350	3467209	3464141	3463877	3461549	3461297	3460120	3459838	3458394	3457423	3456169	3454064	3453561	3453015	3451884	3451608	3450949	3450948	3450414	3450225	3448813	3447773	3447713	3446902	3444810	3442939	3439845	3438520	3433487	3430609	3429963	3427828	3418887	3416066	3414766	3412434	3412408	3408625	3406981	3405883	3403164	3400388	3398925	3396803	3391921	3390394	3388057	3386507	3386058	3382048	3375472	3374864	3372699	3371940	3370190	3366837	3363283	3362555	3362489	3357816	3357274	3356716	3354918	3350334	3349270	3340866	3336716	3336258	3325206	3322203	3319001	3315839	3306102	3305780	3304591	3302185	3299532	3295884	3290927	3287462	3283653	3282432	3278529	3273426	3271739	3256867	3256184	3251629	3244693	3242181	3241922	3238187	3237570	3235796	3234968	3226907	3219631	3199533	3192819	3179249	3171514	3170995	3167401	3145848	3137219	3125122	3123527	3097147	3086956	3084625	3075468	3064225	3062438	3050267	3041915	3028409	3027620	3023841	3021267	3013702	2998870	2998505	2993860	2962550	2950999	2930958	2927262	2913401	2909393	2876731	2871176	2854512	2839359	2835309	2830437	2828094	2804874	2802241	2787033	2773025	2753867	2744987	2707740	2557917	2528367	2496321	2482399	2423973	2410240	2334175	2137611	2035313	1943009	630660	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_664.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 27244	generations = 217952	F = 0.000000
+Ne = 36242	generations = 6688	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3359176
+
+Total number of mutations = 3496258
+SGE_TASK_ID: 664
+found 123 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 30 singletons in this demography run
+present size is 36242 and past size is 27244
+[1] "using random number:  664"
+[1] "using presentSize:  36242"
+[1] "using pastSize:  27244"
+[1] "numeric"
+M statistic value for this run is  0.3635065 
+Demografic comparison for Random seed 664 done
+data written to report file DemographyReport.txt

@@ -1,0 +1,86 @@
+Initial seed value is: 4324 
+
+Ne Initial is :28698
+Ne Past is :3251
+Time in generations is :12395
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 4324
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 7.354861
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory4324.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 6502	generations = 52016	F = 0.000000
+Ne = 57396	generations = 12395	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 190413
+
+Total number of mutations = 593193
+First prefersim run done
+
+Parameter List
+
+MutationRate: 7.354861
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory4324.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_4324.txt
+Alleles ID to follow: 592836	592524	592503	591613	591513	591405	590791	590540	590519	590463	590380	590370	590185	589513	589020	588751	588692	588516	588367	588106	588044	587586	587529	587163	586918	586546	586385	585640	584651	584561	584421	584295	583204	582695	582488	582322	582223	581859	581570	581456	580633	579897	578953	577780	577468	577402	577400	577382	577085	577062	576794	576556	576182	575912	575483	575245	575039	574826	574657	574260	571859	571665	571296	571182	570773	570006	569839	569829	568001	566816	566105	566022	565957	564697	564337	564120	563112	562522	560887	560885	560712	559806	559729	559585	559485	559444	558362	558330	558154	552199	550426	549852	548666	548599	548247	546990	546754	545900	544187	544015	541659	538602	537450	536296	536068	532788	530917	529660	527656	527356	526464	526189	525754	524269	523699	522562	515429	514803	514498	514083	512970	512125	510739	507611	505588	504631	503947	503916	503195	502659	499994	498673	497750	493988	490526	487319	487116	482604	481214	478943	478279	474277	472715	471521	471297	468554	466635	465546	453783	451502	448812	440073	437417	433453	429606	427636	422963	422320	421826	418098	407868	407167	407013	405652	405634	404314	400889	398053	395536	395331	394014	391227	389561	387740	387285	382394	379170	378883	378453	375580	371967	368691	367233	366865	364020	361600	355474	350984	349618	347028	343341	339940	335985	331705	329048	327673	321038	316238	315035	308160	303799	289927	287007	278579	271744	268710	258971	255867	239387	239270	232704	226627	224542	222687	215755	215683	209095	200287	199218	193662	193191	191593	190167	188205	186081	184616	183192	183127	180588	177234	177229	175965	173771	173417	169697	166313	164807	161103	159644	153470	151943	150424	149273	141852	71377	38632	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_4324.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 6502	generations = 52016	F = 0.000000
+Ne = 57396	generations = 12395	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 190413
+
+Total number of mutations = 593193
+SGE_TASK_ID: 4324
+found 158 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 75 singletons in this demography run
+present size is 57396 and past size is 6502
+[1] "using random number:  4324"
+[1] "using presentSize:  57396"
+[1] "using pastSize:  6502"
+[1] "numeric"
+M statistic value for this run is  0.3420106 
+Demografic comparison for Random seed 4324 done
+data written to report file DemographyReport.txt

@@ -1,0 +1,86 @@
+Initial seed value is: 231 
+
+Ne Initial is :23332
+Ne Past is :14435
+Time in generations is :10694
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 231
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 32.656848
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory231.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 28870	generations = 230960	F = 0.000000
+Ne = 46664	generations = 10694	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3767009
+
+Total number of mutations = 4050463
+First prefersim run done
+
+Parameter List
+
+MutationRate: 32.656848
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory231.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_231.txt
+Alleles ID to follow: 4050328	4050269	4049773	4049381	4049171	4049165	4049032	4048074	4047771	4047749	4047580	4047450	4047427	4047230	4046835	4046833	4046436	4046045	4045521	4045356	4044452	4044284	4044256	4044125	4043953	4043811	4043520	4043419	4043124	4042954	4042382	4041786	4039356	4038935	4038402	4036525	4036054	4035224	4035170	4035028	4033382	4033134	4032930	4032621	4030091	4029694	4027432	4027429	4025971	4024773	4024572	4024273	4023441	4020609	4020331	4020049	4018289	4018068	4017032	4015356	4013571	4013051	4012760	4011521	4006480	4005217	4003348	4003071	4001221	4001102	3999342	3999312	3995412	3995162	3994642	3994142	3992077	3990047	3989027	3988877	3988367	3985591	3983974	3983885	3980591	3975711	3973583	3971927	3971410	3969775	3969099	3967585	3967484	3966880	3965321	3963926	3962710	3961857	3961452	3959801	3954432	3953301	3948479	3948196	3947000	3946607	3946085	3946079	3937650	3934425	3933689	3933024	3932494	3932221	3930649	3920103	3919535	3911393	3909896	3905179	3901562	3899989	3894787	3893216	3892244	3892012	3890575	3889409	3888334	3882840	3876859	3875520	3874170	3849470	3848960	3847682	3843710	3842123	3836088	3836028	3833906	3830769	3825156	3822590	3818426	3811984	3807261	3804682	3802677	3799629	3793293	3792590	3791800	3777316	3773294	3770224	3765770	3765487	3757185	3756271	3756001	3752093	3750708	3749854	3749602	3732569	3732536	3731895	3724858	3722287	3714775	3708363	3702737	3700418	3699220	3696862	3695464	3692957	3692664	3686817	3685764	3682649	3677377	3648422	3645559	3643700	3628022	3623832	3621205	3620631	3618707	3617133	3609762	3609539	3606540	3593043	3586960	3585936	3577431	3570034	3567202	3535740	3506133	3501051	3492831	3492347	3489618	3488142	3485716	3479078	3478233	3460137	3457966	3453200	3438928	3431976	3427975	3424255	3419139	3416371	3404890	3397503	3380719	3353992	3344928	3290823	3290132	3239648	3224701	3205362	3038015	3020929	2929301	2910443	2886589	2836991	2802772	2776288	2646207	2622249	2573837	2400991	2142078	1992179	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_231.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 28870	generations = 230960	F = 0.000000
+Ne = 46664	generations = 10694	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 3767009
+
+Total number of mutations = 4050463
+SGE_TASK_ID: 231
+found 127 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 50 singletons in this demography run
+present size is 46664 and past size is 28870
+[1] "using random number:  231"
+[1] "using presentSize:  46664"
+[1] "using pastSize:  28870"
+[1] "numeric"
+M statistic value for this run is  0.3436091 
+Demografic comparison for Random seed 231 done
+data written to report file DemographyReport.txt

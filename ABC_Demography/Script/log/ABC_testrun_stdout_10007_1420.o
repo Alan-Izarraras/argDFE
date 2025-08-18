@@ -1,0 +1,86 @@
+Initial seed value is: 1420 
+
+Ne Initial is :30396
+Ne Past is :6334
+Time in generations is :9760
+
+Using mutation rate 2.35e-08
+Using total number of sites 962697
+Divided into 40 independent runs 
+
+Demography draw parameter files constructed
+Using random seed 1420
+Comencing demographic simulaton under neutral selective conditions
+
+Parameter List
+
+MutationRate: 14.329649
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory1420.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 1
+PrintSegSiteInfo: 1
+PrintSampledGenotypes: 1
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 12668	generations = 101344	F = 0.000000
+Ne = 60792	generations = 9760	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 726461
+
+Total number of mutations = 1061619
+First prefersim run done
+
+Parameter List
+
+MutationRate: 14.329649
+DFEType: point
+DFEPointSelectionCoefficient: 0.000000
+DemographicHistory: ../Data/Parameters/Output/DemographicHistory1420.txt
+PrintSNPNumber: 0
+PrintSumOfS: 0
+PrintWeightedSumOfS: 0
+PrintGenLoad: 0
+PrintFixedSites: 0
+PrintSegSiteInfo: 0
+PrintSampledGenotypes: 0
+PrintSFS: 0
+n: 200
+LastGenerationAFSamplingValue: 1
+AlleleTrajsInput: ../Data/Parameters/Output/Alleles_1420.txt
+Alleles ID to follow: 1061571	1061387	1060957	1060918	1060905	1060419	1059321	1059220	1059021	1058504	1058387	1058198	1057909	1057834	1057602	1056160	1055893	1055528	1055186	1054900	1054713	1054440	1054330	1054025	1053270	1053093	1052088	1052028	1049950	1049782	1049676	1049448	1049270	1048576	1048537	1047771	1047645	1046928	1045290	1044538	1043297	1043040	1042532	1041468	1041274	1041109	1040778	1040140	1039846	1039539	1038564	1037217	1036417	1035991	1035685	1035586	1035423	1034884	1034734	1033972	1033014	1032512	1032453	1032215	1031214	1030804	1030573	1030253	1029902	1029770	1029071	1028693	1028506	1027881	1027675	1026114	1025868	1025452	1024131	1023892	1022951	1022130	1021924	1021354	1021229	1019520	1018961	1018949	1018025	1017318	1014115	1009295	1007909	1007677	1007228	1006841	1002769	1000422	998565	998211	996254	995210	995108	993499	991072	990825	990694	989809	989722	988250	986006	982706	979849	979824	979392	975688	975403	971030	969926	969141	965526	962833	962109	955729	948680	948230	939933	934746	929733	926671	924238	923711	922916	917558	914990	914886	912145	911631	909714	908723	907694	907605	907265	904938	903671	895612	894418	892022	890701	889698	884304	883967	881239	876776	876483	876162	871190	869024	867758	863931	863781	862887	860837	858168	855906	853133	838807	832446	831619	828857	828339	820453	818831	817882	817251	816683	805953	799807	791777	788590	782805	779886	771584	761055	754615	754587	752234	742074	741190	729392	726057	724759	723429	722896	722253	721202	720903	720732	720339	716080	715784	714971	714068	711920	708613	705208	703703	703149	702141	702055	701755	699849	696928	693299	691582	688898	680315	679257	678351	667395	663762	636169	635970	609623	608060	606354	599042	595700	562690	557781	547729	448327	262254	
+AlleleTrajsOutput: ../Data/Parameters/Output/Traj_1420.txt
+FilePrefix: ../Data/Parameters/Output/Output
+
+Demographic History ( 2 epochs )
+
+Ne = 12668	generations = 101344	F = 0.000000
+Ne = 60792	generations = 9760	F = 0.000000
+
+Currently in epoch = 0 ; Mutations before epoch's beginning = 0
+Currently in epoch = 1 ; Mutations before epoch's beginning = 726461
+
+Total number of mutations = 1061619
+SGE_TASK_ID: 1420
+found 145 frequency values with no simulated trajectories
+process complete, output files saved. 
+
+we have 67 singletons in this demography run
+present size is 60792 and past size is 12668
+[1] "using random number:  1420"
+[1] "using presentSize:  60792"
+[1] "using pastSize:  12668"
+[1] "numeric"
+M statistic value for this run is  0.3513149 
+Demografic comparison for Random seed 1420 done
+data written to report file DemographyReport.txt
