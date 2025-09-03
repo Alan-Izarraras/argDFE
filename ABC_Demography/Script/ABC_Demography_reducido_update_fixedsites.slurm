@@ -35,7 +35,7 @@ AlleleNumber=0
 
 ## Obtain parameter files
 #Python script formats unique parameter file for random draw of parameter distribution
-python ABC_RandomNumbers_update_fixedsites_stdpopsim.py $SLURM_ARRAY_TASK_ID
+python ABC_RandomNumbers_update_fixedsites_stdpopsim.py $n_past_min $n_past_max $n_present_min $n_present_max $time_min $time_max $SLURM_ARRAY_TASK_ID
 
 echo "Demography draw parameter files constructed"
 
