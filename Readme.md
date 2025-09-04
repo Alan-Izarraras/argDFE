@@ -1,19 +1,19 @@
-#argDFE software documentation
+# argDFE software documentation
 
-###Description
+### Description
 
 argDFE is a simulation based DFE inference software that works with PReFerSim under the hood. Specifically, it makes use of simulating allele trajectories which are then transformed into bi-allelic trees using Mssel3 software. 
 
 GitHub project (https://github.com/Alan-Izarraras/argDFE)
 
-###Prerequisites
+### Prerequisites
 
 argDFE is originally meant to be run on SLURM managed compute cluster system but can be easily adapted for other cluster managing systems. 
 PReFerSim is a C program that requires GSL to be installed and run (https://github.com/LohmuellerLab/PReFerSim) 
 Instructions for installing PReFerSim can be found on the manual at the provided github adress
 
 
-###Software and modules  needed:
+### Software and modules  needed:
 
 - gsl/1.15
 - r/4.2.1  
@@ -26,7 +26,7 @@ Instructions for installing PReFerSim can be found on the manual at the provided
 	- sys
 
 
-#Compiling C programs
+# Compiling C programs
 
 1) Clone argDFE from its github repository: https://github.com/Alan-Izarraras/argDFE/
 
@@ -65,7 +65,7 @@ Run inside Mssel folder:
 Need to check if this needs compilation or if executable already works
 
 
-##Getting started
+## Getting started
 
 argDFE is divided in three modules. which can be used independetly from each other. 
 
@@ -73,7 +73,7 @@ argDFE is divided in three modules. which can be used independetly from each oth
 - FitnessEffects
 - EmpiricalData 
  
-###ABC_Demography 
+### ABC_Demography 
 
 Is an Approximate Bayesian Computation step to infer three parameter demographic models with priors that can be selected by the user. 
 This module essentially samples demographic parameters from a prior distribution and computes a statistic derived from a coalescent matrix (number of lineages at different time points) which measures 
@@ -96,9 +96,9 @@ to run this module use:
 
 where we make use of SLURM_ARRAY_TASK_ID to change random seeds and the value of each parameters are chosen as random picks from a provided min and max value as showin above. 
 
-###FitnessEffects
+### FitnessEffects
 
-###EmpiricalData
+### EmpiricalData
 
 
 
