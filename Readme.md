@@ -92,34 +92,27 @@ From this textfile a demographic model can be derived along with plots to visual
 
 to run this module use:
 
-	sbatch -a 1-100 ABC_Demography.slurm --N_past "100 15000" --N_present "1000 50000" --Generations "100 15000"
+	sbatch -a 1-10 prueba_parametros.slurm "100 30000" "100 15000" "100 15000" 1.3e-8 8000000 40
 
+where SLURM_ARRAY_TASK_ID (the first range) corresponds to the number of iteration/runs of the ABC algorithm. The first two parameters are Past size, followed by present size, followed by the number of generations, followed by the mutation rate, followed by the total number of simulated sites, followed by a step number. 
 where we make use of SLURM_ARRAY_TASK_ID to change random seeds and the value of each parameters are chosen as random picks from a provided min and max value as showin above. 
 
 ### FitnessEffects
 
+After running ABC_Demography and onverging on a demographic model, we can now simulate a series of selection coefficients given this demographic model. This process approximates selection by simulating 
+28 different selection coefficients which are then integrated into different gamma distributions and used for maximum likelihood inference. 
+
+This module can be run using 
+
+	sbatch -a 1-28 FitnessEffects.slurm 
+
+where SLURM_ARRAY_TASK_ID corresponds to a particular selection coefficient (2Ns value).
+
+
 ### EmpiricalData
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+argDFE is designed to infer both a demographic model and a distribution of fitness effect, given this demography based on obsservations from empirical data. 
+In order to input empirical data, we start of from inferred trees in tskit format. In practice these observed tree sequences can be from empirical real world populations inferred from arg inference 
 
 
 
