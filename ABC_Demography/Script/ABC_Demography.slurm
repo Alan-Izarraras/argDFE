@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=ABC_testrun
-#SBATCH --output=log/prueba_parametros_%A_%a.o
-#SBATCH --error=log/prueba_parametros_%A_%a.e
+#SBATCH --job-name=ABC_priors
+#SBATCH --output=log/ABC_Priors_%A_%a.o
+#SBATCH --error=log/ABC_Priors_%A_%a.e
 #SBATCH --time=05:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -20,7 +20,7 @@
 DEFAULT_N_PAST_RANGE="1000 15000"
 DEFAULT_N_PRESENT_RANGE="1000 50000"
 DEFAULT_TIME_RANGE="100 15000"
-DEFAULT_MUTATUIN_RATE=1.5e-8
+DEFAULT_MUTATION_RATE=1.5e-8
 DEFAULT_TOTAL_SITES=8000000
 DEFAULT_STEP_SIZE=100
 
@@ -40,20 +40,8 @@ for range in "$N_PAST_RANGE" "$N_PRESENT_RANGE" "$TIME_RANGE"; do
     fi
 done
 
-# Function to validate and convert scientific notation to a usable number
-validate_scientific_notation() {
-    local input=$1
-    # Check if the input matches scientific notation (e.g., 1.5e-8, 2.3E+4)
-    if ! echo "$input" | grep -Eq '^[+-]?[0-9]*\.[0-9]+[eE][+-]?[0-9]+$'; then
-        echo "Error: MUTATION_RATE ('$input') is not in valid scientific notation (e.g., 1.5e-8)" >&2
-        exit 1
-    fi
-    # Use bc to convert scientific notation to a decimal
-    echo "$input" | bc -l
-}
-
-# Validate and parse MUTATION_RATE
-MUTATION_RATE=$(validate_scientific_notation "$MUTATION_RATE")
+#Handle scientific notation w/ awk
+MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
 
 # Extract min and max for validation
 read n_past_min n_past_max <<< "$N_PAST_RANGE"
@@ -87,9 +75,7 @@ AlleleNumber=0
 
 ## Obtain parameter files
 #Python script formats unique parameter file for random draw of parameter distribution
-python ABC_Parameters.py --n_past_range "$n_past_min $n_past_max" --n_present_range "$n_present_min $n_present_max" --time_range "$time_min $time_max" --mutation_rate 1.3e-8 --total_sites 1000000 --step_size 100
-#Creo que solo debo asegurarme que el sistema lea slurmtaskid
-#maybe like this. 
+python ABC_Parameters.py --n_past_range "$n_past_min $n_past_max" --n_present_range "$n_present_min $n_present_max" --time_range "$time_min $time_max" --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
 
 echo "Demography draw parameter files constructed"
 
@@ -265,7 +251,7 @@ PastSize=$(awk 'NR==1 {print $1}' ../Data/Parameters/Output/DemographicHistory"$
 echo present size is $PresentSize and past size is $PastSize
 
 #Gets demographic report for ABC stats comparison.
-Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize
+Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize $TOTAL_SITES $STEP_SIZE
 
 echo Demografic comparison for Random seed $SLURM_ARRAY_TASK_ID done
 echo data written to report file "DemographyReport.txt"

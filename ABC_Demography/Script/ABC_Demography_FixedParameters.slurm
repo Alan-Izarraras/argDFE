@@ -1,17 +1,38 @@
 #!/bin/bash
-#SBATCH --job-name=ABC_testrun
-#SBATCH --output=log/ABC_testrun_stdout_%A_%a.o
-#SBATCH --error=log/ABC_testrun_stderr_%A_%a.e
+#SBATCH --job-name=ABC_StableParameters
+#SBATCH --output=log/ABC_StableParameters_stdout_%a.o
+#SBATCH --error=log/ABC_StableParameters_stderr_%a.e
 #SBATCH --time=05:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
 
+#How to run: sbatch -a 1001-1005 ABC_Demography_FixedParameters.slurm 20000 10000 500 1.2e-8 100000000 100
+#Bug: mutation rate is not being read properly.
+
 module load r/4.2.1
 module load gsl/1.15
 
-###RandomNumber, SeedName and RANDOM_SEED are 3 variables with the same value.
+##Passing command line arguments to python script
+#Default ranges 
+DEFAULT_N_PAST_VALUE=20000
+DEFAULT_N_PRESENT_VALUE=10000
+DEFAULT_TIME_VALUE=500
+DEFAULT_MUTATION_RATE=1.5e-8
+DEFAULT_TOTAL_SITES=8000000
+DEFAULT_STEP_SIZE=100
+
+#Read parameters from commandline. 
+N_PAST_VALUE=${1:-$DEFAULT_N_PAST_VALUE}
+N_PRESENT_VALUE=${2:-$DEFAULT_N_PRESENT_VALUE}
+TIME_VALUE=${3:-$DEFAULT_TIME_VALUE}
+MUTATION_RATE=${4:-$DEFAULT_MUTATION_RATE}
+TOTAL_SITES=${5:-$DEFAULT_TOTAL_SITES}
+STEP_SIZE=${6:-$DEFAULT_STEP_SIZE}
+
+#Try this. 
+MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
 
 #Data can be replicated repeating the same seed
 RandomNumber=$SLURM_ARRAY_TASK_ID
@@ -33,9 +54,12 @@ touch $FullAlleles
 touch $AlleleList
 AlleleNumber=0
 
+echo "$N_PAST_VALUE" "$N_PRESENT_VALUE" "$TIME_VALUE" "$MUTATION_RATE" "$TOTAL_SITES" "$STEP_SIZE"
+
 ## Obtain parameter files
 #Python script formats unique parameter file for random draw of parameter distribution
-python ABC_ReferenceSimRun_bottleneck.py $SLURM_ARRAY_TASK_ID
+###Add command line options to this script to generate stable parameters.
+python ABC_StableParameters.py --n_past_value ${N_PAST_VALUE} --n_present_value ${N_PRESENT_VALUE} --time_value ${TIME_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
 
 echo "Demography draw parameter files constructed"
 
@@ -211,7 +235,8 @@ PastSize=$(awk 'NR==1 {print $1}' ../Data/Parameters/Output/DemographicHistory"$
 echo present size is $PresentSize and past size is $PastSize
 
 #Gets demographic report for ABC stats comparison.
-Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize
+#Passing relevant params for matrix consruction: total sites and step size.
+Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize $TOTAL_SITES $STEP_SIZE
 
 echo Demografic comparison for Random seed $SLURM_ARRAY_TASK_ID done
 echo data written to report file "DemographyReport.txt"
