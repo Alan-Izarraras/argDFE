@@ -2,7 +2,7 @@
 #SBATCH --job-name=ABC_StableParameters
 #SBATCH --output=log/ABC_StableParameters_stdout_%a.o
 #SBATCH --error=log/ABC_StableParameters_stderr_%a.e
-#SBATCH --time=05:00:00
+#SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
@@ -236,10 +236,9 @@ echo present size is $PresentSize and past size is $PastSize
 
 #Gets demographic report for ABC stats comparison.
 #Passing relevant params for matrix consruction: total sites and step size.
-Rscript ../../prefersim_additionals/Matrix_Differences.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize $TOTAL_SITES $STEP_SIZE
+Rscript ../../prefersim_additionals/Matrix_Differences_Fixed.R $SLURM_ARRAY_TASK_ID $PresentSize $PastSize $TOTAL_SITES $STEP_SIZE
 
-echo Demografic comparison for Random seed $SLURM_ARRAY_TASK_ID done
-echo data written to report file "DemographyReport.txt"
+echo matrices written 
 
 rm $singleton_file
 rm $archivo_temporal

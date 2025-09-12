@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=ExtracelularMatrix_SelectionRuns
+#SBATCH --job-name=Ghist_SelectionRuns
 #SBATCH --output=log/SelectionRuns_%A_%a.o
 #SBATCH --error=log/SelectionRuns_%A_%a.e
 #SBATCH --time=10:00:00
@@ -18,7 +18,23 @@ touch $AlleleList
 
 RandomNumber=$SLURM_ARRAY_TASK_ID
 
-python Generate_ParamFiles_update_parallel_yri.py ${SLURM_ARRAY_TASK_ID}
+##Passing command line arguments to python script
+#Default ranges
+DEFAULT_N_PAST_VALUE=20000
+DEFAULT_MUTATION_RATE=1.2e-8
+DEFAULT_TOTAL_SITES=1000000
+DEFAULT_STEP_SIZE=100
+
+#Read parameters from commandline.
+N_PAST_VALUE=${1:-$DEFAULT_N_PAST_VALUE}
+MUTATION_RATE=${2:-$DEFAULT_MUTATION_RATE}
+TOTAL_SITES=${3:-$DEFAULT_TOTAL_SITES}
+STEP_SIZE=${4:-$DEFAULT_STEP_SIZE}
+
+#fix float numbers in bash
+MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
+
+python Selection_Parameters.py --n_past_value ${N_PAST_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
 
 SeedName=$(( $SLURM_ARRAY_TASK_ID % 100000 ))
 ValorSeleccion=$(( $SLURM_ARRAY_TASK_ID / 1000 ))
@@ -38,7 +54,6 @@ ValorFrecuencia=1
 
 # First run of PReFerSim. You must set the PrintSegSiteInfo parameter to 1 to produce an outfile
 GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim params/fixed/ParamFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
-
 
 #Hago una carpeta de resultados exclusivo para demografía.
 NombreArbol="../Data/trees/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}".txt"
@@ -206,4 +221,4 @@ rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj*
 rmdir ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
 rm ../Data/trees/Sel_"$ValorSeleccion"/"$NombreIntermedio"*.txt 
 
-#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 
+#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 20000 1.4e-8 1000000 100
