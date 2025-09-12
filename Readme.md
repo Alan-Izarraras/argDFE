@@ -75,10 +75,10 @@ argDFE is divided in three modules. which can be used independetly from each oth
  
 ### ABC_Demography 
 
-Is an Approximate Bayesian Computation step to infer three parameter demographic models with priors that can be selected by the user. 
-This module essentially samples demographic parameters from a prior distribution and computes a statistic derived from a coalescent matrix (number of lineages at different time points) which measures 
+This module samples demographic parameters from a prior distribution and computes a statistic derived from a coalescent matrix (number of lineages at different time points) which measures 
 the difference from each simulated demography according to the random draw of the parameters and an observed coalescent matrix (e.g. The coalescent matrix for a set of synonymouse sites in the genome).
-The observed matrix is meant to be generated using the EmpiricalData module from data from the 1k genomes project, using Relate to infer the ARG. 
+The observed matrix can be generated using the EmpiricalData module, using data from the 1k genomes project via Relate to inference of the ARG. Observed data can also be simulated using 
+stdpopsim (slim-based) or using PReFerSim to test theoretical scenarios. 
 
 This ABC approach benefits from extensively sampling from a prior. In practice we note than around 10,000 samplings (random seeds) of the prior are enough to yield good inferences of demography. 
 Although this may depend on the dataset being used. 
@@ -92,23 +92,46 @@ From this textfile a demographic model can be derived along with plots to visual
 
 to run this module use:
 
-	sbatch -a 1-10 prueba_parametros.slurm "100 30000" "100 15000" "100 15000" 1.3e-8 8000000 40
+	sbatch -a 1-10 ABC_Demography.slurm "100 30000" "100 15000" "100 15000" 1.3e-8 8000000 40
 
 where SLURM_ARRAY_TASK_ID (the first range) corresponds to the number of iteration/runs of the ABC algorithm. The first two parameters are Past size, followed by present size, followed by the number of generations, followed by the mutation rate, followed by the total number of simulated sites, followed by a step number. 
 where we make use of SLURM_ARRAY_TASK_ID to change random seeds and the value of each parameters are chosen as random picks from a provided min and max value as showin above. 
 
+to generate a simulated observed data matrix to compare arbitrary scenarios to:
+
+	sbatch -a 1-10 ABC_Demography_FixedParameters.slurm 20000 10000 500 1.2e-8 1000000 100
+
+This runs a different script to put together a reference matrix to use as the observed comparison to run our ABC model. The main difference being that this script takes fixed parameter values.
+The resulting matrices are outputted to 
+
+	ABC_Demography/Data/Patameters/Output/matrices/observed_matrices/
+
+For dividing runs into different step sizes or paraleliing schemes we recommend not to run simulations with more than 100k sites at a time. Therefore if you want to simulate lets say 100M sites 
+you are better off running 1000 runs of 100k sites. Since prefersim runs on infinite sites model, mutations are independent from one another and thus can be paralelized. 
+
 ### FitnessEffects
 
-After running ABC_Demography and onverging on a demographic model, we can now simulate a series of selection coefficients given this demographic model. This process approximates selection by simulating 
-28 different selection coefficients which are then integrated into different gamma distributions and used for maximum likelihood inference. 
+After running ABC_Demography and converging on a demographic model, we can now simulate a series of selection coefficients given this demographic model. This process approximates selection by simulating 
+28 different selection coefficients which are then integrated into different gamma distributions later used for maximum likelihood inference. 
 
 This module can be run using 
 
-	sbatch -a 1-28 FitnessEffects.slurm 
+	sbatch -a 1001-1100 FitnessEffects.slurm 20000 1.2e-8 1000000 100
 
-where SLURM_ARRAY_TASK_ID corresponds to a particular selection coefficient (2Ns value).
+where SLURM_ARRAY_TASK_ID corresponds to runs of a particular selection coefficient (2Ns value), where you can change between 28 different 2Ns values by the thousands (e.g. seeds 1000-1999) run
+the first selection value while seeds 28000-28999 run the 28th selection value. The four parameters to the right correspond to Ne in the past, the mutation rate, total number of simulated sites 
+and a step size. In practice if you want to simulate a targeted 1M sites then you can split this into 100 executions which means you will need to run an array job (SLURM_ARRAY_TASK_ID) of X001 to X100 
+for each of the 28 selection values. We recommend not simulating more than 200k sites per step. 
 
+After executing these simulations you then execute... 
 
+	srun ComputeSelMatrices.slurm 
+
+Finally, in inference directory run...
+
+	srun gamma_inference.slurm  
+
+	
 ### EmpiricalData
 
 argDFE is designed to infer both a demographic model and a distribution of fitness effect, given this demography based on obsservations from empirical data. 

@@ -2,7 +2,7 @@
 #SBATCH --job-name=Matrix_Conversion
 #SBATCH --output=log/MatrixConversion_%A_%a.o
 #SBATCH --error=log/MatrixConversion_%A_%a.e
-#SBATCH --time=05:00:00
+#SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4

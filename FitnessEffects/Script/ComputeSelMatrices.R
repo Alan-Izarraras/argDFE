@@ -7,6 +7,8 @@ library(ape)
 # Get SLURM_ARRAY_TASK_ID from the environment
 sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
+#This demography file should be automated..? How? ahh user inputed input. 
+#How to provide user input? But if user input you need user output too. 
 lines <- readLines("YRI_MeanPosteriorDemography.txt")
 first_line <- lines[1]
 second_line <- lines[2]

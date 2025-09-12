@@ -1,22 +1,48 @@
 ### Updated python paramfile generating scripts for selection simulations
 ##Changes:Paramfiles are now produced per SGE_TASK_ID run in the manner similar to the ABC run.
 ##Just need to change SGEtaskid to slurm. 
+#change
 
 #Code for parameter passing, in this case SGE_TASK_ID. SGE_TASK_ID controls selection.
 import sys
-SGE_TASK_ID = int(sys.argv[1])
+import argparse
+import os
+import math
 
-#Parameters to read from cli 
-#mutation rate
-#total_sites
-#step_size
-#past_size
+#pass array task id for Selecting a selection value.
+SGE_TASK_ID = os.environ.get('SLURM_ARRAY_TASK_ID')
+SGE_TASK_ID = int(SGE_TASK_ID)
 
-u = 1.29e-08 #coding mutation rate
-#l = 18614771 #Total number of non_synonimous sites in human genome
-l = 6775033  #Total number of extracelular matrix non synonimous sites in human genome
-l = l / 300
-N_past = 16914/2 #Fixed for current estimate
+# Define default values
+DEFAULTS = {
+    'n_past_value': (20000),
+    'mutation_rate': (1.2e-8),
+    'total_sites': (100000),
+    'step_size': (100),
+}
+
+# Set up argument parser
+parser = argparse.ArgumentParser(description="Passes fixed values for N_past, mutation rate, total sites and step size.")
+parser.add_argument("--use_defaults", action="store_true", help="Use default parameter values")
+parser.add_argument("--n_past_value", type=int, required=False, help="N_past parameter value")
+parser.add_argument("--mutation_rate", type=float, required=False, help="mutation rate")
+parser.add_argument("--total_sites", type=int, required=False, help="Number of simulated sites")
+parser.add_argument("--step_size", type=int, required=False, help="site step size for paralelization")
+
+# Parse arguments. change
+args = parser.parse_args()
+
+#pass these
+N_past = args.n_past_value
+u = args.mutation_rate
+l = args.total_sites
+run_number = args.step_size
+
+#### Confirm param values
+print(f"Ne in past is :{N_past}")
+print(f"using mutation rate :{u}\n")
+print(f"Simulating a total of :{l} sites \n")
+print(f"divided into {run_number} independent simulation runs \n")
 
 theta = (N_past * 4 * u * l)
 theta = str(theta)
