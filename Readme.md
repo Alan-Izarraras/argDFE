@@ -117,6 +117,20 @@ Three aspects are particularly important to verify:
 
 More information on good practices to run ABC’s can be obtained on the ABCtoolbox manual (https://www.cmpg.iee.unibe.ch/software/software/abctoolbox/index_eng.html) or in literature reviews on ABC’s (https://pmc.ncbi.nlm.nih.gov/articles/PMC4297650/ , as an example).
 
+Generating an observed matrix to compare to in order to test theoreticla scenarios can be done with this module. To do this you can run 
+
+	sbatch -a 1-10 ABC_Demography_FixedParameters.slurm 30000 15000 1000 1.2e-8 2000000 50
+
+where now instead of sampling from a distribution, the script samples from fixed parameter values that are provided via command line input. 
+
+After running enough simulations to generate you observed scenario as pleased, you must run a final step to construct the final matrix out of these simulations. To do this run the following script:
+
+	srun run_fixed_matrix.slurm
+
+The output of these matrices are found in 
+
+	../Data/Parameters/Output/matrices/observed_matrices/observed_prob_matrix.csv
+
 ### FitnessEffects
 
 After running ABC_Demography and converging on a demographic model, we can now simulate a series of selection coefficients given this demographic model. This process approximates selection by simulating 
