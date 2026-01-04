@@ -44,6 +44,8 @@ print(f"using mutation rate :{u}\n")
 print(f"Simulating a total of :{l} sites \n")
 print(f"divided into {run_number} independent simulation runs \n")
 
+#check demography script. Here I should have that l = l / run_number. yup. 
+l = l / run_number
 theta = (N_past * 4 * u * l)
 theta = str(theta)
 

@@ -1,0 +1,13 @@
+These trees were simulated for testing an alternative inference algorithm that consisted of 
+spliting coalescent likelihood and mutation observation likelihood. 
+
+Simulations were done under prefersim using
+N = 10000
+constant population size 
+u = 1.29e-8
+l = 19379845
+theta = 10000
+step_size = 100 
+
+200 seeds were ran for each selection coefficient, so that half the trees were used for count matrices 
+and the other half for probability matrices. 

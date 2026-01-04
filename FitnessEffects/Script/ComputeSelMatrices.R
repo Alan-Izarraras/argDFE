@@ -156,7 +156,7 @@ if (file_info$size == 0) {
 
 
   #Hasta aqui se ve bien.
-
+#1 <- 4N <- 4000*4 segun mssel 
   rangos_tiempo <- c(0.000002, 0.000020, 0.000200, 0.002000, 0.020000, 0.200000, 2.000000, 1600)
   rangos_tiempo <- rangos_tiempo * 60000 #this also should be for Relate scenario only
 

@@ -1,21 +1,14 @@
-
-#Algo asi ya estaría aunque creo que el if lo puedo recorrer a mucho mas arriba?
-
-#2) Poner length (cambiar nombre) como linea de comandos
-#3) Mandar una prueba completa. 
-#4) Mover numero de filas. 
-#5) Poder nombrar input/output desde linea de comandos.
-
-#Falta agregar "length" aka seleccion de numero de sitios como argumento. Pero primero probar asi. 
-#looks good. lets try. 
+#1) Matrix dimensions are now customizable. Just need to test and add ass command line option.
+#2) Add capability to input file names as command line arguments. 
+#Length and matrix dimensions are fixed right now but  
 
 library(ape)
 
-SGE_TASK_ID <- 3
-PresentSize <- 30000
-PastSize <- 5000
-l <- 500000
-step <- 4
+SGE_TASK_ID <- 4
+PresentSize <- 4000
+PastSize <- 4000
+l <- 1000000
+step <- 1
 
 PresentSize <- as.numeric(PresentSize)
 PastSize <- as.numeric(PastSize)
@@ -42,7 +35,7 @@ if (nrow(cuenta) == 1)  {
 num.obs <- sapply(lista_intervalos, length)
 seq.max <- seq_len(max(num.obs))
 matriz_intervalos <- t(sapply(lista_intervalos, "[", i = seq.max))
-singletones <- read.table(paste("../ABC_Demography/Data/Parameters/Output/matrices/tree_dump/singletons_", SGE_TASK_ID, "_ready.txt", sep=""))
+singletones <- read.table(paste("../ABC_Demography/Data/Parameters/Output/matrices/tree_dump/singletons_", SGE_TASK_ID, "_ready.txt", sep=""), sep=" ")
 colnames(singletones) <- c(1,2)
 matriz_temp <- matrix(nrow=nrow(singletones), ncol=ncol(matriz_intervalos)-2)
 matriz_temp <- cbind(singletones, matriz_temp)
@@ -113,7 +106,7 @@ generate_geometric_sequence <- function(min_value, max_value, length) {
 
 min_value <- 0.000002
 max_value <- max(tiempo_acumulado)
-length <- 3
+length <- 4
 
 if (length == 1)  {
   count <- tabulate(num_linajes) #retrieves occurance of every number (SFS)
@@ -122,12 +115,11 @@ if (length == 1)  {
   count <- rev(count) #Reverses for formatting (first rows are max frequency, last row is singleton)
   sfs_count <- matrix(count, ncol=1) #this is actually the final thing.
 
-  #This might also be helpful for changing groupings ! 
-  #Splits matrix into parts, counts the parts then regroups in whatever number of rows you want. 
-  #Now i want to generalize this. Think its better to give grouping number and that yields number of rows. 
-  split_parts <- 20 #final rownumber is 20
-  rows_per_part <- 10 #collapses 10 rows.
-  split_indices <- rep(1:split_parts, each = rows_per_part)
+  #This selects a grouping number, established how many rows to collaps together. Divides full matrix into parts, sums the parts, re arrenges into collapsed group number.
+  #default use 10
+  rows_per_part <- 20 #collapses 10 rows.
+  split_parts <- ceiling(nrow(sfs_count) / rows_per_part) #This rounds i could also round up using ceiling()
+  split_indices <- rep(1:split_parts, each = rows_per_part, length.out = nrow(sfs_count))
   split_mats <- split(sfs_count, split_indices) #Somethings failing here... says dimensions are different.
   sfs_count_matrix <- sapply(split_mats, sum)
   sfs_count_matrix <- matrix(sfs_count_matrix, ncol=1)
@@ -211,25 +203,31 @@ if (length == 1)  {
   #write.csv(matriz_conteo_invariables, paste("../Data/Parameters/Output/trees/training_matrices/matriz_conteo_invariables_full", SGE_TASK_ID, ".csv", sep=""), row.names = FALSE)
   #write.csv(matriz_prob_invariables, paste("../Data/Parameters/Output/trees/training_matrices/matriz_prob_invariables_full", SGE_TASK_ID, ".csv", sep=""), row.names = FALSE)
 
-  #Hago matriz con rangos de frecuencia
-  matriz_conteo_rangos <- matrix(nrow= 20, ncol=length(rangos_tiempo))
+  #n rows
+  rows_per_part <- 6
+  n_rows_new <- ceiling(nrow(matriz_conteo) / rows_per_part)
+  matriz_conteo_rangos <- matrix(0, nrow = n_rows_new, ncol = ncol(matriz_conteo))
 
-  for (c in 1:ncol(matriz_conteo))  {
+  for (c in 1:ncol(matriz_conteo)) { # per column
     suma <- 0
     i <- 1
-    contador = 0
-    for (r in 1:nrow(matriz_conteo))  {
-      contador = contador + 1
-      suma <- suma + matriz_conteo[r,c]
-      if (contador==10)  { #Cambiar aqui
-        matriz_conteo_rangos[i,c] <- suma
+    contador <- 0
+  
+    for (r in 1:nrow(matriz_conteo)) { # per row
+      contador <- contador + 1
+      suma <- suma + matriz_conteo[r, c]
+    
+      if (contador == rows_per_part) { # if counter met, store sum and reset
+        matriz_conteo_rangos[i, c] <- suma
         suma <- 0
-        i <- i+1
-        contador = 0
+        i <- i + 1
+        contador <- 0
       }
-      else  {
-        matriz_conteo_rangos[i,c] <- suma
-      }
+    }
+  
+    # Handle remainder rows after the loop
+    if (contador > 0) { # if there are leftover rows
+      matriz_conteo_rangos[i, c] <- suma
     }
   }
 
@@ -241,7 +239,7 @@ if (length == 1)  {
   }
 
   matriz_conteo_invariables_rangos <- rbind(matriz_conteo_rangos, vector_1) #Hasta aqui tengo matriz con num de sitios invariables.
-  rownames(matriz_conteo_invariables_rangos) <- c(1:21)
+  rownames(matriz_conteo_invariables_rangos) <- c(1:(split_parts+1))
   matriz_prob_invariables_rangos <- matriz_conteo_invariables_rangos / max_sitios
 
   #This prints sub matrices, meaning they are parts of the total observed matrix.

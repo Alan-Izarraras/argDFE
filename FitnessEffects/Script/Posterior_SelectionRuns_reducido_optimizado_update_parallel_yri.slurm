@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=Ghist_SelectionRuns
+#SBATCH --job-name=SelectionRuns
 #SBATCH --output=log/SelectionRuns_%A_%a.o
 #SBATCH --error=log/SelectionRuns_%A_%a.e
 #SBATCH --time=10:00:00
@@ -7,6 +7,12 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
+
+#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 4000 1.2e-8 1000000 20
+#changed memory from 4G to 1G 
+
+echo "scrpit started running at"
+echo $(date +%T)
 
 module load r/4.2.1
 module load gsl/1.15
@@ -208,8 +214,6 @@ echo "Files moved successfully to Sel_${ValorSeleccion}"
 echo "Trees for selection value ${ValorSeleccion} done."
 #todo bien.
 
-#This might have bugs but lets test it out.
-
 ## Borrar archivos temporales
 rm ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"_full_freqs.txt
 rm ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"*
@@ -222,3 +226,6 @@ rmdir ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
 rm ../Data/trees/Sel_"$ValorSeleccion"/"$NombreIntermedio"*.txt 
 
 #This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 20000 1.4e-8 1000000 100
+
+echo "scrpit finished running at"
+echo $(date +%T)

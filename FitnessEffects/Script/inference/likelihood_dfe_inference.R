@@ -29,3 +29,7 @@ for (a in 1:10000)  {
 
 param_table <- cbind(param_table, likelihood_estimates)
 write.csv(param_table, paste("LikelihoodEstimates.csv", sep=""))
+
+#Probar el otro esquema de verosimilitud para mover 
+#(Num_Sitios_invariables * log(P(sitios_invariables) + Num_sitios_variables * log(Porb_sitios_variables)  
+#Seria agregar esto + las coalescencias como las tengo. 

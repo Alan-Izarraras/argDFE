@@ -1,9 +1,24 @@
+#List of folders to ignore (their contents wont show up)
+#Folder termination means the folder wont be tracked. 
+#Asterisk means the folder is tracked but its contents are not. 
 
-EmpiricalData/popgenomic/1kg_yoruba
+EmpiricalData/popgenomic/vep_coordinates/inputs/variant_effect_output.txt
 ABC_Demography/Data/Parameters/Output/matrices/tree_dump/*
 ABC_Demography/Data/Parameters/Output/matrices/training_matrices/*
+FitnessEffects/Script/log/*
+FitnessEffects/Script/params/fixed/*
+argDFE/FitnessEffects/Script/inference/log/*
 FitnessEffects/Script/inference/distribution_dump/*
-EmpiricalData/popgenomic/vep_coordinates/
-FitnessEffects/Data/trees/Sel_* 
+FitnessEffects/Data/trees/Matrices/simulated/*
+FitnessEffects/Data/trees/MatrixInputs/Bottleneck_experiment/*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/source_trees/*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/singletons_*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/yri_*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/v1_probmatrices/
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/type2/
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/source_trees/*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/set1/*
+FitnessEffects/Data/trees/MatrixInputs/new_likelihood_experiment/set2/*
+FitnessEffects/Data/trees/Sel_*
 FitnessEffects/Data/trees/singleton/*
-ABC_Demography/Script/log/*
