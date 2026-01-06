@@ -1,14 +1,32 @@
 #!/bin/bash
-#SBATCH --job-name=SelectionRuns
-#SBATCH --output=log/SelectionRuns_%A_%a.o
-#SBATCH --error=log/SelectionRuns_%A_%a.e
+#SBATCH --job-name=ConstantSize_repair
+#SBATCH --output=log/repair_%a.o
+#SBATCH --error=log/repair_%a.e
 #SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
 
-#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 4000 1.2e-8 1000000 20
+#argDFE_PreferSimulation_MasterScript.slurm 
+#This is an editing version of my original simulating script that clears the bug of changing demography when simulating for 
+#A constant population size. 
+
+###Things implemented: An if statement that reads demographic file to determin if demography has changes or is constant. 
+#execute accordingly depending on each scenario. 
+###Specific changes
+#1) Change demographic file to single line in case of constant size. 
+#2) If statement to detect single line
+#3) Popsize change and time change parameters for Msell should be ignored and left out for ConstantSize case.
+#4) Popsize change and time change paramters for Msell should be icluded for noneq demography case. 
+#5) Add capability to estiamte frequencies from different sample sizes. 
+#6) Modificar los tiempos, para que la distribucion contemple N + un ultimo tiempo final. 
+#Some tests and all good. to execute 
+# sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
+
+### Script starts 
+
+#This should work. Try a random seed. 
 #changed memory from 4G to 1G 
 
 echo "scrpit started running at"
@@ -46,14 +64,12 @@ SeedName=$(( $SLURM_ARRAY_TASK_ID % 100000 ))
 ValorSeleccion=$(( $SLURM_ARRAY_TASK_ID / 1000 ))
 
 #echo usando valor de selección "$ValorSeleccion"
-
 echo La semilla aleatoria es ${SeedName}
 echo Simulación de seleccion para dfe
 
 RANDOM_SEED=${SLURM_ARRAY_TASK_ID}
 
 ### This is the default sample size in PReFerSim. You can change this value if you want with the option n in the parameter file before running PReFerSim.
-
 Sample_size=200
 DerivedAlleleNumber=1
 ValorFrecuencia=1
@@ -95,18 +111,13 @@ mv ../Data/Traj_"$RandomNumber".txt ../Data/Allele_"$RandomNumber"_freqs/
 python traj_break_claude.py $RandomNumber
 ###################################################### Step 2) Transform the allele frequency trajectories
 
-#I should have a way so that each Selection value goes on same folder.
-
 mkdir ../Data/trees/Sel_"$ValorSeleccion"/ #So maybe reutilize this.
 
 for f in $(seq 0.005 0.005 0.995);
 do
 
 echo working of frequency ${f}
-
 DerivedAlleleNumber=$(echo "($f * 200 + 0.5)/1" | bc)
-
-#Si quiero remover estos archivos intermedios tendré que guardar su ruta en variable y al final eliminar la variable.
 
 #Hacer directorios nuevos para guardar estos outputs.
 CurrentTrajs="../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/ReducedTrajectories"$SLURM_ARRAY_TASK_ID"_"$f".txt" #Agregar identificador unico
@@ -115,8 +126,18 @@ TrajsMsselLike="../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM
 
 #Ruta del archivo de demografia --> MeanPosterior
 LastPopSize=$( tail -n1 YRI_MeanPosteriorDemography.txt | awk '{print $1}' )
-
 echo "Last pop size = "$LastPopSize
+
+#This should be it in terms of identifying constant size. 
+#now demography file is 1 line only.  
+is_constant=$(( LastPopSize - N_PAST_VALUE ))
+
+if [ "$is_constant" -eq 0 ]; then
+    sed -i '2d' YRI_MeanPosteriorDemography.txt
+    echo "Deleting second line. Constant demographic size."
+else
+    echo "Non-constant demographic size."
+fi
 
 AlleleCount=$( wc -l ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_${SLURM_ARRAY_TASK_ID}_"$f".txt | tail -n1 | awk '{print $1}' )
 echo Se encontraron $AlleleCount alelos en el valor de frecuencia $DerivedAlleleNumber
@@ -171,21 +192,20 @@ rm ../Data/trees/$NombreArbol
 
 ThingsToPrint="$(( $DerivedAlleleNumber + 1))"
 
-###adaptado
-#tbs quiere decir to be seen y es una opcion que toma desde standar input entonces por eso la < para indicar que la variabl es stdinput.
-#Esto debería estar masomenos bien, solo falta confirmar con el manual. Algo que podria estar mal es el orden de -T y RandomNumberFile.
-../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
+#Mssel instructions. 
+if [ "$is_constant" -eq 0 ]; then
+    ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -seeds $RandomNumber $RandomNumber $RandomNumber -T | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
+else 
+    ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
+fi
 
 echo $NombreArbolSub done
-
 done
 
 cat ../Data/trees/Sel_"$ValorSeleccion"/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_* > ../Data/trees/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_Sel"$ValorSeleccion".txt
-
 rm $RandFile
 
 ### Code for formating trees
-
 echo we have $SingletonCount singletons in this demography run
 echo splitting singletons from tree files and extracting distances . . .
 
@@ -206,9 +226,7 @@ cut -d "," -f 1 "$singleton_file" | cut -b 1-3 --complement | sed 's/$/ 0/' > ".
 #Esto lo está interpretando como guardarlo con el nombre "" y no en el directorio de ese nombre porque le falta la ruta...
 mv "../Data/trees/singleton/singletons_"$SLURM_ARRAY_TASK_ID"_Sel"$ValorSeleccion"_ready.txt" "../Data/trees/Sel_${ValorSeleccion}/"
 mv "../Data/trees/${NombreArbol}" "../Data/trees/Sel_${ValorSeleccion}/"
-
 rm ../Data/trees/yri_trees*
-
 echo "Files moved successfully to Sel_${ValorSeleccion}"
 echo "Trees for selection value ${ValorSeleccion} done."
 #todo bien.
@@ -217,14 +235,11 @@ echo "Trees for selection value ${ValorSeleccion} done."
 rm ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"_full_freqs.txt
 rm ../Data/Alleles_"$SLURM_ARRAY_TASK_ID"*
 rm ../Data/Output."$SLURM_ARRAY_TASK_ID"*
-
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Reduced*
 rm ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Traj*
 rmdir ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/
 rm ../Data/trees/Sel_"$ValorSeleccion"/"$NombreIntermedio"*.txt 
-
-#This should work. Try a random seed. sbatch -a 16001 scriptname.slurm 20000 1.4e-8 1000000 100
 
 echo "scrpit finished running at"
 echo $(date +%T)
