@@ -23,7 +23,7 @@
 #6) Modificar los tiempos, para que la distribucion contemple N + un ultimo tiempo final. 
 #Some tests and all good. to execute 
 # sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
-
+#funciona. darle fuego. e irme 
 ### Script starts 
 
 #This should work. Try a random seed. 
