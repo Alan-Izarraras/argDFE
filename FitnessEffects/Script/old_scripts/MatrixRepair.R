@@ -1,5 +1,7 @@
 ###New script for constructing matrices of different dimensions for new likelihood calc
-###Adds condition for coases where the tree file is empty. (for 2Ns value shigher than 1000 or so)
+###Adds condition for cases where the tree file is empty. (for 2Ns value higher than 1000 or so)
+#changes: time_ranges now have a max value of 1 and a end value of 16. 
+#not yet automated for different theta values so need to manually open and change theta dirs and l value
 
 library(ape)
 
@@ -11,7 +13,7 @@ print(sel)
 PresentSize <- 10000
 PastSize <- 10000
 l <- 19379845
-#l <- 1937984
+l <- l/10
 step <- 1 #should be 1 here...?
 
 PresentSize <- as.numeric(PresentSize)
@@ -20,9 +22,10 @@ l <- as.numeric(l)
 step <- as.numeric(step)
 
 #Path where input files can be found (singletons and trees)
-file_path <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/source_trees/reps/diezmil/"
+
+file_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/reps/mil/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/diezmil/"
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/mil/"
 
 #for 10 reps.
 for (a in 1:50)  {
@@ -126,7 +129,7 @@ for (a in 1:50)  {
     }
 
     # Common ratio: r^(length-2) = max_value / min_value to ensure last term (r^(length-1)) > max_value
-    ratio <- (max_value / min_value) ^ (1 / (length - 2))
+    ratio <- (max_value / min_value) ^ (1 / (length - 1))
 
     # Generate sequence
     sequence <- numeric(length)
@@ -139,14 +142,17 @@ for (a in 1:50)  {
   }
 
 #Here Ima need to run this various times for each different time shape.
-  min_value <- 0.000002
-  max_value <- 4
+#change so that max value is 1 and then 16 gets added after 1
+#changed max value to 1
+  min_value <- 0.000001
+  max_value <- 1
   length <- 8
 
 #for 50 times
   sequence <- generate_geometric_sequence(min_value, max_value, length)
   rangos_tiempo <- sequence
-  rangos_tiempo[length(rangos_tiempo)] <- 16
+  #rangos_tiempo[length(rangos_tiempo)] <- 16 #this should be append intead of substitute. 
+  rangos_tiempo <- c(rangos_tiempo, 16)
   print(rangos_tiempo)
 
 #rangos_tiempo <- rangos_tiempo * 60000

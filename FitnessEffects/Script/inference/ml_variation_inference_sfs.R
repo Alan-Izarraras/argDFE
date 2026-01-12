@@ -1,15 +1,15 @@
 #R code. 
 #works! now make copies by sampling with replacement.50 copies.  
-set1_input <- "../../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/diezmil/type2/"
+set1_input <- "../../Data/trees/MatrixInputs/ConstantSize/set1/matrices/mil/"
 #set1_input <- "../../Data/trees/MatrixInputs/new_likelihood_experiment/set1/source_trees/reps/"
-set2_input <- "../../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/type2/"
+set2_input <- "../../Data/trees/MatrixInputs/ConstantSize/set2/matrices/"
 
 task_id <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 task_id <- as.numeric(task_id) #taskid controls matrix dimension
 
 matrix_selection <- c("200x100", "20x100", "6x100", "200x40", "20x40", "6x40", "200x8", "20x8", "6x8")
-prob_matrix_name <- paste(set2_input, "set2_type2_", matrix_selection[task_id], "_prob_matrix_Sel", sep="")
-count_matrix_name <- paste(set1_input, "observed_diezmil_type2_", matrix_selection[task_id], "_count_matrix_Sel", sep="")
+prob_matrix_name <- paste(set2_input, "set2_", matrix_selection[task_id], "_prob_matrix_Sel", sep="")
+count_matrix_name <- paste(set1_input, "observed_", matrix_selection[task_id], "_count_matrix_Sel", sep="")
 
 print(matrix_selection[task_id])
 
@@ -22,7 +22,7 @@ for (z in 1:50)  { #z handles repetition number
   for (a in (1:27))  { #Reads in every prob matrix (set2) #set2_200x100_prob_matrix_Sel1.csv
     prob_matrix <- read.csv(paste(prob_matrix_name, a, ".csv", sep=""))
     set2_fixed_sites <- prob_matrix[nrow(prob_matrix), 1] #recovers number of fixed mutations which are place on last row.
-    #set2_fixed_sites <- set2_fixed_sites / 100 #para mil entre 10 para cien entre 100
+    set2_fixed_sites <- set2_fixed_sites / 10 #para mil entre 10 para cien entre 100
     #Isolates first row only
     prob_matrix <- prob_matrix[, 1, drop = FALSE]
     #print(prob_matrix)
@@ -89,7 +89,7 @@ result_mat <- {
   do.call(rbind, lapply(matrix_list, rn_fun))
 }
 
-write.csv(result_mat, paste("discrete_inferences_type2_", matrix_selection[task_id], "_SFS_diezmil_rerun.cvs", sep=""))
+write.csv(result_mat, paste("/ConstantSize_discrete/discrete_inferences_", matrix_selection[task_id], "_SFS_mil.cvs", sep=""))
 
 #Idealy I execute this and get plots in a single execute. 
 #but first step is to test the results output alone. 

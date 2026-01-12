@@ -19,13 +19,22 @@ for s in {1..27}; do
     file1="../Data/trees/Sel_${s}/yri_trees_MeanPosterior_${s}${i}_Sel${s}.txt"
     file2="../Data/trees/Sel_${s}/singletons_${s}${i}_Sel${s}_ready.txt"
     if [ ! -s "$file1" ] && [ ! -s "$file2" ]; then
-      echo "'$file1' and '$file2' are empty"
+      #echo "'$file1' and '$file2' are empty"
       missing_seeds+=("${s}${i}")  #save this to a vector. 
     fi  
   done
 done
+
+echo list of missing simulations: 
  
 # 2) If empty files, recover seed and construct command to rerun sim. 
-for seed in "{missing_seeds[@]}"; do 
-  echo "sbatch -a ${seed} argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100" 
+#this did not work.
+#kinda verbose but works. maybe having the seeds only would be better? nah. 
+for seed in "${missing_seeds[@]}"; do
+    echo "sbatch -a ${seed} argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100"
 done
+
+#so here, this process has to be done like 2 or 3 times... would it be good to automate? 
+#this means directly running leftover sims. 
+
+echo "sbatch -a  argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100"

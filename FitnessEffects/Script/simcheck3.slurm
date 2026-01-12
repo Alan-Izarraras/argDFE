@@ -1,65 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=Simcheck
-#SBATCH --output=log/simcheck_%a.o
-#SBATCH --error=log/simcheck_%a.e
+#SBATCH --job-name=Simcheck3
+#SBATCH --output=log/simcheck3_%a.o
+#SBATCH --error=log/simcheck3_%a.e
 #SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
 
-###Script that checks and prints the tree and singleton files that are empty.
-
-# 1) Checks file emptiness 
-#check logfile for list of missing. 
-#if empty non missing.
-missing_seeds=()
-for s in {1..27}; do
-  for i in {001..300}; do
-    file1="../Data/trees/Sel_${s}/yri_trees_MeanPosterior_${s}${i}_Sel${s}.txt"
-    file2="../Data/trees/Sel_${s}/singletons_${s}${i}_Sel${s}_ready.txt"
-    if [ ! -s "$file1" ] && [ ! -s "$file2" ]; then
-      #echo "'$file1' and '$file2' are empty"
-      missing_seeds+=("${s}${i}")  #save this to a vector. 
-    fi  
-  done
-done
- 
-echo list of missing/faulty simulation executions: 
-
-# 2) If empty files, recover seed and construct command to rerun sim. 
-for seed in "{missing_seeds[@]}"; do 
-  echo "sbatch -a ${seed} argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100" 
-done
-
-# 3) Move trees to desired folder 
-# Condition to verify that there are no empty files
-#Set1 trees
-if [ ${#missing_seeds[@]} -eq 0 ]; then
-  echo "no missing seeds"
-  for s in {1..2}; do
-  #set1 trees
-    for i in {001..200}; do
-      mv "../Data/trees/Sel_${s}/yri_trees_MeanPosterior_${s}${i}_Sel${s}.txt" ../Data/trees/MatrixInputs/ConstantSize/set1/source_trees/
-      mv "../Data/trees/Sel_${s}/singletons_${s}${i}_Sel${s}_ready.txt" ../Data/trees/MatrixInputs/ConstantSize/set1/source_trees/
-    done
-    #set2 trees
-    for i in {201..300}; do
-      mv "../Data/trees/Sel_${s}/yri_trees_MeanPosterior_${s}${i}_Sel${s}.txt" ../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/
-      mv "../Data/trees/Sel_${s}/singletons_${s}${i}_Sel${s}_ready.txt" ../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/
-    done
-  done
-fi 
-
-#4) Construct independent files of different sampling schemes (theta values)
-###This might need a little tweak/testing and is probably widely inneficient.
-### bueno me quede revisando las rutas de esto que cambie un poquito. 
-#esto solo sucede para set1
-
 output_set1="../Data/trees/MatrixInputs/ConstantSize/set1/"
 output_set2="../Data/trees/MatrixInputs/ConstantSize/set2/" #no reps here
 a=0
-for ((f=26; f<=27; f+=1)) #270 en medio para todos los valores. pero esto es una prueba
+for ((f=1; f<=27; f+=1)) #270 en medio para todos los valores. pero esto es una prueba
 do
   a=$((a + 1))
   for b in {1..50} #Controls the number of replicate files
@@ -123,13 +75,4 @@ do
 done
 
 echo "Finished constructing ${b} independent replicates by sampling ${i} trees per replicate."
-
-###Despues de esto sigue construir las matrices. 
-###Agregar git ignore 
-#pushear 
-
-### 5) Concatenate set2 files
-for s in {1..27}; do
-  cat ../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/yri_trees_MeanPosterior_*_Sel${s}.txt > ../Data/trees/MatrixInputs/ConstantSize/set2/matrices/trees_Sel${s}.txt
-  cat ../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/singletons_*_Sel${s}_ready.txt > ../Data/trees/MatrixInputs/ConstantSize/set2/matrices/singletons_Sel${s}.txt
-done
+#this worked first try! good for me. 

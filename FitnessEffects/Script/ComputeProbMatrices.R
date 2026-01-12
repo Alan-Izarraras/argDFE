@@ -1,6 +1,7 @@
 ###New script for constructing matrices of different dimensions for new likelihood calc
 #this produces set2 matrices with different dimensions. 
 #set2 matrices require a pseudocount and probability matrices. 
+#Now has joined singleton and ancestral row for case of 200 rows. 
 
 library(ape)
 
@@ -20,7 +21,7 @@ l <- as.numeric(l)
 step <- as.numeric(step)
 
 #Path where input files can be found (singletons and trees)
-file_path <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/"
+file_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/"
 
 lista_arboles <- read.tree(paste(file_path, "trees_Sel", sel, ".txt", sep=""))
 lista_intervalos <- list()
@@ -98,7 +99,7 @@ generate_geometric_sequence <- function(min_value, max_value, length) {
   }
 
   # Common ratio: r^(length-2) = max_value / min_value to ensure last term (r^(length-1)) > max_value
-  ratio <- (max_value / min_value) ^ (1 / (length - 2))
+  ratio <- (max_value / min_value) ^ (1 / (length - 1))
 
   # Generate sequence
   sequence <- numeric(length)
@@ -110,14 +111,15 @@ generate_geometric_sequence <- function(min_value, max_value, length) {
   return(sequence)
 }
 
-min_value <- 0.000002
-max_value <- 4
+min_value <- 0.000001
+max_value <- 1
 length <- 8
 
 #for 100 times 
 sequence <- generate_geometric_sequence(min_value, max_value, length)
 rangos_tiempo <- sequence
-rangos_tiempo[length(rangos_tiempo)] <- 16
+#rangos_tiempo[length(rangos_tiempo)] <- 16
+rangos_tiempo <- c(rangos_tiempo, 16)
 print(rangos_tiempo)
 
 matriz_linajes <- matrix(nrow=nrow(tiempo_acumulado), ncol=length(rangos_tiempo)) #24 columnas porque es la division de tiempo usada.
@@ -180,7 +182,14 @@ print(paste("numero total de sitios:", max_sitios, sep=""))
 matriz_prob_invariables <- matriz_conteo / max_effective_sites
 rownames(matriz_conteo) <- c(1:nrow(matriz_conteo))
 matriz_prob_invariables <- rbind(matriz_prob_invariables, vector_1)
-write.csv(matriz_prob_invariables, paste(file_path, "set2_200x8_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+
+#Join singleton + ancestral freq value 
+i <- nrow(matriz_prob_invariables) -2
+matriz_prob_invariables_2 <- matriz_prob_invariables                                  
+matriz_prob_invariables_2[i, ] <- matriz_prob_invariables[i, ] + matriz_prob_invariables[i+1, ]              
+matriz_prob_invariables_2 <- matriz_prob_invariables_2[- (i+1), ]
+
+write.csv(matriz_prob_invariables_2, paste(file_path, "set2_200x8_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
 
 print("esta suma debe dar 1 --> ")
 print(sum(matriz_prob_invariables[,1]))

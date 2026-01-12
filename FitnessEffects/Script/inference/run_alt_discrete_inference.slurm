@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=sfs_diezmil
-#SBATCH --output=log/sfs_diezmil_inference_%a.o
-#SBATCH --error=log/sfs_diezmil_inference_%a.e
+#SBATCH --job-name=discrete_inference_mil
+#SBATCH --output=log/mil_inference_%a.o
+#SBATCH --error=log/mil_inference_%a.e
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

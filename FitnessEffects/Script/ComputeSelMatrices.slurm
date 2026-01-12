@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=Type2
-#SBATCH --output=log/Type2_Matrix_rerun_%a.o
-#SBATCH --error=log/Type2_Matrix_rerun_%a.e
+#SBATCH --job-name=diezmil_matrices
+#SBATCH --output=log/diezmil_matrices1_%a.o
+#SBATCH --error=log/diezmil_matrices1_%a.e
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -21,8 +21,7 @@ echo $(date +%T)
 #Rscript ComputeSelMatrices_NewExperiment_reps.R
 #Rscript ComputeProbMatrices.R #Computes prob matrices
 #Rscript ComputeFullMatrices.R
-#Rscript MatrixRepair.R #Constructs set1 matrices with repetitions (random samplings) has case where tree file is empty for extreme selection runs.
-Rscript Type_2_matrices.R
+Rscript CountMatrices.R
 
 echo "scrpit finished running at"
 echo $(date +%T)

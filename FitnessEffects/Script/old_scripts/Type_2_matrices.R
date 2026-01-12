@@ -2,15 +2,16 @@
 #for extremely high selection coefficients. Done for both prob and count matrices. 
 #this is executed AFTER having generated all matrices. 
 
-input_diezmil <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/diezmil/"
-input_mil <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/mil/"
-input_cien <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/cien/"
+#cambiar directorios para nuevas sims. 
+input_diezmil <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/diezmil/"
+input_mil <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/mil/"
+input_cien <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/cien/"
+#ok necesito tener las de prob tambien? Si. 
+set1_output <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
+set2_output <- "../Data/trees/MatrixInputs/ConstantSize/set2/type2/"
+set2_input <- "../Data/trees/MatrixInputs/ConstantSize/set2/"
 
-set1_output <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set1/matrices/"
-set2_output <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/type2/"
-set2_input <- "../Data/trees/MatrixInputs/new_likelihood_experiment/second_run/set2/"
-
-for (a in 25:27)  {
+for (a in 1:27)  {
   prob_matrix <- read.csv(paste(set2_input, "set2_200x8_prob_matrix_Sel", a, ".csv", sep=""))
 
   #Fila a cambiar (y la siguiente)
