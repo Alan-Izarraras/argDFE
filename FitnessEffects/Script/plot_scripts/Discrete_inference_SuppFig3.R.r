@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyr)
 library(patchwork)
 
-results <- read.csv("discrete_inferences_200x100.cvs")
+results <- read.csv("discrete_inference_200x100_diezmil.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
@@ -54,7 +54,7 @@ p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
       )
 
 ###Plot number 2 (K^10 aka 20x8)
-results <- read.csv("discrete_inferences_200x40.cvs")
+results <- read.csv("discrete_inference_200x40_diezmil.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
@@ -98,7 +98,7 @@ p2 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
       )
 
 ###Plot number 3 (K^1 aka 20x8)
-results <- read.csv("discrete_inferences_200x8.cvs")
+results <- read.csv("discrete_inference_200x8_diezmil.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 

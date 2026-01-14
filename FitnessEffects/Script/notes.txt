@@ -1,0 +1,80 @@
+#Matrix conversion.
+#Instead of computing matrices from tree files over and over agian for diff parameters,
+#Use the biggest domension to convert to each matrix. 
+#This saves hours of compute. 
+
+
+#1) Empezamos por la matriz con mayores dimensiones. (200x100)
+
+#2) Vemos el algoritmo de cosntruccion de tiempos. 
+
+generate_geometric_sequence <- function(min_value, max_value, length) {
+  # Ensure valid inputs
+  if (min_value <= 0 || max_value <= min_value || length < 1) {
+    return("Invalid input: min_value must be positive, max_value > min_value, length >= 1")
+  }
+
+  # Calculate the common ratio
+  if (length == 1) {
+    return(min_value)
+  }
+
+  # Common ratio: r^(length-2) = max_value / min_value to ensure last term (r^(length-1)) > max_value
+  ratio <- (max_value / min_value) ^ (1 / (length - 1))
+
+  # Generate sequence
+  sequence <- numeric(length)
+  for (i in 1:length) {
+    term <- min_value * (ratio ^ (i - 1))
+    sequence[i] <- term
+  }
+
+  return(sequence)
+}
+
+#Here Ima need to run this various times for each different time shape.
+#change so that max value is 1 and then 16 gets added after 1
+#changed max value to 1
+  min_value <- 0.000001
+  max_value <- 1
+  length <- 100
+
+#Aqui los tiempos son 8, 40 y 100. 
+## 8 times 
+times_1 <- c(1.000000e-06 7.196857e-06 5.179475e-05 3.727594e-04 2.682696e-03 1.930698e-02 1.389495e-01 1.000000e+00 1.600000e+01)
+## 40 times 
+times_2 <- c(1.000000e-06 1.425103e-06 2.030918e-06 2.894266e-06 4.124626e-06
+5.878016e-06 8.376776e-06 1.193777e-05 1.701254e-05 2.424462e-05
+3.455107e-05 4.923883e-05 7.017038e-05 1.000000e-04 1.425103e-04
+2.030918e-04 2.894266e-04 4.124626e-04 5.878016e-04 8.376776e-04
+1.193777e-03 1.701254e-03 2.424462e-03 3.455107e-03 4.923883e-03
+7.017038e-03 1.000000e-02 1.425103e-02 2.030918e-02 2.894266e-02
+4.124626e-02 5.878016e-02 8.376776e-02 1.193777e-01 1.701254e-01
+2.424462e-01 3.455107e-01 4.923883e-01 7.017038e-01 1.000000e+00
+1.600000e+01)
+## 100 times 
+times_3 <- c(1.000000e-06 1.149757e-06 1.321941e-06 1.519911e-06 1.747528e-06
+2.009233e-06 2.310130e-06 2.656088e-06 3.053856e-06 3.511192e-06
+4.037017e-06 4.641589e-06 5.336699e-06 6.135907e-06 7.054802e-06
+8.111308e-06 9.326033e-06 1.072267e-05 1.232847e-05 1.417474e-05
+1.629751e-05 1.873817e-05 2.154435e-05 2.477076e-05 2.848036e-05
+3.274549e-05 3.764936e-05 4.328761e-05 4.977024e-05 5.722368e-05
+6.579332e-05 7.564633e-05 8.697490e-05 1.000000e-04 1.149757e-04
+1.321941e-04 1.519911e-04 1.747528e-04 2.009233e-04 2.310130e-04
+2.656088e-04 3.053856e-04 3.511192e-04 4.037017e-04 4.641589e-04
+5.336699e-04 6.135907e-04 7.054802e-04 8.111308e-04 9.326033e-04
+1.072267e-03 1.232847e-03 1.417474e-03 1.629751e-03 1.873817e-03
+2.154435e-03 2.477076e-03 2.848036e-03 3.274549e-03 3.764936e-03
+4.328761e-03 4.977024e-03 5.722368e-03 6.579332e-03 7.564633e-03
+8.697490e-03 1.000000e-02 1.149757e-02 1.321941e-02 1.519911e-02
+1.747528e-02 2.009233e-02 2.310130e-02 2.656088e-02 3.053856e-02
+3.511192e-02 4.037017e-02 4.641589e-02 5.336699e-02 6.135907e-02
+7.054802e-02 8.111308e-02 9.326033e-02 1.072267e-01 1.232847e-01
+1.417474e-01 1.629751e-01 1.873817e-01 2.154435e-01 2.477076e-01
+2.848036e-01 3.274549e-01 3.764936e-01 4.328761e-01 4.977024e-01
+5.722368e-01 6.579332e-01 7.564633e-01 8.697490e-01 1.000000e+00
+1.600000e+01)
+
+If each of these is a column that counts alleles per freq foud at this time, 
+then in order to convert to different column arrangement... 
+the question is 

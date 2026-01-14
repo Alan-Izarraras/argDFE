@@ -8,26 +8,22 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
 
-#argDFE_PreferSimulation_MasterScript.slurm 
-#This is an editing version of my original simulating script that clears the bug of changing demography when simulating for 
-#A constant population size. 
+#Fixed bug causing non constant population size. 
 
-###Things implemented: An if statement that reads demographic file to determin if demography has changes or is constant. 
-#execute accordingly depending on each scenario. 
-###Specific changes
+###Changes
 #1) Change demographic file to single line in case of constant size. 
 #2) If statement to detect single line
 #3) Popsize change and time change parameters for Msell should be ignored and left out for ConstantSize case.
 #4) Popsize change and time change paramters for Msell should be icluded for noneq demography case. 
 #5) Add capability to estiamte frequencies from different sample sizes. 
 #6) Modificar los tiempos, para que la distribucion contemple N + un ultimo tiempo final. 
-#Some tests and all good. to execute 
 # sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
-#funciona. darle fuego. e irme 
 ### Script starts 
 
-#This should work. Try a random seed. 
-#changed memory from 4G to 1G 
+#Edit: did not work ask intended. my condition that checks cosntant size did not work. 
+#1) Change cosntantSize condition to test number of lines on demography file. 
+#2) Change demography file naming.
+#3) Read N_PAST_VALUE from demography --> no longer a cli parameter. 
 
 echo "scrpit started running at"
 echo $(date +%T)
@@ -44,19 +40,21 @@ RandomNumber=$SLURM_ARRAY_TASK_ID
 
 ##Passing command line arguments to python script
 #Default ranges
-DEFAULT_N_PAST_VALUE=20000
+
 DEFAULT_MUTATION_RATE=1.2e-8
 DEFAULT_TOTAL_SITES=1000000
 DEFAULT_STEP_SIZE=100
 
 #Read parameters from commandline.
-N_PAST_VALUE=${1:-$DEFAULT_N_PAST_VALUE}
-MUTATION_RATE=${2:-$DEFAULT_MUTATION_RATE}
-TOTAL_SITES=${3:-$DEFAULT_TOTAL_SITES}
-STEP_SIZE=${4:-$DEFAULT_STEP_SIZE}
+MUTATION_RATE=${1:-$DEFAULT_MUTATION_RATE}
+TOTAL_SITES=${2:-$DEFAULT_TOTAL_SITES}
+STEP_SIZE=${3:-$DEFAULT_STEP_SIZE}
 
 #fix float numbers in bash
 MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
+
+#Extracts N in the past from demography file.
+N_PAST_VALUE=$(awk '{print $1 / 2; exit}' DemographyFile.txt) #reads in first line and dived by 2 (essentially this is the ancestral file in 2N, so we want it in N)
 
 python Selection_Parameters.py --n_past_value ${N_PAST_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
 
@@ -125,17 +123,16 @@ ResampledTrajectory="../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/ResampledTrajs"
 TrajsMsselLike="../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/TrajMsselLike"$SLURM_ARRAY_TASK_ID"_"$f".txt"
 
 #Ruta del archivo de demografia --> MeanPosterior
-LastPopSize=$( tail -n1 YRI_MeanPosteriorDemography.txt | awk '{print $1}' )
+LastPopSize=$( tail -n1 DemographyFile.txt | awk '{print $1}' )
 echo "Last pop size = "$LastPopSize
 
-#This should be it in terms of identifying constant size. 
-#now demography file is 1 line only.  
-is_constant=$(( LastPopSize - N_PAST_VALUE ))
+#identify constant size or not.
+#if DemographyFile has 1 or 2 lines. 
 
-if [ "$is_constant" -eq 0 ]; then
-    sed -i '2d' YRI_MeanPosteriorDemography.txt
-    echo "Deleting second line. Constant demographic size."
-else
+if [ "$(wc -l < "$filename")" -eq 1 ]; then
+    echo "DemographyFile has 1 line"
+    echo "Constant demographic size"
+else   
     echo "Non-constant demographic size."
 fi
 
@@ -148,11 +145,11 @@ fi
 
 Reps=$( ls ../Data/Allele_"$SLURM_ARRAY_TASK_ID"_freqs/Alleles_${SLURM_ARRAY_TASK_ID}_"$f".txt | wc -l )
 
-TimeFraction=$(head -n1 YRI_DemographyScales_MeanPosterior.txt | awk '{print $1}')
-PopFraction=$(head -n1 YRI_DemographyScales_MeanPosterior.txt | awk '{print $2}')
+TimeFraction=$(head -n1 DemographyScales.txt | awk '{print $1}')
+PopFraction=$(head -n1 DemographyScales.txt | awk '{print $2}')
 Rho=1
 
-RandFile="YRI_DemographyScales_MeanPosterior_"$SLURM_ARRAY_TASK_ID".txt"
+RandFile="DemographyScales_"$SLURM_ARRAY_TASK_ID".txt"
 rm $RandFile
 touch $RandFile
 
@@ -192,10 +189,10 @@ rm ../Data/trees/$NombreArbol
 
 ThingsToPrint="$(( $DerivedAlleleNumber + 1))"
 
-#Mssel instructions. 
-if [ "$is_constant" -eq 0 ]; then
+#Mssel instructions. Case for cosntant and non-eq demographies (changes tbs file that informs time and N change)
+if [ "$(wc -l < "$filename")" -eq 1 ]; then
     ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -seeds $RandomNumber $RandomNumber $RandomNumber -T | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
-else 
+else   
     ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
 fi
 

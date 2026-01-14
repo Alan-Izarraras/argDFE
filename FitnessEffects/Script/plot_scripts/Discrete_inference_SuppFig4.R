@@ -10,7 +10,7 @@ library(dplyr)
 library(tidyr)
 library(patchwork)
 
-results <- read.csv("discrete_inferences_type2_200x8_SFS_diezmil.cvs")
+results <- read.csv("discrete_inference_200x8_SFS_diezmil.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 

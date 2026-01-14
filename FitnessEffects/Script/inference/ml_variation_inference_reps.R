@@ -1,8 +1,10 @@
 #R code. 
 #works! now make copies by sampling with replacement.50 copies.  
-set1_input <- "../../Data/trees/MatrixInputs/ConstantSize/set1/matrices/mil/"
+set1_input <- "../../Data/trees/MatrixInputs/ConstantSize/set1/matrices/cien/"
 #set1_input <- "../../Data/trees/MatrixInputs/new_likelihood_experiment/set1/source_trees/reps/"
 set2_input <- "../../Data/trees/MatrixInputs/ConstantSize/set2/matrices/"
+
+print(set1_input)
 
 task_id <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 task_id <- as.numeric(task_id) #taskid controls matrix dimension
@@ -18,11 +20,12 @@ matrix_list <- list()
 total_sites <- 19379845
 
 for (z in 1:50)  { #z handles repetition number
-  inference_matrix <- matrix(nrow=1, ncol=27)
-  for (a in (1:27))  { #Reads in every prob matrix (set2) #set2_200x100_prob_matrix_Sel1.csv
+  inference_matrix <- matrix(nrow=1, ncol=25)
+  for (a in (1:25))  { #Reads in every prob matrix (set2) #set2_200x100_prob_matrix_Sel1.csv
     prob_matrix <- read.csv(paste(prob_matrix_name, a, ".csv", sep=""))
+    prob_matrix <- prob_matrix[,-ncol(prob_matrix)] ##Erase last column cuz thats max time and doesnt matter
     set2_fixed_sites <- prob_matrix[nrow(prob_matrix), 1] #recovers number of fixed mutations which are place on last row.
-    set2_fixed_sites <- set2_fixed_sites / 10 #para mil entre 10 para cien entre 100
+    set2_fixed_sites <- set2_fixed_sites / 100 #para mil entre 10 para cien entre 100
     #print(set2_fixed_sites)
     set2_mutated_sites <- total_sites - set2_fixed_sites #recovers number of mutated sites
     #print(set2_mutated_sites)
@@ -32,9 +35,11 @@ for (z in 1:50)  { #z handles repetition number
     classic_inference_vector <- vector()
     inference_vector <- vector() #where each position is a selection coefficient. We initialize this at every new prob matrix read.
     prob_matrix <- prob_matrix[-nrow(prob_matrix), ] #Erase last row becuase it contains the total number of sites and not a probability.
-    for (b in (1:27)) {  #Reads in every count matrix (set1) 
+    for (b in (1:25)) {  #Reads in every count matrix (set1) 
       likelihoods <- vector() #initizalize likelihood values. 
       count_matrix <- read.csv(paste(count_matrix_name, b, "_rep", z, ".csv", sep=""))
+      count_matrix <- count_matrix[,- ncol(count_matrix)]
+      #erase last column
       #print(count_matrix)
       set1_fixed_sites <- count_matrix[nrow(count_matrix), 1] #grabs number of fixed sites. from first element of the last row.
       #print(set1_fixed_sites)
@@ -71,8 +76,8 @@ for (z in 1:50)  { #z handles repetition number
 #and after this one is done we have all likelihoods for all combinations
   inference_matrix <- inference_matrix[-1,]
   #classic_inference_matrix <- classic_inference_matrix[-1,]
-  row.names(inference_matrix) <- c(1:27)
-  colnames(inference_matrix) <- c(1:27)
+  row.names(inference_matrix) <- c(1:25)
+  colnames(inference_matrix) <- c(1:25)
   #write.csv(inference_matrix, paste(matrix_selection[task_id], "_discrete_inference_rep", z, ".csv", sep="")) #did not work
 #works, just needs to take out first row and first column
   matrix_list <- append(matrix_list, list(inference_matrix))
@@ -88,7 +93,7 @@ result_mat <- {
   do.call(rbind, lapply(matrix_list, rn_fun))
 }
 
-write.csv(result_mat, paste("/ConstantSize_discrete/discrete_inferences_", matrix_selection[task_id], "_mil.cvs", sep=""))
+write.csv(result_mat, paste("ConstantSize_discrete/discrete_inference_", matrix_selection[task_id], "_mil.csv", sep=""))
 
 #Idealy I execute this and get plots in a single execute. 
 #but first step is to test the results output alone. 

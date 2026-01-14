@@ -1,4 +1,7 @@
 ###Join Matrix repair and type2 to single script.
+#this only generates 200x8 matrix. Modify so to incorporate more
+#for tehta = 100 and (200x8, 20x8 and 6x8)
+#next for theta = 1000 1(200x8, 20x8 and 6x8),  2(200x40, 20x40 and 6x40), 3(200x100, 20x100 and 6x100)
 
 library(ape)
 # Get SLURM_ARRAY_TASK_ID from the environment and uses for selection specification
@@ -138,7 +141,7 @@ for (a in 1:50)  {
 #changed max value to 1
   min_value <- 0.000001
   max_value <- 1
-  length <- 8
+  length <- 100 #change for different discrete times
 
 #for 50 times
   sequence <- generate_geometric_sequence(min_value, max_value, length)
@@ -212,10 +215,84 @@ for (a in 1:50)  {
 
   #matriz_prob_invariables <- matriz_conteo_invariables / max_sitios
   #rownames(matriz_conteo_invariables) <- c(1:200) #this messes number of rows? 
-  write.csv(matriz_conteo_invariables_2, paste(out_path, "observed_200x8_count_matrix_Sel", sel, "_rep", a, ".csv", sep=""), row.names = FALSE)
+  write.csv(matriz_conteo_invariables_2, paste(out_path, "observed_200x100_count_matrix_Sel", sel, "_rep", a, ".csv", sep=""), row.names = FALSE)
+
+  #for 20 rows 
+  rows_per_part <- 10
+  n_rows_new <- ceiling(nrow(matriz_conteo) / rows_per_part)
+  matriz_conteo_rangos <- matrix(0, nrow = n_rows_new, ncol = ncol(matriz_conteo))
+
+  for (c in 1:ncol(matriz_conteo)) { # per column
+    suma <- 0
+    i <- 1
+    contador <- 0
+  
+    for (r in 1:nrow(matriz_conteo)) { # per row
+      contador <- contador + 1
+      suma <- suma + matriz_conteo[r, c]
+    
+      if (contador == rows_per_part) { # if counter met, store sum and reset
+        matriz_conteo_rangos[i, c] <- suma
+        suma <- 0
+        i <- i + 1
+        contador <- 0
+      }
+    }
+  
+    # Handle remainder rows after the loop
+    if (contador > 0) { # if there are leftover rows
+      matriz_conteo_rangos[i, c] <- suma
+    }
+  }
+
+  vector_1 <- vector()
+  for (i in 1:ncol(matriz_conteo))  {
+    vector_1[i] <- max_sitios - max_effective_sites #numero maximo de arboles siempre esta en esa coordenada
+  }
+
+  matriz_conteo_rangos <- rbind(matriz_conteo_rangos, vector_1) #Hasta aqui tengo matriz con num de sitios invariables. 
+  write.csv(matriz_conteo_rangos, paste(out_path, "observed_20x100_count_matrix_Sel", sel, "_rep", a, ".csv", sep=""), row.names = FALSE)
+
+  #for 6 rows 
+  rows_per_part <- 35
+  n_rows_new <- ceiling(nrow(matriz_conteo) / rows_per_part)
+  matriz_conteo_rangos <- matrix(0, nrow = n_rows_new, ncol = ncol(matriz_conteo))
+
+  for (c in 1:ncol(matriz_conteo)) { # per column
+    suma <- 0
+    i <- 1
+    contador <- 0
+  
+    for (r in 1:nrow(matriz_conteo)) { # per row
+      contador <- contador + 1
+      suma <- suma + matriz_conteo[r, c]
+    
+      if (contador == rows_per_part) { # if counter met, store sum and reset
+        matriz_conteo_rangos[i, c] <- suma
+        suma <- 0
+        i <- i + 1
+        contador <- 0
+      }
+    }
+  
+    # Handle remainder rows after the loop
+    if (contador > 0) { # if there are leftover rows
+      matriz_conteo_rangos[i, c] <- suma
+    }
+  }
+
+  vector_1 <- vector()
+  for (i in 1:ncol(matriz_conteo))  {
+    vector_1[i] <- max_sitios - max_effective_sites #numero maximo de arboles siempre esta en esa coordenada
+  }
+
+  matriz_conteo_rangos <- rbind(matriz_conteo_rangos, vector_1) #Hasta aqui tengo matriz con num de sitios invariables.
+  write.csv(matriz_conteo_rangos, paste(out_path, "observed_6x100_count_matrix_Sel", sel, "_rep", a, ".csv", sep=""), row.names = FALSE)
+
 }
 
 #intentemos un caso neutral y ya está. 
-
+#Para cambiar los tiempos, solo es en la funcion. 
+#Para cambiar los arreglos de frecuencia, tengo que duplicar algo
 
 

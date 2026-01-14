@@ -77,7 +77,7 @@ print("using selection seed" + str(sel_seed) + "that corresponds to selection co
 OutDir = "../Data/Output"
 AllelesFile = "../Data/Alleles_" + str(SGE_TASK_ID)  + ".txt" #This should be what I need
 TrajFile = "../Data/Traj_" + str(SGE_TASK_ID) + ".txt"
-DemHist = "YRI_MeanPosteriorDemography.txt"
+DemHist = "DemographyFile.txt" #Change
 
 #now just update paths in SGE script and we should be ready to start running tests.
 ParamsFile = f"params/fixed/ParamFile_{SGE_TASK_ID}.txt"

@@ -1,0 +1,35 @@
+sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
+
+A ver ese fue el codigo entonces... 
+Volver a correr todos los resultados con 8 tiempos. 7,8,9
+Volver a correr todos los resultados con.. 40 tiempos. 6,5,4
+
+sbatch -a 4-9 run_alt_discrete_inference.slurm
+
+Quizas simule con otra demografia? (factor de 2N)
+Quizas 
+
+Para las matrices
+Hacer matrices para todos los archivitos de arbol.
+esos los muestreo y asi creo 50 replicas super rapidas. 
+
+ok basicamente la cague en factor de 2n / n 
+Entonces realmente no estaba simulando tam constante. 
+Tambien puedo eficientizar matrices.
+Tengo que reaprar el bug + evitar que vuelva a suceder. 
+Como? Solo especificaré la demografia una sola vez. 
+
+Como soluciono la N. 
+Deberia leer el archivo demográfico y usar ese valor para la N ancestral. 
+
+Si creo que si es mejor en la salida de la demografia detectar desde ahi si es constante o no
+si es cosntante quitar la segunda fila
+y la nueva condiciona ca sería detectar una sola fila. 
+
+
+A ver pero lo de hacerlo desde antes... si usas el posterior calc es porque estas buscando la demografia clave. 
+Sino, es que tu la creaste. Si tu la creaste, la creas de una sola linea. 
+bum. solucionado. 
+
+ok ya hice los cambios. estod eberia de funcionar. solo debo hacer espacio para los nuevos arboles.
+luego hago  

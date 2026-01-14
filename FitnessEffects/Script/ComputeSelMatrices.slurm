@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=diezmil_matrices
-#SBATCH --output=log/diezmil_matrices1_%a.o
-#SBATCH --error=log/diezmil_matrices1_%a.e
+#SBATCH --job-name=set2_matrices_8
+#SBATCH --output=log/set2_matrices_8_%a.o
+#SBATCH --error=log/set2_matrices_8_%a.e
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -19,9 +19,9 @@ echo $(date +%T)
 
 #Rscript ComputeSelMatrices_NewExperiment.R
 #Rscript ComputeSelMatrices_NewExperiment_reps.R
-#Rscript ComputeProbMatrices.R #Computes prob matrices
+Rscript ComputeProbMatrices.R #Computes prob matrices
 #Rscript ComputeFullMatrices.R
-Rscript CountMatrices.R
+#Rscript CountMatrices.R
 
 echo "scrpit finished running at"
 echo $(date +%T)

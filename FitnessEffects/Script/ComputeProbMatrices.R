@@ -2,6 +2,7 @@
 #this produces set2 matrices with different dimensions. 
 #set2 matrices require a pseudocount and probability matrices. 
 #Now has joined singleton and ancestral row for case of 200 rows. 
+#for 40 times, change file names accordingly. 
 
 library(ape)
 
