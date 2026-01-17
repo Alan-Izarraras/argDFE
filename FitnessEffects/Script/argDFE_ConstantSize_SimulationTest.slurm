@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=ConstantSize_repair
-#SBATCH --output=log/repair_%a.o
-#SBATCH --error=log/repair_%a.e
+#SBATCH --job-name=simtrees
+#SBATCH --output=log/SimTrees_%a.o
+#SBATCH --error=log/SimTrees_%a.e
 #SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -18,12 +18,14 @@
 #5) Add capability to estiamte frequencies from different sample sizes. 
 #6) Modificar los tiempos, para que la distribucion contemple N + un ultimo tiempo final. 
 # sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
+# sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 1.29e-8 19379845 100
 ### Script starts 
 
 #Edit: did not work ask intended. my condition that checks cosntant size did not work. 
 #1) Change cosntantSize condition to test number of lines on demography file. 
 #2) Change demography file naming.
 #3) Read N_PAST_VALUE from demography --> no longer a cli parameter. 
+#changed tree names to "trees_"
 
 echo "scrpit started running at"
 echo $(date +%T)
@@ -76,7 +78,8 @@ ValorFrecuencia=1
 GSL_RNG_SEED=$RANDOM_SEED GSL_RNG_TYPE=mrg ../../PReFerSim-master/PReFerSim params/fixed/ParamFile_"$SLURM_ARRAY_TASK_ID".txt $SLURM_ARRAY_TASK_ID
 
 #Hago una carpeta de resultados exclusivo para demografía.
-NombreArbol="../Data/trees/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}".txt"
+#nuevo nombre del arbol?
+NombreArbol="../Data/trees/trees_"${SLURM_ARRAY_TASK_ID}".txt"
 rm $NombreArbol
 touch $NombreArbol
 
@@ -129,7 +132,7 @@ echo "Last pop size = "$LastPopSize
 #identify constant size or not.
 #if DemographyFile has 1 or 2 lines. 
 
-if [ "$(wc -l < "$filename")" -eq 1 ]; then
+if [ "$(wc -l < "DemographyFile.txt")" -eq 1 ]; then
     echo "DemographyFile has 1 line"
     echo "Constant demographic size"
 else   
@@ -181,16 +184,16 @@ cat $TrajsMsselLike | ../../Mssel/stepftn > $CurrentTrajs
 
 ###################################################### Step 3) Simulate trees based on the allele frequency trajectory
 
-NombreArbol="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_Sel"${ValorSeleccion}".txt"
-NombreArbolSub="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_${f}.txt"
-NombreIntermedio="yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_0"
+NombreArbol="trees_"${SLURM_ARRAY_TASK_ID}"_Sel"${ValorSeleccion}".txt"
+NombreArbolSub="trees_"${SLURM_ARRAY_TASK_ID}"_${f}.txt"
+NombreIntermedio="trees_"${SLURM_ARRAY_TASK_ID}"_0"
 rm ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
 rm ../Data/trees/$NombreArbol
 
 ThingsToPrint="$(( $DerivedAlleleNumber + 1))"
 
 #Mssel instructions. Case for cosntant and non-eq demographies (changes tbs file that informs time and N change)
-if [ "$(wc -l < "$filename")" -eq 1 ]; then
+if [ "$(wc -l < "DemographyFile.txt")" -eq 1 ]; then
     ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -seeds $RandomNumber $RandomNumber $RandomNumber -T | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
 else   
     ../../Mssel/mssel3 $ThingsToPrint $AlleleCount 1 $DerivedAlleleNumber $CurrentTrajs 1 -r 0.0 2 -t 0.0 -eN 0.0 1.0 -eN tbs tbs -seeds $RandomNumber $RandomNumber $RandomNumber -T < $RandFile | grep '(' >> ../Data/trees/Sel_"$ValorSeleccion"/$NombreArbolSub
@@ -199,7 +202,7 @@ fi
 echo $NombreArbolSub done
 done
 
-cat ../Data/trees/Sel_"$ValorSeleccion"/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_* > ../Data/trees/yri_trees_MeanPosterior_"${SLURM_ARRAY_TASK_ID}"_Sel"$ValorSeleccion".txt
+cat ../Data/trees/Sel_"$ValorSeleccion"/trees_"${SLURM_ARRAY_TASK_ID}"_* > ../Data/trees/trees_"${SLURM_ARRAY_TASK_ID}"_Sel"$ValorSeleccion".txt
 rm $RandFile
 
 ### Code for formating trees
@@ -223,7 +226,7 @@ cut -d "," -f 1 "$singleton_file" | cut -b 1-3 --complement | sed 's/$/ 0/' > ".
 #Esto lo está interpretando como guardarlo con el nombre "" y no en el directorio de ese nombre porque le falta la ruta...
 mv "../Data/trees/singleton/singletons_"$SLURM_ARRAY_TASK_ID"_Sel"$ValorSeleccion"_ready.txt" "../Data/trees/Sel_${ValorSeleccion}/"
 mv "../Data/trees/${NombreArbol}" "../Data/trees/Sel_${ValorSeleccion}/"
-rm ../Data/trees/yri_trees*
+rm ../Data/trees/trees*
 echo "Files moved successfully to Sel_${ValorSeleccion}"
 echo "Trees for selection value ${ValorSeleccion} done."
 #todo bien.

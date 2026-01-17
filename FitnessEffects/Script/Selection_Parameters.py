@@ -73,7 +73,7 @@ i = sel_seed
 print("using selection seed" + str(sel_seed) + "that corresponds to selection coeff" + str(Sel_coefs[i]))
 
 #This formats paramfiles. note that I changed their naming.
-#No named after SGE_TASK_ID.txt
+#No named after SGE_TASK_ID.txt#I
 OutDir = "../Data/Output"
 AllelesFile = "../Data/Alleles_" + str(SGE_TASK_ID)  + ".txt" #This should be what I need
 TrajFile = "../Data/Traj_" + str(SGE_TASK_ID) + ".txt"

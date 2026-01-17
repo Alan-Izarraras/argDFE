@@ -33,3 +33,37 @@ bum. solucionado.
 
 ok ya hice los cambios. estod eberia de funcionar. solo debo hacer espacio para los nuevos arboles.
 luego hago  
+
+A ver la comapracion es... correr las amtrices para 200 archivos arbol y singletones. 
+vs 
+Correr las matrices para 50 archivos grandes. 
+
+ah de hecho pudo usar otros archivos arbol para esto. 
+No lo veo... porque de esos 200 luego el truco es sumarlas para obtener los valores de teta deseados e inclusive las repeticiones. 
+Entonces cone sas 200 runs ya tienes las 50 repeticiones. 
+Lo que si es que entre mayor teta mas tardado... entonces... a pesar de que es la misma oepracion se tarda 10x o algo asi 
+Entonces quizas si sea mas razonable procesarlo por aparte. 
+Veamos. Con el set de datos anterior. 
+Inclusive si eso lo paralelizo, pero seria paralelizar del 1 al 200 o paralelizar del 1 al 27 para los valores de S? 
+Creo que del 1 al 27 queda mejor porque imagino que lo otro es muy rapido.
+tmb la cosa es que no escala linealmente. a mayor teta el algoritmo tarda considerablemente mas. Entonces aunque en numeros no sea
+la gran mejora, en tiempo yo creo que si. 
+
+Si esto funciona y es rapido, el siguiente paso es hacer el script de suma de matrices en R. Aparte de sumar las matrices deberia elegir 
+elegir al azar 100 o 10 para sumarlas y hacer esto 50 veces. Para asi obtener 50 replicas. 
+
+10:38 a 
+10:47 
+
+9min para 600 matrices. 
+
+pero son 1800...
+entonces... esperaria unos 30min. 
+
+para las 1800 matrices tardó 
+10:59 - 11:25 ... 26min. 
+
+hmmmm a simple ojo creo que si vale la pena hacer esto. 
+Entonces mandemos apra todso los valores del dataset real. 
+
+
