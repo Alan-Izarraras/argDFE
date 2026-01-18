@@ -17,6 +17,9 @@ step <- as.numeric(step)
 # Get SLURM_ARRAY_TASK_ID from the environment
 sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID")) 
 
+#detects empty singleton files to form empty matrices.
+missing_seeds=vector()
+
 #Path where input files can be found (singletons and trees)
 file_path <- paste0("../Data/trees/Sel_", sel, "/")
 #path where outputs (matrices) are to be placed
@@ -54,6 +57,17 @@ for (a in 1:200) {
     print("only singletons here, no trees")
   }
   
+  #Case in which there isnt even singletons for the simulation run
+  #this should skip to next value of a.
+  #then at the end I can make empty matrix with each of the missing seeds. 
+  
+  if (file.size(paste0(file_path, "singletons_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, "_ready.txt")) == 0) {
+    message("singleton File also missing → skipping this seed: ", a, "_",sel)
+    missing_seeds=append(missing_seeds, a)
+    next
+  }
+
+  #Caso que no hay singletones (no hay variacion genetica)
   singletones <- read.table(paste0(file_path, "singletons_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, "_ready.txt"), sep="", fill = TRUE)
   colnames(singletones) <- c(1,2)
 
@@ -274,4 +288,13 @@ for (a in 1:200) {
   matriz_conteo_rangos <- rbind(matriz_conteo_rangos, vector_1) #Hasta aqui tengo matriz con num de sitios invariables.
   write.csv(matriz_conteo_rangos, paste(out_path, "6x100_count_", sel, formatC(a, width = 3, flag = "0"), "_sel",sel, ".csv", sep=""), row.names = FALSE)
 
+}
+
+##Code for writting an empty matrix for the empty file seeds. (matrix with 0s and fixed values only).
+#algo asi. Also code for matrix sums based on random draws.
+print(missing_seeds)
+for (i in missing_seeds())  {
+  matriz = matrix(nrow=101, ncol=9)
+  matriz = matrix(nrow=21, ncol=9)
+  matriz = matrix(nrow=7, ncol=9)
 }

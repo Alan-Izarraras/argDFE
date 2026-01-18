@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=mini_Sel20
-#SBATCH --output=log/mini_matrix_Sel20.o
-#SBATCH --error=log/mini_matrix_Sel20.e
+#SBATCH --job-name=mini_Sel26
+#SBATCH --output=log/mini_matrix_Sel26.o
+#SBATCH --error=log/mini_matrix_Sel26.e
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -12,12 +12,12 @@
 
 module load r/4.2.1
 
-echo "scrpit started running at"
+echo "script started running at"
 echo $(date +%T)
 
 Rscript mini_CountMatrix_8t.R
 Rscript mini_CountMatrix_40t.R
 Rscript mini_CountMatrix_100t.R
 
-echo "scrpit finished running at"
+echo "script finished running at"
 echo $(date +%T)

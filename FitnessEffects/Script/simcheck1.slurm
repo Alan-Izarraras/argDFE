@@ -34,6 +34,9 @@ for seed in "${missing_seeds[@]}"; do
     echo "${seed}"
 done
 
+for s in {1..27}; do 
+  ls -l Sel_${s}/trees_${s}{001..300}_Sel${s}.txt | wc
+done
 #so here, this process has to be done like 2 or 3 times... would it be good to automate? 
 #this means directly running leftover sims. 
 
