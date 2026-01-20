@@ -114,7 +114,7 @@ generate_geometric_sequence <- function(min_value, max_value, length) {
 
 min_value <- 0.000001
 max_value <- 1
-length <- 8
+length <- 100
 
 #for 100 times 
 sequence <- generate_geometric_sequence(min_value, max_value, length)
@@ -190,7 +190,7 @@ matriz_prob_invariables_2 <- matriz_prob_invariables
 matriz_prob_invariables_2[i, ] <- matriz_prob_invariables[i, ] + matriz_prob_invariables[i+1, ]              
 matriz_prob_invariables_2 <- matriz_prob_invariables_2[- (i+1), ]
 
-write.csv(matriz_prob_invariables_2, paste(file_path, "set2_200x8_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+write.csv(matriz_prob_invariables_2, paste(file_path, "200x100_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
 
 print("esta suma debe dar 1 --> ")
 print(sum(matriz_prob_invariables[,1]))
@@ -236,7 +236,7 @@ matriz_prob_rangos <- matriz_conteo_rangos / max_effective_sites
 matriz_prob_rangos <- rbind(matriz_prob_rangos, vector_1)
 print(sum(matriz_prob_rangos[,1]))
 
-write.csv(matriz_prob_rangos, paste(file_path, "set2_20x8_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+write.csv(matriz_prob_rangos, paste(file_path, "20x100_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
   
 ####5 rows
 rows_per_part <- 35
@@ -281,7 +281,7 @@ matriz_prob_rangos <- matriz_conteo_rangos / max_effective_sites
 matriz_prob_rangos <- rbind(matriz_prob_rangos, vector_1) #This should print max number of mutations on last row. Count only. 
 #I need this info for computing total site probability. 
 
-write.csv(matriz_prob_rangos, paste(file_path, "set2_6x8_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
+write.csv(matriz_prob_rangos, paste(file_path, "6x100_prob_matrix_Sel", sel, ".csv", sep=""), row.names = FALSE)
 print(sum(matriz_prob_rangos[,2]))
 
 #probemos esto. Solo cambie fials extra a 200. 

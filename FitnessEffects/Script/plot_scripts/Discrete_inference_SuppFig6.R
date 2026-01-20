@@ -11,7 +11,7 @@ library(patchwork)
 
 results <- read.csv("discrete_inference_200x8_cien.csv")
 results <- results[,-1]
-colnames(results) <- c(1:26)
+colnames(results) <- c(1:27)
 
 matriz_maximos <- results %>%
     `rownames<-`(paste0("rep", 1:nrow(results))) %>% 
@@ -29,7 +29,7 @@ matriz_maximos <- results %>%
 
 xmin <- min(matriz_maximos$true_value, matriz_maximos$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_maximos$true_value, matriz_maximos$estimated_value, na.rm = TRUE)
-breaks <- c(1:26)
+breaks <- c(1:27)
 
 p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = 2) +
@@ -39,10 +39,10 @@ p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     #expression()
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,""),
+                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"", ""),
                        limits = c(min(breaks), max(breaks))) +
     scale_y_continuous(breaks = breaks,
-                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,""),
+                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"", ""),
                        limits = c(min(breaks), max(breaks))) +
     coord_equal() +
     theme(
@@ -55,9 +55,9 @@ p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
       )
 
 ###Plot2
-results <- read.csv("discrete_inference_200x8_SFS_cien.csv")
+results <- read.csv("discrete_inference_200x8_cien_SFS.csv")
 results <- results[,-1]
-colnames(results) <- c(1:26)
+colnames(results) <- c(1:27)
 
 matriz_maximos <- results %>%
     `rownames<-`(paste0("rep", 1:nrow(results))) %>% 
@@ -75,7 +75,7 @@ matriz_maximos <- results %>%
 
 xmin <- min(matriz_maximos$true_value, matriz_maximos$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_maximos$true_value, matriz_maximos$estimated_value, na.rm = TRUE)
-breaks <- c(1:26)
+breaks <- c(1:27)
 
 p2 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = 3) +
@@ -85,10 +85,10 @@ p2 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     #expression()
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,""),
+                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
                        limits = c(min(breaks), max(breaks))) +
     scale_y_continuous(breaks = breaks,
-                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,""),
+                       labels = c(0,"","","",0.01,"","","",0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
                        limits = c(min(breaks), max(breaks))) +
     coord_equal() +
     theme(
@@ -100,7 +100,7 @@ p2 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
         plot.margin = margin(3, 5, 3, 5)  # top, right, bottom, left (in mm)
       )
 
-combined <- (p1 | p2) + 
+combined <- (p1 | p2) + x
   plot_annotation(
     title = expression(theta == 100),
     theme = theme(plot.title = element_text(size = 22, 

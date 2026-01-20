@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=set2_matrices_8
-#SBATCH --output=log/set2_matrices_8_%a.o
-#SBATCH --error=log/set2_matrices_8_%a.e
+#SBATCH --job-name=set2_matrices_100t
+#SBATCH --output=log/set2_matrices_100t_%a.o
+#SBATCH --error=log/set2_matrices_100t_%a.e
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
