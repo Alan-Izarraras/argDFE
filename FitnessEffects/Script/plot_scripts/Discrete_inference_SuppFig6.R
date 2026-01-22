@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyr)
 library(patchwork)
 
-results <- read.csv("discrete_inference_200x8_cien.csv")
+results <- read.csv("../inference/ConstantSize/discrete_inference_200x8_cien.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
@@ -55,7 +55,7 @@ p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
       )
 
 ###Plot2
-results <- read.csv("discrete_inference_200x8_cien_SFS.csv")
+results <- read.csv("../inference/ConstantSize/discrete_inference_200x8_cien_SFS.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
