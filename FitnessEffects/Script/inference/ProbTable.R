@@ -10,7 +10,7 @@ vector2Ns_inf <- c(-0.001333521,0.001333521,0.002371374,0.004216965,0.007498942,
 
 Valores_length <- 27 
 Valores_2Ns <- c(0, 10^seq(-2.75, 3.75, by = 0.25)) #10**2.75 by 0.25
-
+#Esto genera el intervalo menor? 
 #generar el intervalo 
 
 Table <- matrix(ncol=28,nrow=0)  #Limite minimo, valores 2Ns, limite maximo

@@ -1,3 +1,5 @@
+#Esto genera matrices DFE para cada combinacion Alfa/gamma de la Tabla de Probabilidades. 
+#
 
 Table <- read.csv("Table_of_probabilities.csv", sep=",")
 Table <- Table[,-1]
@@ -26,3 +28,5 @@ for (r in 1:nrow(Table))  {
   #Recuerdo que inteté formas más eficientes de hacer esto de arriba y no lo logré entonces lo dejé así.
   write.csv(matriz_gamma_suma, paste("distribution_dump/matriz_gamma_", r, ".csv", sep="")) #Genero una matriz de probabilidad por dist gamma
 }
+
+#Cada matriz de probabilidad La multiplico por los pesos 

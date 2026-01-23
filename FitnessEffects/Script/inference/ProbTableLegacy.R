@@ -7,7 +7,7 @@ RunsPlusTwo = Runs + 3
 #### These two lists define the grid of the alpha and gamma parameters
 AlphaGrid <- 0.02*1:10
 GammaGrid <- 2*1:10
-
+#
 TwoNsValues <- 0:Runs * 5 + 2.5
 
 Table <- matrix(ncol=RunsPlusTwo,nrow=0)
@@ -28,10 +28,9 @@ for (j in AlphaGrid){
 				Probability <- ( 1 - pgamma(i-5,j,1/k) ) #por que 5????
 				Row <- c(Row,Probability)
 			}else{
-				Probability <-(pgamma(i,j,1/k) - pgamma(i-5,j,1/k))
+				Probability <-(pgamma(i,j,1/k) - pgamma(i-5,j,1/k)) #segundo parentesis busca el valor anterior.
 				Row <- c(Row,Probability)
-			}
-			
+			}	
 		}
 		Table <- rbind(Table,Row)
 #print (Probability)
