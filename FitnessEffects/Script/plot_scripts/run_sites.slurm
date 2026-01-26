@@ -12,5 +12,5 @@ module load r/4.2.1
 
 #Rscript Segregating_mutations_set1.R
 #Rscript singleton_script.R
-#Rscript Segregating_mutations_per_gamma_set2_plot.R
-Rscript Seg_sites_gamma_set1.R
+Rscript Segregating_mutations_per_gamma_set2_plot.R
+#Rscript Seg_sites_gamma_set1.R

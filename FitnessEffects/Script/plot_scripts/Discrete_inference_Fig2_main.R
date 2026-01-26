@@ -28,27 +28,27 @@ matriz_maximos <- results %>%
     )
 
 #subset matriz_maximos for desired values. --> c("1", "5", "9", "13", "17", "21", "25")
-matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] 
-
+#matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] #7 valores de 0 a 1000
+matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("5", "9", "13", "17", "21", "25"), ]
 xmin <- min(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 
 #by_step <- 1
 #breaks <- seq(from = floor(xmin), to = ceiling(xmax), by = by_step)
-breaks <- c(1,5,9,13,17,21,25)
+breaks <- c(9,13,17,21,25)
 
 p1 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
-    geom_count(alpha = 0.5, color = 7) +
-    scale_size_area(max_size = 6) +
+    geom_count(alpha = 0.5, color = 1) +
+    scale_size_area(max_size = 8) +
     labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = "A) K = 8 different time points") +
     #expression()
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0,0.01,0.1,1,10,100,1000),
+                       labels = c(0.1,1,10,100,1000),
                        limits = c(min(breaks), max(breaks))) +
     
     scale_y_continuous(breaks = breaks,
-                       labels = c(0,0.01,0.1,1,10,100,1000),
+                       labels = c(0.1,1,10,100,1000),
                        limits = c(min(breaks), max(breaks))) +
     
     #labs(title = "A) R = 35, K = 8 different time points") +
@@ -84,25 +84,26 @@ matriz_maximos <- results %>%
     )
 
 #subset matriz_maximos for desired values. --> c("1", "5", "9", "13", "17", "21", "25")
-matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] 
+#matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] 
+matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("5", "9", "13", "17", "21", "25"), ]
 
 xmin <- min(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 
 #by_step <- 1
 #breaks <- seq(from = floor(xmin), to = ceiling(xmax), by = by_step)
-breaks <- c(1,5,9,13,17,21,25)
+breaks <- c(9,13,17,21,25)
 
 p2 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = 1) +
-    scale_size_area(max_size = 6) +
+    scale_size_area(max_size = 8) +
     labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = "B) K = 1 different time points") +
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0,0.01,0.1,1,10,100,1000),
+                       labels = c(0.1,1,10,100,1000),
                        limits = c(min(breaks), max(breaks))) +
     scale_y_continuous(breaks = breaks,
-                       labels = c(0,0.01,0.1,1,10,100,1000),
+                       labels = c(0.1,1,10,100,1000),
                        limits = c(min(breaks), max(breaks))) +
     
     coord_equal() +

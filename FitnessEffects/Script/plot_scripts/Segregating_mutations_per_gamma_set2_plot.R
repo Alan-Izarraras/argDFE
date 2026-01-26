@@ -11,26 +11,32 @@ for (a in 1:27)  {
   sites_vector[a] <- l - sites
 }
 
-#Sites from first experiment.
-print("Sites from the old experiment")
-segregantes <- c(58898, 58336, 58214, 58202, 58309, 58123, 57848, 57851,57690, 56597, 55468, 53430, 48985, 43578, 36643, 30328, 24116, 19002, 14357, 10120,  6950,4279,2595,1508,759,506,314)
-print(segregantes)
-print("Sites from the recent experiment")
-print(sites_vector)
-
 gamma <- c(seq(1:27))
 
 pdf("segregating_sites_per_gamma.pdf", width = 8, height = 6) 
 
-plot(gamma, sites_vector,
-     type = "b",               # both points and lines
-     pch = 19, col = "steelblue", lwd = 1.5,
-     xlab = "Index / γ level", ylab = "Number of segregating sites",
-     main = "Segregating Sites: Old vs New",
-     xaxt = "n",               # hide default x-axis if you want custom labels
-     ylim = range(c(sites_old, sites_new)) * c(0.95, 1.05))  # nice y-range
+tick_indices <- c(1, 5, 9, 13, 17, 21, 25)
+# Get the corresponding gamma values to use as tick positions and labels
+tick_positions <- gamma[tick_indices]
+tick_labels    <- c("0", "0.01", "0.1", "1", "10", "100", "1000")
 
-#points(gamma, segregantes, type = "b", pch = 17, col = "tomato", lwd = 1.5)
+plot(gamma, sites_vector,
+     type   = "p",                    # both points and lines
+     pch    = 19,
+     col    = "steelblue",
+     lwd    = 1.5,
+     xlab   = expression(gamma ~ "values"),
+     ylab   = "Number of segregating sites",
+     main   = "Segregating sites",
+     xaxt   = "n",                    # hide automatic x-axis
+     ylim   = range(sites_vector) * c(0.95, 1.05))   # ← closing ) here
+
+# Now the custom axis (separate call)
+axis(side = 1,
+     at    = tick_positions,
+     labels = tick_labels,
+     las   = 1,
+     cex.axis = 0.9)
 
 #legend("topright", legend = c("Old", "New"),
        #col = c("steelblue", "tomato"), pch = c(19, 17),
