@@ -1,4 +1,4 @@
-#multi experiment rmse para figura S6 (T = 1,8 theta = 100)
+#multi experiment rmse para figura S6 (T = 1,8 theta = 1,000)
 #Hacer para... S6, S5, S4, S3, S1 
 
 library(tidyverse)
@@ -6,8 +6,8 @@ library(tidyverse)
 ###Read in data.
 experiment_files <- tribble(
   ~experiment,           ~path,
-  "8_times",  "discrete_inference_200x8_cien.csv",
-  "1_time",          "discrete_inference_200x8_cien_SFS.csv",
+  "8_times",  "discrete_inference_200x8_mil.csv",
+  "1_time",          "discrete_inference_200x8_mil_SFS.csv",
   # add more rows as needed
 )
 
@@ -48,7 +48,7 @@ log_rmse_df <- all_data |>
 
 ###plot 
 # Facet version – very clean when you have 3–8 experiments
-ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experiment)) +
+p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experiment)) +
   geom_line(aes(color = experiment), linewidth = 1.1) +
   geom_point(aes(color = experiment), size = 2.5) +
   scale_color_brewer(palette = "Dark2") +
@@ -56,7 +56,7 @@ ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experime
   # This ensures every integer label appears
   scale_x_discrete(name = "True label", breaks = 1:27, labels = 1:27) +
   
-  labs(y = "label-RMSE", title = expression("label-RMSE" ~ (theta == 100))) +
+  labs(y = "label-RMSE", title = expression("label-RMSE" ~ (theta == 1000))) +
   theme_grey(base_size = 13) +
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 8.5),
@@ -64,4 +64,7 @@ ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experime
     panel.grid.minor = element_blank()
   )
 
-  
+  ggsave("figure_S5_rmse.pdf", 
+       plot = p1, 
+       width = 9, height = 5,   # Wider for 2x2
+       dpi = 300)

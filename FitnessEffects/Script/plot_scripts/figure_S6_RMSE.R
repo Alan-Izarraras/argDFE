@@ -48,7 +48,7 @@ log_rmse_df <- all_data |>
 
 ###plot 
 # Facet version – very clean when you have 3–8 experiments
-ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experiment)) +
+p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experiment)) +
   geom_line(aes(color = experiment), linewidth = 1.1) +
   geom_point(aes(color = experiment), size = 2.5) +
   scale_color_brewer(palette = "Dark2") +
@@ -64,4 +64,7 @@ ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experime
     panel.grid.minor = element_blank()
   )
 
-  
+  ggsave("figure_S6_rmse.pdf", 
+       plot = p1, 
+       width = 9, height = 5,   # Wider for 2x2
+       dpi = 300)

@@ -1,3 +1,13 @@
+#This works for a single dataset. 
+#Pending:
+#1) Verify the case of 0.0 --> currently ignores 0.0
+#ok lo que tengo que hacer es en la grafica agregar el raw rmse solo para 0. para todo lo demas muestro el log. 
+#hmmm not comparable at all. maybe i just do label rmse for 0-case.and add it as a side plot?
+#so run these for 26 values, then add a single plot for 0 label based. 
+#2) Add multiple datasets
+#3) tweak plot aesthetics
+
+
 library(tibble)
 library(ggplot2)
 library(dplyr)
@@ -43,7 +53,7 @@ matriz_maximos <- results %>%
 # ────────────────────────────────────────────────────────────────
 
 log_rmse_df <- matriz_maximos %>%
-  filter(true_value > 0) %>%   # exclude true = 0 (log undefined)
+  #filter(true_value > 0) %>%   # exclude true = 0 (log undefined)
   group_by(true_label, true_value) %>%
   summarise(
     # log10 RMSE — the main quantity
@@ -54,6 +64,7 @@ log_rmse_df <- matriz_maximos %>%
     median_log_error = median(estimated_log10 - true_log10, na.rm = TRUE),
     rmse_raw         = sqrt(mean((estimated_value - true_value)^2, na.rm = TRUE)),  # for comparison
     rel_RMSE         = mean(abs(estimated_value - true_value) / true_value, na.rm = TRUE),
+    label_RMSE       = sqrt(mean((estimated_label - true_label)^2, na.rm = TRUE)),
     prop_factor_2    = mean(estimated_value / true_value >= 0.5 & estimated_value / true_value <= 2, na.rm = TRUE),
     prop_factor_10   = mean(estimated_value / true_value >= 0.1 & estimated_value / true_value <= 10, na.rm = TRUE),
     n                = n(),
@@ -67,21 +78,20 @@ log_rmse_df <- matriz_maximos %>%
 # ────────────────────────────────────────────────────────────────
 
 p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_RMSE)) +
-  geom_col(fill = "darkorchid", alpha = 0.85, color = "black", width = 0.75) +
-  geom_point(aes(y = abs(mean_log_error)), color = "gold2", size = 3, shape = 18) +
-  
-  geom_hline(yintercept = 0.3, linetype = "dashed", color = "grey50", linewidth = 0.9) +
-  geom_hline(yintercept = 1.0, linetype = "dotted", color = "grey60", linewidth = 0.8) +
-  
-  annotate("text", x = Inf, y = 0.35, label = "≈ factor 2", hjust = 1.1, size = 3.4, color = "grey30") +
-  annotate("text", x = Inf, y = 1.05, label = "≈ factor 10", hjust = 1.1, size = 3.4, color = "grey30") +
+  geom_line(color = "darkorchid", linewidth = 1.1, group = 1) +          # connects the points with a line
+  geom_point(size = 1.5, color = "darkorchid", shape = 21, fill = "darkorchid", stroke = 1.5) +
+
+  #geom_hline(yintercept = 0.3, linetype = "dashed", color = "grey50", linewidth = 0.9) +
+  #geom_hline(yintercept = 1.0, linetype = "dotted", color = "grey60", linewidth = 0.8) +
+  #annotate("text", x = Inf, y = 0.35, label = "≈ factor 2", hjust = 1.1, size = 3.4, color = "grey30") +
+  #annotate("text", x = Inf, y = 1.05, label = "≈ factor 10", hjust = 1.1, size = 3.4, color = "grey30") +
   
   labs(
-    x     = "True label (1 = 0.0 | 2–27 = 10⁻².⁷⁵ → ≈10³.⁵)",
-    y     = "log₁₀ RMSE\n(RMSE on log₁₀(parameter scale))",
-    title = "log-RMSE across the discrete parameter grid",
-    subtitle = "Gold diamonds = mean signed log error (bias). Lower = better."
+    x     = expression("labeled values of" ~gamma), 
+    y     = expression("log"[10] ~ "RMSE" ~ ("parameter scale")),
+    title = expression("log-RMSE across" ~ gamma ~ "values")
   ) +
+
   theme_minimal(base_size = 13) +
   theme(
     axis.text.x      = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 9),
@@ -89,21 +99,26 @@ p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_RMSE)) +
     panel.grid.minor   = element_blank()
   )
 
-# Alternative x = true_value (log scale)
-p_logrmse_logx <- ggplot(log_rmse_df, aes(x = true_value, y = log_RMSE)) +
-  geom_point(size = 2.8, shape = 21, fill = "darkorchid", color = "black") +
-  geom_line(linewidth = 1.1, color = "darkorchid") +
-  scale_x_log10(
-    breaks = 10^(-3:4),
-    labels = scales::label_math(10^.x)
-  ) +
-  annotation_logticks(sides = "b") +
+###Add single label-RMSE barplot for 0
+zero_df <- log_rmse_df %>%
+  filter(true_label == 1)   # or true_label_f == "1", or true_value == 0
+
+p_zero <- ggplot(zero_df, aes(x = true_label_f, y = label_RMSE)) +
+  geom_point(size = 1.5, color = "darkorchid", shape = 21, fill = "darkorchid", stroke = 1.5) +
+
   labs(
-    x     = expression("True value" ~ (gamma ~ "or" ~ theta)),
-    y     = "log₁₀ RMSE",
-    title = "log-RMSE vs true parameter value"
+  x        = expression(gamma),
+  y        = "label-RMSE",
+  title    = expression(gamma == 0),
   ) +
-  theme_minimal(base_size = 13)
+  
+  theme_minimal(base_size = 13) +
+  theme(
+    axis.text.x = element_text(size = 12, face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank()
+  )
+
 
 # Show both views
 p_logrmse | p_logrmse_logx
