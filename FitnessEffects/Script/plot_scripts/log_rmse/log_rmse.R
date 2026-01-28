@@ -1,13 +1,8 @@
 #This works for a single dataset. 
 #Pending:
-#1) Verify the case of 0.0 --> currently ignores 0.0
-#ok lo que tengo que hacer es en la grafica agregar el raw rmse solo para 0. para todo lo demas muestro el log. 
-#hmmm not comparable at all. maybe i just do label rmse for 0-case.and add it as a side plot?
-#so run these for 26 values, then add a single plot for 0 label based. 
-#2) Add multiple datasets
-#3) tweak plot aesthetics
-
-
+#1) Solo mostrar 3 digitos en los ticks del eje x.
+#2) Hacer una version de esto para los multiples experimentos. 
+#
 library(tibble)
 library(ggplot2)
 library(dplyr)
@@ -63,6 +58,7 @@ log_rmse_df <- matriz_maximos %>%
     mean_log_error   = mean(estimated_log10 - true_log10, na.rm = TRUE),  # bias on log scale
     median_log_error = median(estimated_log10 - true_log10, na.rm = TRUE),
     rmse_raw         = sqrt(mean((estimated_value - true_value)^2, na.rm = TRUE)),  # for comparison
+    log_raw_rmse     = log10(rmse_raw),
     rel_RMSE         = mean(abs(estimated_value - true_value) / true_value, na.rm = TRUE),
     label_RMSE       = sqrt(mean((estimated_label - true_label)^2, na.rm = TRUE)),
     prop_factor_2    = mean(estimated_value / true_value >= 0.5 & estimated_value / true_value <= 2, na.rm = TRUE),
@@ -73,58 +69,44 @@ log_rmse_df <- matriz_maximos %>%
   ) %>%
   mutate(true_label_f = factor(true_label, levels = 1:27))
 
+#makes -inf into -3, this category corresponds to no error. 
+log_rmse_df$log_raw_rmse[is.infinite(log_rmse_df$log_raw_rmse)] <- -3
+
 # ────────────────────────────────────────────────────────────────
 # Plot: log-RMSE vs true label / true value
 # ────────────────────────────────────────────────────────────────
+new_labels <- log_rmse_df$true_value
+new_labels <- as.numeric(sprintf("%.3g", new_labels))
+new_labels <- format(round(new_labels, digits = 3), scientific = FALSE)
 
-p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_RMSE)) +
+p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_raw_rmse)) +
   geom_line(color = "darkorchid", linewidth = 1.1, group = 1) +          # connects the points with a line
   geom_point(size = 1.5, color = "darkorchid", shape = 21, fill = "darkorchid", stroke = 1.5) +
+  geom_hline(yintercept = -2.1, linetype = "dashed", color = "grey50", linewidth = 0.9) +
+  #esto pasarlo a un tick del eje Y
+  #annotate("text", x = Inf, y = -1.8, label = "RMSE=0", hjust = 4, size = 3.4, color = "grey30") +
 
-  #geom_hline(yintercept = 0.3, linetype = "dashed", color = "grey50", linewidth = 0.9) +
-  #geom_hline(yintercept = 1.0, linetype = "dotted", color = "grey60", linewidth = 0.8) +
-  #annotate("text", x = Inf, y = 0.35, label = "≈ factor 2", hjust = 1.1, size = 3.4, color = "grey30") +
-  #annotate("text", x = Inf, y = 1.05, label = "≈ factor 10", hjust = 1.1, size = 3.4, color = "grey30") +
-  
-  labs(
-    x     = expression("labeled values of" ~gamma), 
-    y     = expression("log"[10] ~ "RMSE" ~ ("parameter scale")),
-    title = expression("log-RMSE across" ~ gamma ~ "values")
+  scale_x_discrete(labels = new_labels) + 
+
+  scale_y_continuous(
+    limits = c(-3.1, 3.1),           # exact range
+    expand = c(0, 0),            # remove the small padding ggplot adds by default
+    breaks = seq(-3, 3, by = 1),  # optional: force nice breaks
+    labels = c("RMSE=0", "-2", "-1", "0", "1", "2", "3")
   ) +
 
-  theme_minimal(base_size = 13) +
+  labs(
+    x     = expression(gamma ~ "values"), 
+    y     = expression("log"[10] ~ "(RMSE)"),
+    title = expression("log"[10] ~ "(RMSE) across" ~ gamma ~ "values")
+  ) +
+
+  theme_grey(base_size = 13) +
   theme(
-    axis.text.x      = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 9),
+    axis.text.x      = element_text(angle = 45, hjust = 1, size = 9),
     panel.grid.major.x = element_blank(),
     panel.grid.minor   = element_blank()
   )
 
-###Add single label-RMSE barplot for 0
-zero_df <- log_rmse_df %>%
-  filter(true_label == 1)   # or true_label_f == "1", or true_value == 0
+  ggsave("figure_S1_rmse.pdf", plot = p_logrmse, width = 9, height = 5, dpi = 300)
 
-p_zero <- ggplot(zero_df, aes(x = true_label_f, y = label_RMSE)) +
-  geom_point(size = 1.5, color = "darkorchid", shape = 21, fill = "darkorchid", stroke = 1.5) +
-
-  labs(
-  x        = expression(gamma),
-  y        = "label-RMSE",
-  title    = expression(gamma == 0),
-  ) +
-  
-  theme_minimal(base_size = 13) +
-  theme(
-    axis.text.x = element_text(size = 12, face = "bold"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor   = element_blank()
-  )
-
-
-# Show both views
-p_logrmse | p_logrmse_logx
-
-# Quick numerical summary – sorted by log-RMSE
-log_rmse_df %>%
-  arrange(log_RMSE) %>%
-  select(true_label, true_value, log_RMSE, mean_log_error, rel_RMSE, prop_factor_2, prop_factor_10, n) %>%
-  print(n = 10)

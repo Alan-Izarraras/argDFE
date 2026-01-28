@@ -6,11 +6,9 @@ library(tidyverse)
 ###Read in data.
 experiment_files <- tribble(
   ~experiment,           ~path,
-  "100_times",  "discrete_inference_200x100_diezmil.csv",
-  "40_times",          "discrete_inference_200x40_diezmil.csv",
-  "8_times",          "discrete_inference_200x8_diezmil.csv",
-  "1_times",    "discrete_inference_200x8_diezmil_SFS.csv"
-  # add more rows as needed
+  "35_F",  "discrete_inference_200x100_diezmil.csv",
+  "10_F",          "discrete_inference_200x40_diezmil.csv",
+  "1_F",          "discrete_inference_200x8_diezmil.csv",
 )
 
 param_values = c(0.0, 10 ^ seq(from = -2.75, to = 3.5, length.out = 26))
@@ -58,7 +56,7 @@ p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = ex
   # This ensures every integer label appears
   scale_x_discrete(name = "True label", breaks = 1:27, labels = 1:27) +
   
-  labs(y = "label-RMSE", title = expression("label-RMSE on different times" ~ (theta == 1000))) +
+  labs(y = "label-RMSE", title = expression("label-RMSE on different F" ~ (theta == 10,000))) +
   theme_grey(base_size = 13) +
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 8.5),
@@ -66,7 +64,7 @@ p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = ex
     panel.grid.minor = element_blank()
   )
 
-  ggsave("figure_S4_rmse.pdf", 
+  ggsave("figure_S3_rmse.pdf", 
        plot = p1, 
        width = 9, height = 5,   # Wider for 2x2
        dpi = 300)
