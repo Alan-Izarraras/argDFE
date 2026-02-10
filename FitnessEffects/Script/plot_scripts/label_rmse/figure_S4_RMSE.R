@@ -1,5 +1,6 @@
 #multi experiment rmse para figura S4 (T = 100, 40, 8; theta = 1,000)
 #Hacer para... S6, S5, S4, S3, S1 
+#change solid lines to dashed or make more transparent.
 
 library(tidyverse)
 
@@ -48,8 +49,10 @@ log_rmse_df <- all_data |>
 
 ###plot 
 # Facet version – very clean when you have 3–8 experiments
+
+
 p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = label_RMSE, group = experiment)) +
-  geom_line(aes(color = experiment), linewidth = 1.1) +
+  geom_line(aes(color = experiment, linetype = experiment), linewidth = 1.1, alpha 0.6) +
   geom_point(aes(color = experiment), size = 2.5) +
   scale_color_brewer(palette = "Dark2") +
   

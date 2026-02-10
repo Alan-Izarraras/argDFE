@@ -75,14 +75,15 @@ log_rmse_df$log_raw_rmse[is.infinite(log_rmse_df$log_raw_rmse)] <- -3
 # ────────────────────────────────────────────────────────────────
 # Plot: log-RMSE vs true label / true value
 # ────────────────────────────────────────────────────────────────
+
 new_labels <- log_rmse_df$true_value
 new_labels <- as.numeric(sprintf("%.3g", new_labels))
-new_labels <- format(round(new_labels, digits = 3), scientific = FALSE)
+options(scipen = 0)
 
-p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_raw_rmse)) +
-  geom_line(color = "darkorchid", linewidth = 1.1, group = 1) +          # connects the points with a line
-  geom_point(size = 1.5, color = "darkorchid", shape = 21, fill = "darkorchid", stroke = 1.5) +
-  geom_hline(yintercept = -2.1, linetype = "dashed", color = "grey50", linewidth = 0.9) +
+p2 <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_raw_rmse)) +
+  geom_line(color = 1, linewidth = 1.1, group = 1) +          # connects the points with a line
+  geom_point(size = 1.5, color = 1, shape = 21, fill = 1, stroke = 1.5) +
+  #geom_hline(yintercept = -2.1, linetype = "dashed", color = "grey50", linewidth = 0.9) +
   #esto pasarlo a un tick del eje Y
   #annotate("text", x = Inf, y = -1.8, label = "RMSE=0", hjust = 4, size = 3.4, color = "grey30") +
 
@@ -98,15 +99,20 @@ p_logrmse <- ggplot(log_rmse_df, aes(x = true_label_f, y = log_raw_rmse)) +
   labs(
     x     = expression(gamma ~ "values"), 
     y     = expression("log"[10] ~ "(RMSE)"),
-    title = expression("log"[10] ~ "(RMSE) across" ~ gamma ~ "values")
+    title = expression("B) log"[10] ~ "(RMSE) across" ~ gamma ~ "values")
   ) +
 
-  theme_grey(base_size = 13) +
   theme(
-    axis.text.x      = element_text(angle = 45, hjust = 1, size = 9),
+    #plot.title = element_text(size = 22),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 16),
+    axis.title = element_text(size = 20),
     panel.grid.major.x = element_blank(),
-    panel.grid.minor   = element_blank()
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(size = 22),
+    plot.margin = margin(1, 1, 1, 1)
   )
 
-  ggsave("figure_S1_rmse.pdf", plot = p_logrmse, width = 9, height = 5, dpi = 300)
+
+  ggsave("figure_S1.pdf", plot = p_logrmse, width = 9, height = 5, dpi = 300)
 

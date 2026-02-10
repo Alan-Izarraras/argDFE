@@ -44,17 +44,17 @@ log_rmse_df <- all_data |>
     n               = n(),
     .groups         = "drop"
   )
-
+barra <- min(log_rmse_df$log_raw_rmse[is.finite(log_rmse_df$log_raw_rmse)])
 log_rmse_df$log_raw_rmse[is.infinite(log_rmse_df$log_raw_rmse)] <- -3
 
 new_labels <- log_rmse_df$true_value
 new_labels <- as.numeric(sprintf("%.3g", new_labels))
-new_labels <- format(round(new_labels, digits = 3), scientific = FALSE)
+options(scipen = 0)
 
 p1 <- ggplot(log_rmse_df, aes(x = factor(true_label), y = log_raw_rmse, group = experiment)) +
-  geom_line(aes(color = experiment), linewidth = 1.1) +
-  geom_point(aes(color = experiment), size = 2.5) +
-  geom_hline(yintercept = -2.26, linetype = "dashed", color = "grey50", linewidth = 0.9) +
+  geom_line(aes(color = experiment), linewidth = 1.1, alpha = 0.7) +
+  geom_point(aes(color = experiment), pch = 15, size = 2.5, alpha = 0.7) +
+  geom_hline(yintercept = barra, linetype = "dashed", color = "grey50", linewidth = 0.9) +
   scale_color_brewer(palette = "Dark2") +  
   # This ensures every integer label appears
   scale_x_discrete(labels = new_labels) +

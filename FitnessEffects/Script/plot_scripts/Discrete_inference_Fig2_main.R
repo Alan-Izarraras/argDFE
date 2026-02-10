@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyr)
 library(patchwork)
 
-results <- read.csv("../inference/ConstantSize/discrete_inference_200x8_diezmil.csv")
+results <- read.csv("discrete_inference_200x8_diezmil.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
@@ -27,15 +27,13 @@ matriz_maximos <- results %>%
         rep = factor(rep, levels = paste0("rep", 1:10))
     )
 
-#subset matriz_maximos for desired values. --> c("1", "5", "9", "13", "17", "21", "25")
-#matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] #7 valores de 0 a 1000
-matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("5", "9", "13", "17", "21", "25"), ]
+matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% 5:27, ]
+#a partir del 5 al 27. 
 xmin <- min(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 
-#by_step <- 1
-#breaks <- seq(from = floor(xmin), to = ceiling(xmax), by = by_step)
-breaks <- c(9,13,17,21,25)
+breaks <- 9:27
+breaks_y <- 1:27
 
 p1 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = 1) +
@@ -44,12 +42,12 @@ p1 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
     #expression()
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0.1,1,10,100,1000),
+                       labels = c(0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
                        limits = c(min(breaks), max(breaks))) +
     
-    scale_y_continuous(breaks = breaks,
-                       labels = c(0.1,1,10,100,1000),
-                       limits = c(min(breaks), max(breaks))) +
+    scale_y_continuous(breaks = breaks_y,
+                       labels = c(0.0, "", "", "", 0.01, "", "", "", 0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
+                       limits = c(min(breaks_y), max(breaks_y))) +
     
     #labs(title = "A) R = 35, K = 8 different time points") +
     # Optional: make the plot square so 1 unit = 1 unit
@@ -65,7 +63,7 @@ p1 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
       )
 
 ###Second plot
-results <- read.csv("../inference/ConstantSize/discrete_inference_200x8_SFS_diezmil.csv")
+results <- read.csv("discrete_inference_200x8_diezmil_SFS.csv")
 results <- results[,-1]
 colnames(results) <- c(1:27)
 
@@ -83,16 +81,14 @@ matriz_maximos <- results %>%
         rep = factor(rep, levels = paste0("rep", 1:10))
     )
 
-#subset matriz_maximos for desired values. --> c("1", "5", "9", "13", "17", "21", "25")
-#matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("1", "5", "9", "13", "17", "21", "25"), ] 
-matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% c("5", "9", "13", "17", "21", "25"), ]
-
+matriz_subset <- matriz_maximos[matriz_maximos[[2]] %in% 5:27, ]
 xmin <- min(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 xmax <- max(matriz_subset$true_value, matriz_subset$estimated_value, na.rm = TRUE)
 
 #by_step <- 1
 #breaks <- seq(from = floor(xmin), to = ceiling(xmax), by = by_step)
-breaks <- c(9,13,17,21,25)
+breaks <- 9:27
+breaks_y <- 1:27
 
 p2 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = 1) +
@@ -100,11 +96,11 @@ p2 <- ggplot(matriz_subset, aes(x = true_value, y = estimated_value)) +
     labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = "B) K = 1 different time points") +
     # Force identical breaks **and** limits on both axes
     scale_x_continuous(breaks = breaks, 
-                       labels = c(0.1,1,10,100,1000),
+                       labels = c(0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
                        limits = c(min(breaks), max(breaks))) +
-    scale_y_continuous(breaks = breaks,
-                       labels = c(0.1,1,10,100,1000),
-                       limits = c(min(breaks), max(breaks))) +
+    scale_y_continuous(breaks = breaks_y,
+                       labels = c(0.0, "", "", "", 0.01, "", "", "", 0.1,"","","",1,"","","",10,"","","",100,"","","",1000,"",""),
+                       limits = c(min(breaks_y), max(breaks_y))) +
     
     coord_equal() +
     # Nice theme (optional)
@@ -123,7 +119,7 @@ combined<-(p1 | p2)
 # Save
 ggsave("figure_2_main.pdf", 
        plot = combined, 
-       width = 15, height = 6,   # Wider for 2x2
+       width = 12, height = 6,   # Wider for 2x2
        dpi = 300)
 
 
