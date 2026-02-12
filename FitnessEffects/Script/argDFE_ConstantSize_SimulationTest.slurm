@@ -21,11 +21,8 @@
 # sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 1.29e-8 19379845 100
 ### Script starts 
 
-#Edit: did not work ask intended. my condition that checks cosntant size did not work. 
-#1) Change cosntantSize condition to test number of lines on demography file. 
-#2) Change demography file naming.
-#3) Read N_PAST_VALUE from demography --> no longer a cli parameter. 
-#changed tree names to "trees_"
+## make --dfe and --discrete as parameters to choose from. 
+## which select different python scripts for parameter files. 
 
 echo "scrpit started running at"
 echo $(date +%T)
@@ -46,11 +43,15 @@ RandomNumber=$SLURM_ARRAY_TASK_ID
 DEFAULT_MUTATION_RATE=1.2e-8
 DEFAULT_TOTAL_SITES=1000000
 DEFAULT_STEP_SIZE=100
+#DEFAULT_DFE=1
+#Should I let user specify shape and scale? from here? 
+#maybe just default to Boyko and Kim et al. plus option for custom dfe.
 
 #Read parameters from commandline.
 MUTATION_RATE=${1:-$DEFAULT_MUTATION_RATE}
 TOTAL_SITES=${2:-$DEFAULT_TOTAL_SITES}
 STEP_SIZE=${3:-$DEFAULT_STEP_SIZE}
+#DFE=${4:-$DEFAULT_DFE}
 
 #fix float numbers in bash
 MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
@@ -58,7 +59,8 @@ MUTATION_RATE=$(echo "$MUTATION_RATE" | awk '{print $1}')
 #Extracts N in the past from demography file.
 N_PAST_VALUE=$(awk '{print $1 / 2; exit}' DemographyFile.txt) #reads in first line and dived by 2 (essentially this is the ancestral file in 2N, so we want it in N)
 
-python Selection_Parameters.py --n_past_value ${N_PAST_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
+#python Selection_Parameters.py --n_past_value ${N_PAST_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
+python Selection_gammaDFE_Parameters.py --n_past_value ${N_PAST_VALUE} --mutation_rate ${MUTATION_RATE} --total_sites ${TOTAL_SITES} --step_size ${STEP_SIZE}
 
 SeedName=$(( $SLURM_ARRAY_TASK_ID % 100000 ))
 ValorSeleccion=$(( $SLURM_ARRAY_TASK_ID / 1000 ))
