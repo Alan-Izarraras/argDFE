@@ -84,4 +84,21 @@ Arboles faltantes:
 Finally. everything is there.
 now make matrices. 
 
+Ya tengo las matrices. 
+AHora...? A si a verificar que funcionen en R. 
 
+Ah pero antes de verificar eso estaba creando las copias.
+Creo que si las cree bien. 
+Ah si de hecho tenian muy poca variacion entonces me preguntaba si estaban bien construidas o si la dfe es muy deleterea. 
+entonces si lo que falta es testear
+
+OK ya razone. La tabla de prob no la requiero, solo es requerida apra computar la prob de sitios y las amtrices gamma. 
+Luego con las amtrices gamma y la prob de sitios computo verosimilitud. 
+Es bueno tenerla y guardarla para despues comprobar que si estoy haciendo las cosas bien pero solo es requerida para esos calculos. 
+
+for (r in 1:nrow(count_matrix))  {  #Starts likelihood calc of this particular combination of matrices
+    for (c in 1:ncol(count_matrix))  {
+        likelihoods[i] <- count_matrix[r,c] * log(prob_matrix[r, c]) #Necesito que este archivo no cambie
+        i <- i +1
+    }
+}

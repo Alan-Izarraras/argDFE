@@ -1,5 +1,6 @@
 #Construct matrices for every tree file. aka 200 matrices per selection value.
 #Design to cut down matrix construction time but unsure how much efficient. 
+#modified for prob matrices
 
 library(ape)
 sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
@@ -14,24 +15,23 @@ PastSize <- as.numeric(PastSize)
 l <- as.numeric(l)
 step <- as.numeric(step)
 
-# Get SLURM_ARRAY_TASK_ID from the environment
-sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID")) 
-
 #detects empty singleton files to form empty matrices.
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- paste0("../Data/trees/Sel_", sel, "/")
+file_path <- paste0("../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/")
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
 
-for (a in 1:200) {
+for (a in 201:300) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
+  print(tree_name)
   is_empty <- file.info(tree_name)$size == 0
+  print(is_empty)
   # formatC is the base R version of sprintf
 
-  if (is_empty==0)  { #Evalua si hay arboles
+  if (is_empty==0)  { #Evalua si hay arboles 
     print("There are trees")
     lista_arboles <- read.tree(paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt"))
     cuenta <- read.table(paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt"))

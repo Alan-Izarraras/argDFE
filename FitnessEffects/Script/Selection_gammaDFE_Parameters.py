@@ -7,7 +7,7 @@ import sys
 import argparse
 import os
 import math
-#import otro
+
 
 #pass array task id for Selecting a selection value.
 SGE_TASK_ID = os.environ.get('SLURM_ARRAY_TASK_ID')

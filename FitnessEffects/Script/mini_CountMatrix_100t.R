@@ -14,18 +14,15 @@ PastSize <- as.numeric(PastSize)
 l <- as.numeric(l)
 step <- as.numeric(step)
 
-# Get SLURM_ARRAY_TASK_ID from the environment
-sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID")) 
-
 #detects empty singleton files to form empty matrices.
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- paste0("../Data/trees/Sel_", sel, "/")
+file_path <- paste0("../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/")
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
 
-for (a in 1:200) {
+for (a in 201:300) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
   is_empty <- file.info(tree_name)$size == 0

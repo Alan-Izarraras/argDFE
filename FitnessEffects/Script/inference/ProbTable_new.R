@@ -4,9 +4,10 @@
 #La misma pero con probabildiad de sitios 
 #Multiplicar ambas tablas --> Gamma compuesta (sitios + arbol) 
 #Probabilidad de encontrar cierto numero de sitios para cierto patron de coalescencia en un intervalo de una distribucion gamma con paramentros j,k
-
-AlphaGrid <- 0.01*1:100 #(100 valores) (Kim)
-GammaGrid <- 15*1:100 #(100 valores) (Kim)
+AlphaGrid <- 0.005*1:50
+GammaGrid <- 50*1:240
+#AlphaGrid <- 0.01*1:100 #(100 valores) (Kim)
+#GammaGrid <- 15*1:100 #(100 valores) (Kim)
 #Kim (alfa = 0.18, Beta= 706)
 
 Valores_2Ns <- c(0, 10^seq(-2.75, 3.50, by = 0.25))

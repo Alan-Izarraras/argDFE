@@ -45,7 +45,7 @@ for (j in seq_along(theta))  {
         }
       }
       result_matrix <- Reduce(`+`, rand_matrix_list)
-      write.csv(result_matrix, paste0(file_out, theta[j], "_", matrix_dim[task_id], "_count_sel", s, "_rep", f, ".csv"), row.names = FALSE)
+      write.csv(result_matrix, paste0(file_out, theta[j], "_", matrix_dim[task_id], "_count_kimDFE", s, "_rep", f, ".csv"), row.names = FALSE)
       print("rep matrix written")
     }
   }
