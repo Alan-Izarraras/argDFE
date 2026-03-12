@@ -19,11 +19,11 @@ step <- as.numeric(step)
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- paste0("../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/")
+file_path <- "../Data/trees/Sel_1/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
-
-for (a in 201:300) {
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
+#
+for (a in 1:200) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
   print(tree_name)
@@ -198,7 +198,8 @@ for (a in 201:300) {
   #Sitios invariables caso matriz completa
   vector_1 <- vector()
 
-  max_sitios = round(l / step) #Since we are looking at probability, this operation reduces times while not distorting probability
+  max_sitios = l
+  #max_sitios = round(l / step) #Since we are looking at probability, this operation reduces times while not distorting probability
   max_effective_sites <- max(matriz_conteo)
   #ok this works. No more bug where the last tree is misrepresented in frequency. 
   print(ncol(matriz_conteo))

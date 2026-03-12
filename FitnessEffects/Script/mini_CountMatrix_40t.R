@@ -18,11 +18,11 @@ step <- as.numeric(step)
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- paste0("../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/")
+file_path <- "../Data/trees/Sel_1/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
 
-for (a in 201:300) {
+for (a in 1:200) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
   is_empty <- file.info(tree_name)$size == 0
@@ -284,3 +284,4 @@ for (a in 201:300) {
   write.csv(matriz_conteo_rangos, paste(out_path, "6x40_count_", sel, formatC(a, width = 3, flag = "0"), "_sel",sel, ".csv", sep=""), row.names = FALSE)
 
 }
+#

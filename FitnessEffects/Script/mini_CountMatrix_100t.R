@@ -18,11 +18,11 @@ step <- as.numeric(step)
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- paste0("../Data/trees/MatrixInputs/ConstantSize/set2/source_trees/")
+file_path <- "../Data/trees/Sel_1/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
 
-for (a in 201:300) {
+for (a in 1:200) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
   is_empty <- file.info(tree_name)$size == 0
@@ -287,11 +287,4 @@ for (a in 201:300) {
 
 }
 
-##Code for writting an empty matrix for the empty file seeds. (matrix with 0s and fixed values only).
-#algo asi. Also code for matrix sums based on random draws.
-print(missing_seeds)
-for (i in missing_seeds())  {
-  matriz = matrix(nrow=101, ncol=9)
-  matriz = matrix(nrow=21, ncol=9)
-  matriz = matrix(nrow=7, ncol=9)
-}
+

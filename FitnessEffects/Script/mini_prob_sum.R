@@ -6,11 +6,12 @@
 task_id <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 task_id <- as.numeric(task_id) #taskid controls matrix dimension
 l <- 19379845
+
 matrix_dim <- c("200x100", "20x100", "6x100", "200x40", "20x40", "6x40", "200x8", "20x8", "6x8")
 file_in <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/mini_matrices/"
-file_out <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount"
+file_out <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
 
-mini_matrix_list <- liat()
+mini_matrix_list <- list()
 
 for (s in 1:27)  {
     known_nrow <- NULL
@@ -18,6 +19,7 @@ for (s in 1:27)  {
     k <- 1
   for (i in 201:300) {
     filename <- paste0(file_in, matrix_dim[task_id], "_count_",s,formatC(i, width = 3, flag = "0"), "_sel", s, ".csv")
+    #print(filename)
     if (file.exists(filename)) { #checks file existence (extreme sel trees have no seg sites sometimes)
       matriz <- read.csv(paste0(file_in, matrix_dim[task_id], "_count_",s, formatC(i, width = 3, flag = "0"), "_sel", s, ".csv"))
       matriz <- as.matrix(matriz)
@@ -28,25 +30,28 @@ for (s in 1:27)  {
         known_ncol <<- ncol(matriz)
       }
     } else { #generates empty matrix
-      l <- 193798
-      matriz <- rand_matrix_list[[1]]
+      print("creating empty matrix")
+      l <- 193798.45
       empty_matrix <- matrix(0, nrow = known_nrow, ncol = known_ncol) #adds 0s to same dim
-      empty_matrix[known_nrow, ] <- l  
-      matriz <- empty_matrix  
-      mini_matrix_list[[k]] <- matriz
+      empty_matrix[known_nrow, ] <- l    
+      mini_matrix_list[[k]] <- empty_matrix
+      k <- k + 1
     }
-  }
+  } 
   result_matrix <- Reduce(`+`, mini_matrix_list)
-  result_matrix <- result_matrix + 1 #pseudocount
-  max_effective_sites <- sum(matriz_conteo[,1])
-  print(max_effective_sites)
-  write.csv(result_matrix, paste0(file_out, theta[j], "_", matrix_dim[task_id], "_count_kimDFE", s, "_rep", f, ".csv"), row.names = FALSE)
+  result_matrix <- result_matrix + 0.001 #pseudocount #no se hace bien, sobrepasa 1. 
+  #esto se hace bien.
+  #### Me quede aqui.
+  sites <- result_matrix[-known_nrow, known_ncol]
+  sites <- sum(sites)
+  prob_matrix <- result_matrix[-known_nrow, ] / sites #test. #cambiar por variables
+  probs <- sum(prob_matrix[,1])
+  print(probs)
+  prob_matrix <- rbind(prob_matrix, result_matrix[known_nrow,])
+  #print(prob_matrix)
+  write.csv(result_matrix, paste0(file_out, matrix_dim[task_id], "_count_kimDFE_Sel", s, ".csv"), row.names = FALSE)
+  write.csv(prob_matrix, paste0(file_out, matrix_dim[task_id], "_prob_kimDFE_Sel", s, ".csv"), row.names = FALSE)
 
 } 
 
-#a ver. para generar la amtriz de prob estoy dividiendo entre el total de mutaciones.
-#luego a parte agrego la fila ultima que es l -  total de mutaciones! 
-#ah entonces estoy computando mal en la integración. jaja. 
-#entoncessssss 
-#podria leer cada matriz sin l, al final agregarles esa fila. oh genero la matriz resultado, quito l y la reemplazo. 
-#por lo pronto deberia probar que hasta aqui funciona luego incorporo todo lo demas. 
+

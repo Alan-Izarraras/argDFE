@@ -9,8 +9,6 @@ matrix_dim <- c("200x100", "20x100", "6x100", "200x40", "20x40", "6x40", "200x8"
 file_in <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
 file_out <- "../Data/trees/MatrixInputs/ConstantSize/set1/rep_matrices/"
 
-
-
 theta <- c("diezmil", "mil", "cien")
 n <- c(100, 10, 1)
 for (j in seq_along(theta))  {

@@ -51,6 +51,7 @@ theta = str(theta)
 #kim et al dfe based on 1kgenomes europeans 
 shape = str(0.186)
 scale = str(706) 
+N_past = str(N_past)
 
 sel_seed = (SGE_TASK_ID/1000) -1
 sel_seed = int(sel_seed)
@@ -77,7 +78,7 @@ String = """MutationRate  """ + theta + """
 DFEType:    gamma
 DFEParameterOne:   """ + shape + """
 DFEParameterTwo:   """ + scale + """
-DFEParameterThree: 1
+DFEParameterThree: """ + N_past + """
 DemographicHistory:         """ + DemHist + """
 PrintSNPNumber:   0
 PrintSumOfS: 0
@@ -98,7 +99,7 @@ String = """MutationRate  """ + theta + """
 DFEType:        gamma
 DFEParameterOne:   """ + shape + """
 DFEParameterTwo:   """ + scale + """
-DFEParameterThree: 1
+DFEParameterThree: """ + N_past + """
 DemographicHistory:         """ + DemHist + """
 PrintSNPNumber:   0
 PrintSumOfS: 0
