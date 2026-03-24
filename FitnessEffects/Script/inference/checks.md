@@ -88,6 +88,7 @@ La logical de nuestra formula.
 a ver entonces cambio por cuentas y entonces las cuentas las "integro". 
 Una vez integradas aka multiplicadas por la probabilidad
 
+l-bfgs-b optimizer.
 
 
 

@@ -35,10 +35,10 @@ for (z in 1:50)  { #z handles repetition number
     classic_inference_vector <- vector()
     inference_vector <- vector() #where each position is a selection coefficient. We initialize this at every new prob matrix read.
     prob_matrix <- prob_matrix[-nrow(prob_matrix), ] #Erase last row becuase it contains the total number of sites and not a probability.
-    for (b in (1:25)) {  #Reads in every count matrix (set1) 
+    for (b in (1:25)) {  #Reads in every count matrix (set1) x
       likelihoods <- vector() #initizalize likelihood values. 
       count_matrix <- read.csv(paste(count_matrix_name, b, "_rep", z, ".csv", sep=""))
-      count_matrix <- count_matrix[,- ncol(count_matrix)]
+      count_matrix <- count_matrix[,- ncol(count_matrix)] ##Erase last column
       #erase last column
       #print(count_matrix)
       set1_fixed_sites <- count_matrix[nrow(count_matrix), 1] #grabs number of fixed sites. from first element of the last row.
