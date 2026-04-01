@@ -1,8 +1,8 @@
 #New integration method #changed/erased last column not counting. 
 
 ### These are the target DFEs
-#Kim (alfa = 0.186, Beta= 706)
-#Boyko (alfa = 0.184, Beta = 3238)
+#Kim (alfa = 0.186, Beta= 706.899)
+#Boyko (alfa = 0.184, Beta = 3198.626)
 
 rep <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 #Grid of gamma distribution parameter values (12)

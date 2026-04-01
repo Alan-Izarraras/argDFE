@@ -91,13 +91,10 @@ neg_log_likelihood <- function(params) {
 # ====================== RUN L-BFGS-B OPTIMIZER ======================
 # Start near the literature values you mentioned (Kim/Boyko)
 start_params <- c(0.10, 1500)
-#start_params <- log(start_params)
 
 # Reasonable bounds (wider than your old grid but still sensible)
 lower_bounds <- c(0.001, 10)
-#lower_bounds <- log(lower_bounds)
 upper_bounds <- c(5,    50000)
-#upper_bounds <- log(upper_bounds)
 
 opt_result <- optim(par       = start_params,
                     fn        = neg_log_likelihood,
