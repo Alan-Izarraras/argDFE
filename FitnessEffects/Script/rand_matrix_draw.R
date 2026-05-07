@@ -49,10 +49,5 @@ for (j in seq_along(theta))  {
   }
 }
 
-#if this works enxt change is to change l depending on theta and n 
-#Ok ya funciona bien ahora solo falta el caso de las matrices vacias. 
-#Falta codigo para lidear con matrices inexistentes. 
-#theta=1k
-#todo funciona
-
+#add option to track files used for each rep. 
 

@@ -1,13 +1,15 @@
 #Construct matrices for every tree file. aka 200 matrices per selection value.
 #Design to cut down matrix construction time but unsure how much efficient. 
 #modified for prob matrices
+#modified for kim et al under estimated 1% target size. 
 
 library(ape)
 sel <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 print(sel)
 PresentSize <- 10000
 PastSize <- 10000
-l <- 19379845
+#l <- 19379845
+l <- 19186047 # - 1% sites
 l <- l/100
 step <- 1 #should be 1 here...?
 PresentSize <- as.numeric(PresentSize)
@@ -19,10 +21,10 @@ step <- as.numeric(step)
 missing_seeds=vector()
 
 #Path where input files can be found (singletons and trees)
-file_path <- "../Data/trees/Sel_1/"
+file_path <- "../Data/trees/Sel_1/target_size/under_1/"
 #path where outputs (matrices) are to be placed
-out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/"
-#
+out_path <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/kim_target_size/under_1/"
+
 for (a in 1:200) {
   lista_intervalos <- list()
   tree_name <- paste0(file_path, "trees_", sel, formatC(a, width = 3, flag = "0"), "_Sel", sel, ".txt") #zer-padding for numbered names
@@ -202,12 +204,10 @@ for (a in 1:200) {
   #max_sitios = round(l / step) #Since we are looking at probability, this operation reduces times while not distorting probability
   max_effective_sites <- max(matriz_conteo)
   #ok this works. No more bug where the last tree is misrepresented in frequency. 
-  print(ncol(matriz_conteo))
-  for (i in 1:ncol(matriz_conteo))  {
-    vector_1[i] <- max_sitios - max_effective_sites #numero maximo de arboles siempre esta en esa coordenada
-  }
-  print(vector_1)
-  matriz_conteo_invariables <- rbind(matriz_conteo, vector_1) #Hasta aqui tengo matriz con num de sitios invariables.
+
+  matriz_conteo_num <- as.matrix(matriz_conteo, mode = "numeric")
+  vector_1 <- rep(max_sitios - max_effective_sites, ncol(matriz_conteo_num))
+  matriz_conteo_invariables <- rbind(matriz_conteo_num, vector_1)
   
   i <- nrow(matriz_conteo_invariables) -2
   matriz_conteo_invariables_2 <- matriz_conteo_invariables                                  

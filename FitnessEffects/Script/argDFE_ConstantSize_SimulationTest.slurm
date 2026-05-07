@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=simtrees
-#SBATCH --output=log/SimTrees_%a.o
-#SBATCH --error=log/SimTrees_%a.e
+#SBATCH --job-name=kim_dfe_trees
+#SBATCH --output=log/kim_Trees_%a.o
+#SBATCH --error=log/kim_Trees_%a.e
 #SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -17,7 +17,6 @@
 #4) Popsize change and time change paramters for Msell should be icluded for noneq demography case. 
 #5) Add capability to estiamte frequencies from different sample sizes. 
 #6) Modificar los tiempos, para que la distribucion contemple N + un ultimo tiempo final. 
-# sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 10000 1.29e-8 19379845 100
 # sbatch -a 16001 argDFE_ConstantSize_SimulationTest.slurm 1.29e-8 19379845 100
 ### Script starts 
 

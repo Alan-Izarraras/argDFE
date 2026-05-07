@@ -1,13 +1,13 @@
 ### Updated python paramfile generating scripts for selection simulations
 #for DFE simulation
 #pending: cli option for switching to this script inside slurm code.
-#primero que funcione bare bones, luego ya lo integramos bonito con opciones cli 
 #Code for parameter passing, in this case SGE_TASK_ID. SGE_TASK_ID controls selection.
+#modified for gamma distribution (kim et al). 
+
 import sys
 import argparse
 import os
 import math
-
 
 #pass array task id for Selecting a selection value.
 SGE_TASK_ID = os.environ.get('SLURM_ARRAY_TASK_ID')
@@ -50,7 +50,9 @@ theta = (N_past * 4 * u * l)
 theta = str(theta)
 #kim et al dfe based on 1kgenomes europeans 
 shape = str(0.186)
-scale = str(706) 
+scale = str(706.899) 
+#shape = str(5.02)
+#scale = str(5.94)
 N_past = str(N_past)
 
 sel_seed = (SGE_TASK_ID/1000) -1

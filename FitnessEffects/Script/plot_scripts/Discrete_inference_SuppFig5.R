@@ -37,7 +37,7 @@ breaks <- c(1:27)
 p1 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = "#440154FF") +
     scale_size_area(max_size = 7) +
-    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("A)" ~ F^1 * ", K = 100 time points")) +
+    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("A)" * " K = 100 time points")) +
     #plot.title = element_text(hjust = 0.5) +
     #expression()
     # Force identical breaks **and** limits on both axes
@@ -83,7 +83,7 @@ breaks <- c(1:27)
 p2 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = "#414487FF") +
     scale_size_area(max_size = 7) +
-    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("B)" ~ F^1 * ", K = 40 time points")) +
+    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("B)" * " K = 40 time points")) +
     #plot.title = element_text(hjust = 0.5) +
     #expression()
     # Force identical breaks **and** limits on both axes
@@ -129,7 +129,7 @@ breaks <- c(1:27)
 p3 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = "#22A884FF") +
     scale_size_area(max_size = 7) +
-    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("C)" ~ F^1 * ", K = 8 time points")) +
+    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("C)" * " K = 8 time points")) +
     #plot.title = element_text(hjust = 0.5) +
     #expression()
     # Force identical breaks **and** limits on both axes
@@ -175,7 +175,7 @@ breaks <- c(1:27)
 p4 <- ggplot(matriz_maximos, aes(x = true_value, y = estimated_value)) +
     geom_count(alpha = 0.5, color = "#FDE725FF") +
     scale_size_area(max_size = 7) +
-    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("D)" ~ F^1 * ", K = 1 time points")) +
+    labs(size = "Simulation \n replicates", x = expression("Real value of" ~ gamma), y = expression("Estimated value of" ~ gamma), title = expression("D)" * " K = 1 time points")) +
     #plot.title = element_text(hjust = 0.5) +
     #expression()
     # Force identical breaks **and** limits on both axes

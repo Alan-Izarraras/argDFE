@@ -2,26 +2,21 @@
 # === KEEP EVERYTHING UP TO HERE EXACTLY AS YOU HAD IT ===
 rep <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
-#Buscar normalizar mis valores de parametros y hacer pruebas. 
-#I can either log parameter space of use this parscale thing to nornalize. 
-
-# Grid definitions (kept for reference only)
-# AlphaGrid <- 0.005*1:50
-# GammaGrid <- 50*1:240
-
 valor_2Ns <- c(0, 10^seq(-2.75, 3.50, by = 0.25))
 #valor_medio <- (valor_2Ns[-length(valor_2Ns)] + valor_2Ns[-1]) / 2
 valor_medio <- (10^seq(-2.875, 3.375, by = 0.25))
 l <- 19379845
+l <- l - (l * 0.0001) # + 0.01% estimation
+l <- l/100 #para mil
 
 # Read in prob_matrices (exactly as you had)
 prob_matrix_list <- list()
-for (i in 1:27) {
-  prob_matrix_list[[i]] <- read.csv(paste0("../../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/200x100_count_kimDFE_Sel", i, ".csv"))
+for (i in 1:27) {                                                                                                        #200x8_count_mil_kimDFE_Sel23.csv
+  prob_matrix_list[[i]] <- read.csv(paste0("../../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/cien/200x8_count_cien_kimDFE_Sel", i, ".csv"))
 }
 
-# Read in DFE_matrices (exactly as you had)
-dfe_matrix <- read.csv(paste0("../../Data/trees/MatrixInputs/ConstantSize/set1/rep_matrices/kim_decimals/200x100_count_kimDFE1_rep", rep, ".csv"))
+# Read in DFE_matrices (exactly as you had)                                           #p                             #200x8_count_kim_targetsize_DFE1_cien_rep7.csv
+dfe_matrix <- read.csv(paste0("../../Data/trees/MatrixInputs/ConstantSize/set1/rep_matrices/kim_target_size/under_0.01/200x8_count_kim_targetsize_DFE1_cien_rep", rep, ".csv"))
 
 ob_inv_dfe <- dfe_matrix[200,1]
 ob_var_dfe <- l - ob_inv_dfe
@@ -54,7 +49,7 @@ neg_log_likelihood <- function(params) {
   
   p_var_gamma   <- 0
   p_invar_gamma <- 0
-  mat_gamma     <- matrix(0, nrow = 199, ncol = 100)
+  mat_gamma     <- matrix(0, nrow = 199, ncol = 8)
   
   for (bin in 1:n_bins) {
     if (bin == 1) {
@@ -161,6 +156,8 @@ write.table(data.frame(
   loglik      = best_loglik,
   convergence = best_result$convergence,
   n_starts    = n_starts
-), 
-file = sprintf("optim_result_rep%03d.txt", rep),
+),  
+file = sprintf("kim_cien_under_0.01_result_rep%02d.txt", rep),
 row.names = FALSE, quote = FALSE, sep = "\t")
+
+

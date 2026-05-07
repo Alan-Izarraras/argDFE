@@ -8,12 +8,15 @@ task_id <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 task_id <- as.numeric(task_id) #taskid controls matrix dimension
 l <- 19379845
 matrix_dim <- c("200x100", "20x100", "6x100", "200x40", "20x40", "6x40", "200x8", "20x8", "6x8")
-file_in <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/" #newdfe? 
-file_out <- "../Data/trees/MatrixInputs/ConstantSize/set1/rep_matrices/dfe/"
+file_in <- "../Data/trees/MatrixInputs/ConstantSize/set1/matrices/boyko_dfe/" #newdfe? 
+file_out <- "../Data/trees/MatrixInputs/ConstantSize/set1/rep_matrices/boyko/"
 
 mini_matrix_list <- list()
 
-for (s in 1:2)  {
+theta <- c("diezmil", "mil", "cien")
+n <- c(100, 10, 1)
+for (j in seq_along(theta))  {
+  num <- n[j]
   known_nrow <- NULL
   known_ncol <- NULL
   for (f in 1:50)  { #me faltó el zero padding. 
@@ -23,9 +26,9 @@ for (s in 1:2)  {
       
     for (k in seq_along(rand_num_vector)) {
       i <- rand_num_vector[k]
-      filename <- paste0(file_in, matrix_dim[task_id], "_count_",s, i, "_sel", s, ".csv")
+      filename <- paste0(file_in, matrix_dim[task_id], "_count_1", i, "_sel1.csv")
       if (file.exists(filename)) { #checks file existence (extreme sel trees have no seg sites sometimes)
-        matriz <- read.csv(paste0(file_in, matrix_dim[task_id], "_count_",s, i, "_sel", s, ".csv"))
+        matriz <- read.csv(paste0(file_in, matrix_dim[task_id], "_count_1", i, "_sel1.csv"))
         matriz <- as.matrix(matriz)
         #print(matriz)
         rand_matrix_list[[k]] <- matriz
@@ -41,10 +44,14 @@ for (s in 1:2)  {
           matriz <- empty_matrix  
           rand_matrix_list[[k]] <- matriz
         }
-      }
-      result_matrix <- Reduce(`+`, rand_matrix_list)
-      write.csv(result_matrix, paste0(file_out, matrix_dim[task_id], "_count_kimDFE", s, "_rep", f, ".csv"), row.names = FALSE)
-      print("rep matrix written")
     }
+      result_matrix <- Reduce(`+`, rand_matrix_list)
+      write.csv(result_matrix, paste0(file_out, matrix_dim[task_id], "_count_boykoDFE1_rep", f, ".csv"), row.names = FALSE)
+      print("rep matrix written")
   }
 }
+
+#Ok a este le agrego... 
+#1) opcion para generar teta 100 y teta 1000. 
+#2) Generar el SFS de cada replica terminada simultaneamente.
+

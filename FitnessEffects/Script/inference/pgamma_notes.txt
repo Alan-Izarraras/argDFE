@@ -1,0 +1,27 @@
+valor_2Ns <- c(0, 10^seq(-2.75, 3.50, by = 0.25))
+valor_medio <- (10^seq(-2.875, 3.375, by = 0.25))
+#bin_breaks <- c(0, valor_medio, valor_2Ns[27])
+bin_breaks <- c(0, valor_medio, Inf)
+
+shape <- 0.184
+scale <- 3198.626 
+
+shape1 <- 0.186
+scale1 <- 706.899
+
+prob <- pgamma(bin_breaks, shape = shape1, scale = scale1)
+prob <- diff(prob)
+
+#1:10, 11:14, 15:18, 19:22, 23:27
+
+bin1 <- sum(prob[1:10])
+bin2 <- sum(prob[11:14])
+bin3 <- sum(prob[15:18])
+bin4 <- sum(prob[19:22])
+bin5 <- sum(prob[23:27])
+
+truth <- c(bin1, bin2, bin3, bin4, bin5)
+
+#tengo que volver a correr kim con esta nueva información. 
+#Guardar ambos scripts. 
+

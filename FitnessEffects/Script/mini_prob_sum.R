@@ -9,7 +9,7 @@ l <- 19379845
 
 matrix_dim <- c("200x100", "20x100", "6x100", "200x40", "20x40", "6x40", "200x8", "20x8", "6x8")
 file_in <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/mini_matrices/"
-file_out <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/"
+file_out <- "../Data/trees/MatrixInputs/ConstantSize/set2/matrices/new_pseudocount/cien/"
 
 mini_matrix_list <- list()
 
@@ -17,7 +17,7 @@ for (s in 1:27)  {
     known_nrow <- NULL
     known_ncol <- NULL
     k <- 1
-  for (i in 201:300) {
+  for (i in 201:202) { #cambiar para distinto valor de teta
     filename <- paste0(file_in, matrix_dim[task_id], "_count_",s,formatC(i, width = 3, flag = "0"), "_sel", s, ".csv")
     #print(filename)
     if (file.exists(filename)) { #checks file existence (extreme sel trees have no seg sites sometimes)
@@ -49,8 +49,8 @@ for (s in 1:27)  {
   print(probs)
   prob_matrix <- rbind(prob_matrix, result_matrix[known_nrow,])
   #print(prob_matrix)
-  write.csv(result_matrix, paste0(file_out, matrix_dim[task_id], "_count_kimDFE_Sel", s, ".csv"), row.names = FALSE)
-  write.csv(prob_matrix, paste0(file_out, matrix_dim[task_id], "_prob_kimDFE_Sel", s, ".csv"), row.names = FALSE)
+  write.csv(result_matrix, paste0(file_out, matrix_dim[task_id], "_count_cien_kimDFE_Sel", s, ".csv"), row.names = FALSE)
+  write.csv(prob_matrix, paste0(file_out, matrix_dim[task_id], "_prob_cien_kimDFE_Sel", s, ".csv"), row.names = FALSE)
 
 } 
 

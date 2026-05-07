@@ -1,173 +1,120 @@
-#Accumulated probability curve plot. 
-# Definición de bins
-valor_2Ns <- c(0, 10^seq(-2.75, 3.50, by = 0.25))
-valor_medio <- (10^seq(-2.875, 3.375, by = 0.25))
-bin_breaks <- c(0, valor_medio, valor_2Ns[27])
-
-# Función para calcular proporciones por bin
-calcular_proporciones <- function(alpha, scale) {
-  cdf <- pgamma(q = bin_breaks, 
-                shape = alpha, 
-                scale = scale, 
-                lower.tail = TRUE)
-  
-  probs <- diff(cdf)          # Probabilidad en cada bin
-  names(probs) <- bin_labels
-  return(probs)
-}
-
-#Leer aqui valores alfa y escala de los tres experimentos.
-alpha1 <- c(
-  0.189747616686127, 0.188870314738755, 0.192500607525339, 0.191653418334932,
-  0.190471413250707, 0.193975711155074, 0.185327824347585, 0.184747511943163,
-  0.186168613420788, 0.187920166533954, 0.187604547301106, 0.187123388033617,
-  0.191329788001739, 0.192337905108957, 0.185626161153435, 0.186864400082746,
-  0.191436693587955, 0.193677880043963, 0.18314838780447,  0.188869863307504,
-  0.192081016527648, 0.178322767527964, 0.192851444502574, 0.185669640019585,
-  0.198189090891129, 0.193284857332937, 0.182276252801337, 0.186383124102559,
-  0.181407036680714, 0.19416799367279,  0.188760337176884, 0.191165183560804,
-  0.186068849808448, 0.187331231493916, 0.182853710894814, 0.190412375676249,
-  0.184601551731121, 0.189637916837214, 0.194775231363603, 0.184988099810094,
-  0.195423720095708, 0.181492856927408, 0.181746388804121, 0.187504166378868,
-  0.185583767708911, 0.192967516150788, 0.189393863545226, 0.20007847205792,
-  0.195538967313574, 0.189788774023176
-)
-scale1 <- c(
-  660.824201163939, 604.325307841993, 609.980351093627, 633.655589043328,
-  592.030197369214, 599.322199743817, 685.7295236303,   700.311242695465,
-  710.086592196002, 648.418687474212, 662.265942983165, 637.002341921868,
-  638.244006020126, 592.76455657225,  748.347518740199, 709.654129309989,
-  641.233925745369, 589.872822348384, 736.636746621687, 665.726193843498,
-  615.093265633757, 821.585341384267, 594.517382004688, 725.546946183321,
-  520.087113608843, 557.065594348399, 753.017275087168, 718.891535236601,
-  809.390717658157, 545.849155072004, 656.522375239585, 574.841689420736,
-  711.497397420146, 685.316415914145, 738.87966789666,  615.635310236844,
-  775.697988402578, 653.515352522179, 628.320650224631, 736.560597281696,
-  580.180022652056, 767.738081316691, 773.538393612857, 670.892893087062,
-  651.705794128764, 593.8227436612,   586.880747810027, 532.236579420842,
-  555.335187523925, 610.392756563118
-)
-alpha2 <- c(
-  0.18443759594055,  0.186826910844239, 0.181521235860089, 0.187352252782316,
-  0.187948413592087, 0.1872597383783,   0.190179861667252, 0.187006987758984,
-  0.193996260216109, 0.186641253237942, 0.188519427260253, 0.184660781581751,
-  0.195536757651472, 0.192155861868043, 0.184259304809256, 0.184034321970247,
-  0.18825288586454,  0.191082246513381, 0.192398133330667, 0.187744550998318,
-  0.189105481017195, 0.182303453398655, 0.18583787052584,  0.184271739259161,
-  0.185248876921156, 0.188011675448547, 0.196033220118668, 0.185346908194216,
-  0.191913145681568, 0.188564603773905, 0.188366413631127, 0.187313491217207,
-  0.189796455748542, 0.194375143871468, 0.181827675796571, 0.191979601912104,
-  0.193636901216279, 0.188086564898164, 0.195730591979971, 0.185909939549465,
-  0.181309187160875, 0.188365501770719, 0.191034008262311, 0.185805477642446,
-  0.191608757858004, 0.191789480056677, 0.189602345205064, 0.197554917478414,
-  0.185375359335534, 0.178070982825551
-)
-scale2 <- c(
-  718.042045154542, 666.854843873187, 798.268679492139, 762.566750793985,
-  618.130744421925, 719.719426582585, 680.209471534831, 759.316113017446,
-  586.315713098531, 736.115922284769, 659.574295964315, 705.302575316636,
-  525.438230103549, 535.263362962795, 683.105410229903, 704.666835972943,
-  701.638196881248, 615.966861943629, 536.706609951882, 632.624321011292,
-  640.566839084133, 758.302946212844, 758.397662968131, 622.409702169595,
-  752.276572982897, 566.409934123737, 506.026194917822, 755.389130923518,
-  570.885091679284, 616.005072400249, 667.722131579466, 674.237637033146,
-  661.773494425264, 628.396521929822, 893.838923417012, 569.135944909973,
-  568.307227858286, 577.121635698869, 531.091775904117, 705.829185250387,
-  704.211045012066, 679.382784840504, 614.153247045786, 605.723242958564,
-  693.181413722542, 583.047448280991, 661.743338630198, 540.456574558205,
-  764.268611940396, 897.686117365924
-)
-alpha3 <- c(
-  0.178978622164688, 0.19476696994122, 0.187393281433838, 0.19778005403327,
-  0.181237580404808, 0.178071299593809, 0.179848089979173, 0.193950361917474,
-  0.192911025628469, 0.181870550858189, 0.187124906934454, 0.185573792499533,
-  0.193089972872814, 0.185699173120683, 0.183069190978451, 0.187174720877503,
-  0.185550182704116, 0.188419388247516, 0.191972646976873, 0.186051840077953,
-  0.186960289742118, 0.183745472067386, 0.185979165886019, 0.18233841264409,
-  0.187452557318703, 0.185938146573691, 0.186193541266133, 0.196019197550685,
-  0.184726248550183, 0.18859848953955,  0.186497524403781, 0.189661808346677,
-  0.188512770043193, 0.185364567312983, 0.200297726263186, 0.183562844155676,
-  0.192024727929833, 0.17984967332949,  0.19620973792126,  0.180655489955566,
-  0.188238722340481, 0.185247973759482, 0.195763102811241, 0.191503454336173,
-  0.183216000995891, 0.191835029252206, 0.199759686294218, 0.188089013799715,
-  0.192854827145796, 0.194407775371989
-)
-scale3 <- c(
-  932.60247547438, 464.309848971607, 726.489532097321, 558.231006932016,
-  1012.04106352729, 833.992844816358, 878.800919735916, 582.95812758161,
-  537.682749227968, 574.278785147883, 665.461420299618, 734.727550391839,
-  633.359684212957, 713.177705709941, 786.333175681205, 580.666161652437,
-  702.179187370625, 663.149045892774, 571.771602052977, 853.581537436433,
-  660.659460409503, 711.224315384668, 634.885954305782, 832.629939452666,
-  685.157498213268, 706.565041671186, 786.802447717432, 624.885297333016,
-  865.287627061821, 656.612270208521, 771.654453404923, 615.920802642847,
-  828.812463440443, 860.105426115518, 317.822518808023, 764.142477312671,
-  616.974926322757, 808.190463950932, 514.108932924911, 891.969133454886,
-  628.564837558255, 645.49342350371,  563.958777618075, 799.63742308143,
-  791.63033190132,  676.14869099103,  544.217424784099, 599.668217112587,
-  549.666606607381, 533.497447067195
-)
-
-# Calcular para los 3 grupos (promedio de las 50 réplicas)
-
-prop_k8   <- t(sapply(1:50, function(i) calcular_proporciones(alpha1[i], scale1[i])))
-prop_k40  <- t(sapply(1:50, function(i) calcular_proporciones(alpha2[i], scale2[i])))
-prop_k100 <- t(sapply(1:50, function(i) calcular_proporciones(alpha3[i], scale3[i])))
-
-# Define the column groups once
-groups <- list(1:10, 11:14, 15:18, 19:22, 23:27)
-
-prob_k8 <- sapply(groups, function(cols) rowSums(prop_k8[, cols, drop = FALSE]))
-prob_k40  <- sapply(groups, function(cols) rowSums(prop_k40[, cols, drop = FALSE]))
-prob_k100 <- sapply(groups, function(cols) rowSums(prop_k100[, cols, drop = FALSE]))
-
-bin_labels <- c("0 - <1e-5", "1e-5 - <1e-4", "1e-4 - <1e-3", "1e-3 - <1e-2", ">= 1e-2")
-
-colnames(prob_k8)  <- bin_labels
-colnames(prob_k40)  <- bin_labels
-colnames(prob_k100) <- bin_labels
-
+# Accumulated probability curve plot - Gamma DFE inference
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 
+# ====================== BIN DEFINITION ======================
+# Character version for data handling
+bin_labels_char <- c("0 - <1e-5", 
+                     "1e-5 - <1e-4", 
+                     "1e-4 - <1e-3", 
+                     "1e-3 - <1e-2", 
+                     ">= 1e-2")
+
+# Mathematical version with 's' (only for nice plotting)
+bin_labels_math <- c(
+  expression(0 < "|" * s * "|" ~ "\u2264" ~ 10^{-5}),
+  expression(10^{-5} < "|" * s * "|" ~ "\u2264" ~ 10^{-4}),
+  expression(10^{-4} < "|" * s * "|" ~ "\u2264" ~ 10^{-3}),
+  expression(10^{-3} < "|" * s * "|" ~ "\u2264" ~ 10^{-2}),
+  expression("|" * s * "|" ~ "\u2265" ~ 10^{-2})
+)
+
+# ====================== BIN BREAKPOINTS (NEW METHOD) ======================
+# These are the exact breakpoints you requested
+s <- c(1e-5, 1e-4, 1e-3, 1e-2)
+TwoNs <- 2 * 10000 * s   # 2N * s with N = 10,000
+
+# ====================== NEW PROPORTION FUNCTION ======================
+# Now uses the exact pgamma breakpoints you specified (no fine binning)
+calcular_proporciones <- function(alpha, scale) {
+  # Cumulative probabilities at the 4 breakpoints
+  cdf <- pgamma(q = TwoNs, 
+                shape = alpha, 
+                scale = scale, 
+                lower.tail = TRUE)
+  
+  # Convert to the 5 bin probabilities
+  bin_probs <- c(
+    cdf[1],                    # bin 1: 0 to < 1e-5
+    cdf[2] - cdf[1],           # bin 2: 1e-5 to < 1e-4
+    cdf[3] - cdf[2],           # bin 3: 1e-4 to < 1e-3
+    cdf[4] - cdf[3],           # bin 4: 1e-3 to < 1e-2
+    1 - cdf[4]                 # bin 5: >= 1e-2
+  )
+  
+  names(bin_probs) <- bin_labels_char
+  return(bin_probs)
+}
+
+# ====================== READ PARAMETERS FROM CSV FILES ======================
+# Four CSV files (one per model). Each file must have:
+#   - Exactly 50 rows
+#   - First column  = alpha
+#   - Second column = scale
+#   - Comma-separated (no extra columns)
+#   - Files must be in your working directory
+
+params_k1 <- read.csv("kim_dfe_results/kimdfe_1t.csv", header = FALSE)
+alpha_k1  <- params_k1[, 1]
+scale_k1  <- params_k1[, 2]
+
+params_k8 <- read.csv("kim_dfe_results/kimdfe_8t.csv", header = FALSE)
+alpha_k8  <- params_k8[, 1]
+scale_k8  <- params_k8[, 2]
+
+params_k40 <- read.csv("kim_dfe_results/kimdfe_40t.csv", header = FALSE)
+alpha_k40  <- params_k40[, 1]
+scale_k40  <- params_k40[, 2]
+
+params_k100 <- read.csv("kim_dfe_results/kimdfe_100t.csv", header = FALSE)
+alpha_k100  <- params_k100[, 1]
+scale_k100  <- params_k100[, 2]
+
+# ====================== CALCULATIONS ======================
+# Direct calculation of the 5 bins (no fine binning or aggregation needed anymore)
+prob_k1   <- t(sapply(1:50, function(i) calcular_proporciones(alpha_k1[i],  scale_k1[i])))
+prob_k8   <- t(sapply(1:50, function(i) calcular_proporciones(alpha_k8[i],  scale_k8[i])))
+prob_k40  <- t(sapply(1:50, function(i) calcular_proporciones(alpha_k40[i], scale_k40[i])))
+prob_k100 <- t(sapply(1:50, function(i) calcular_proporciones(alpha_k100[i], scale_k100[i])))
+
+# Make sure column names are correct
+colnames(prob_k1)   <- bin_labels_char
+colnames(prob_k8)   <- bin_labels_char
+colnames(prob_k40)  <- bin_labels_char
+colnames(prob_k100) <- bin_labels_char
+
+# ====================== LONG FORMAT ======================
 long_df <- bind_rows(
+  as.data.frame(prob_k1)   %>% mutate(model = "k1",   replicate = 1:50),
   as.data.frame(prob_k8)   %>% mutate(model = "k8",   replicate = 1:50),
   as.data.frame(prob_k40)  %>% mutate(model = "k40",  replicate = 1:50),
   as.data.frame(prob_k100) %>% mutate(model = "k100", replicate = 1:50)
 ) %>%
   pivot_longer(
-    cols = all_of(bin_labels), 
+    cols = all_of(bin_labels_char), 
     names_to = "bin", 
     values_to = "probability"
   ) %>%
-  # Optional: make model a factor with nice order
-  mutate(model = factor(model, levels = c("k8", "k40", "k100")))
+  mutate(model = factor(model, levels = c("k1", "k8", "k40", "k100")))
 
-library(dplyr)
-library(ggplot2)
-
-# Add Ground Truth
-truth <- c(0.2449069, 0.1307536, 0.1981309, 0.2687420, 0.1568779)
+# Ground Truth
+truth_prob <- pgamma(TwoNs, shape = 0.186, scale = 706.899)
+truth <- c(truth_prob[1], truth_prob[2] - truth_prob[1], truth_prob[3] - truth_prob[2], truth_prob[4] - truth_prob[3], 1 - truth_prob[4])
 
 truth_df <- data.frame(
   model = "Ground Truth",
-  bin   = bin_labels,
+  bin   = bin_labels_char,
   probability = truth
 )
 
 long_df_with_truth <- bind_rows(long_df, truth_df) %>%
   mutate(
-    model = factor(model, levels = c("k8", "k40", "k100", "Ground Truth")),
-    # === THIS IS THE IMPORTANT PART ===
-    bin = factor(bin, levels = c("0 - <1e-5", 
-                                 "1e-5 - <1e-4", 
-                                 "1e-4 - <1e-3", 
-                                 "1e-3 - <1e-2", 
-                                 ">= 1e-2"))
+    model = factor(model, levels = c("k1", "k8", "k40", "k100", "Ground Truth")),
+    bin = factor(bin, levels = bin_labels_char)
   )
 
-# Summary with mean + min + max
+# ====================== SUMMARY ======================
 summary_df <- long_df_with_truth %>%
   group_by(model, bin) %>%
   summarise(
@@ -179,31 +126,42 @@ summary_df <- long_df_with_truth %>%
 
 # ====================== FINAL PLOT ======================
 p <- ggplot(summary_df, aes(x = bin, y = mean_prob, fill = model)) +
-  geom_col(position = position_dodge(width = 0.9), 
-           color = "black", linewidth = 0.3, alpha = 0.7) +
+  geom_col(position = position_dodge(width = 0.9),
+           color = "black", linewidth = 0.35, alpha = 0.7) +
+  
+  # Fixed error bars - now correctly aligned
   geom_errorbar(aes(ymin = min_prob, ymax = max_prob),
                 position = position_dodge(width = 0.9),
                 width = 0.25,
                 linewidth = 0.6) +
+  
   theme_minimal(base_size = 13) +
-  labs(title = "Distribution of fitness effects",
-       subtitle = "",
+  labs(title = "Distribution of fitness effects (Kim et al. DFE)",
        x = "Binned selection coefficients", 
        y = "Probability",
        fill = "") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
-        legend.position = "top",
-        legend.title = element_text(face = "bold")) +
-  scale_fill_manual(values = c("k8"   = "#8bd8f2",
-                               "k40"  = "#f19437",
-                               "k100" = "#7ebe4c",
-                               "Ground Truth" = "#ababab"))
-  scale_y_continuous(limits = c(0, 0.3), 
-                     breaks = seq(0, 0.3, by = 0.05))
+  theme(
+    axis.text.x = element_text(angle = 35, hjust = 1, size = 11),
+    legend.position = "top",
+    legend.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold")
+  ) +
+  scale_fill_manual(values = c("k1"           = "#9e4ea7",
+                               "k8"           = "#8bd8f2",
+                               "k40"          = "#f19437",
+                               "k100"         = "#7ebe4c",
+                               "Ground Truth" = "#ababab")) +
+  scale_y_continuous(limits = c(0, 0.4), 
+                     breaks = seq(0, 0.4, by = 0.1),
+                     expand = expansion(mult = c(0, 0.02))) +
+  scale_x_discrete(labels = bin_labels_math)
 
+# ====================== SAVE PLOT ======================
 ggsave(filename = "Gamma_kimDFE_inference.pdf",
        plot = p,
-       width = 10,      # inches
-       height = 7,      # inches
-       dpi = 300,       # high resolution
+       width = 10,
+       height = 7,
+       dpi = 300,
        device = "pdf")
+
+print("Plot saved successfully as Gamma_kimDFE_inference.pdf")
